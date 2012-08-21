@@ -9,6 +9,7 @@ import org.antlr.runtime.TokenStream;
 import com.greenpineyu.fel.exception.ParseException;
 
 public abstract class AbstFelParser extends Parser {
+	@Override
 	public void emitErrorMessage(String msg) {
 		throw new ParseException(msg);
 	}
@@ -21,6 +22,7 @@ public abstract class AbstFelParser extends Parser {
 		super(input, state);
 	}
 
+	@Override
 	public void displayRecognitionError(String tokenNames[], RecognitionException e) {
 		String hdr = getErrorHeader(e);
 		String msg = getErrorMessage(e, tokenNames);
