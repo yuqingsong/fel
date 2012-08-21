@@ -98,4 +98,15 @@ public class AntlrParser implements Parser {
 			}
 		}
 	}
+
+	@Override
+	public boolean verify(String exp) {
+		try {
+			parse(exp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

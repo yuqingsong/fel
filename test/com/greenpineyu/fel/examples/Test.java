@@ -1,5 +1,6 @@
 package com.greenpineyu.fel.examples;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,29 @@ public class Test {
 		System.out.println(Arrays.toString(a));
 	}
 
+	static {
+		PrintStream os = new PrintStream(System.out) {
+			@Override
+			public void print(String b) {
+				super.print(b);
+			};
+		};
+		System.setOut(os);
+		System.setErr(os);
+	}
 	public static void main(String[] args) {
+		System.out.println("abcd");
+		// t();
+		FelEngine e = FelEngine.instance;
+		String exp = "(1+2)1";
+		e.getParser().verify(exp);
+		// FelNode node = e.parse(exp);
+		// System.out.println(node);
+		// Object eval = Fel.eval(exp);
+		// System.out.println(eval);
+	}
+
+	private static void t() {
 		String exp = "$a*3+b*5+c*4+$d*10";
 		FelNode node = FelEngine.instance.parse(exp);
 		List<FelNode> nodes = AbstFelNode.getNodes(node);
@@ -62,4 +85,5 @@ public class Test {
 		}
 		return false;
 	}
+
 }

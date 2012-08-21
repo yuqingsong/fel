@@ -16,4 +16,11 @@ public interface Parser {
 	 */
 	FelNode parse(String exp);
 
+	/**
+	 * 检验表达式是否合法
+	 * @param exp
+	 * @return
+	 */
+	boolean verify(String exp);
+
 }

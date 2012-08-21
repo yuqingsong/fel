@@ -62,10 +62,10 @@ public class SecurityMgrImpl implements SecurityMgr {
 	}
 
 	public static void main(String[] args) {
-		// System.getProperties().list(System.out);
 		Object eval = Fel.eval("$(System).getProperty('user.home')");
 		System.out.println(eval);
-		// Fel.eval("$(System).exit(1)");
+		// 会抛出异常
+		Fel.eval("$(System).exit(1)");
 	}
 
 }
