@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +49,26 @@ public class FelCompiler16<T> implements FelCompiler {
 				.getStandardFileManager(diagnostics, null, null);
 
 		ClassLoader loader = this.classLoader.getParent();
+		List<String> paths = CompileService.getClassPath(loader);
+		List<File> cpFiles = new ArrayList<File>();
+		if (paths != null && (!paths.isEmpty())) {
+			for (String file : paths) {
+				cpFiles.add(new File(file));
+			}
+		}
+		try {
+			fileManager.setLocation(StandardLocation.CLASS_PATH, cpFiles);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		/*
+		
+		
 		if (loader instanceof URLClassLoader
 				&& (!loader.getClass().getName()
 						.equals("sun.misc.Launcher$AppClassLoader"))) {
+			System.out.println("..............................asdfasdf......................");
 			try {
 				URLClassLoader urlClassLoader = (URLClassLoader) loader;
 				List<File> path = new ArrayList<File>();
@@ -65,7 +80,23 @@ public class FelCompiler16<T> implements FelCompiler {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		} else {
+			Enumeration<URL> resources = null;
+			try {
+				resources = loader.getResources("/");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (resources != null) {
+				List<File> path = new ArrayList<File>();
+				while (resources.hasMoreElements()) {
+					URL resource = resources.nextElement();
+					File file = new File(resource.getFile());
+					path.add(file);
+				}
+			}
+
+		}*/
 
 		javaFileManager = new ForwardingJavaFileManager<JavaFileManager>(
 				fileManager) {

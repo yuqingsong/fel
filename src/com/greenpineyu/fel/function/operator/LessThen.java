@@ -72,9 +72,9 @@ public class LessThen  implements Stable,Function {
 //			}
 //			return new Boolean(result);
 //		}
-//		throw new NullPointerException("传入参数数组为空或者参数个数不正确!");
+	// throw new NullPointerException("传入参数数组为空或者参数个数不正确!");
 //	}
-	
+
 	/**
 	 * 小于
 	 * 
@@ -82,6 +82,8 @@ public class LessThen  implements Stable,Function {
 	 * @param right
 	 * @return
 	 */
+	@SuppressWarnings({
+			"rawtypes", "unchecked" })
     public boolean compare(Object left, Object right) {
     if(left == right){
 		return false;
@@ -98,7 +100,7 @@ public class LessThen  implements Stable,Function {
 	if(left instanceof Comparable && right instanceof Comparable){
 		return ((Comparable)left).compareTo(right)<0;
 	}
-	// TODO 是返回false还是抛出异常?
+		// TODO 是返回false还是抛出异常?
 	return false;
     }
 
@@ -108,22 +110,23 @@ public class LessThen  implements Stable,Function {
 	 * @param left
 	 * @param right
 	 * @return
-	 *//*
+	 */
+	/*
 	public static boolean lessThan(Object left, Object right) {
-    	if(left == right){
-    		return false;
-    	}
-    	
-    	if(left == null || right == null){
-    		return false;
-    	}
-    	
-    	if(left instanceof Number && right instanceof Number){
-    		return NumberUtil.toDouble((Number)left)<NumberUtil.toDouble((Number)right);
-    	}
-    	// TODO 是返回false还是抛出异常?
-    	return false;
-    }*/
+	if(left == right){
+		return false;
+	}
+	
+	if(left == null || right == null){
+		return false;
+	}
+	
+	if(left instanceof Number && right instanceof Number){
+		return NumberUtil.toDouble((Number)left)<NumberUtil.toDouble((Number)right);
+	}
+	// TODO 是返回false还是抛出异常?
+	return false;
+	}*/
 /*    @SuppressWarnings("unchecked")
     public static boolean lessThan(Object left, Object right) {
     	if(left != null && right != null){
@@ -184,13 +187,10 @@ public class LessThen  implements Stable,Function {
 		}  else if (Comparable.class.isAssignableFrom(leftType)&&Comparable.class.isAssignableFrom(rightType)) {
 			sb.append("NumberUtil.compare(" + left + ","+ right + ")"+operator+"0");
 		} else {
-			throw new UnsupportedOperationException("类型" + leftType + "与类型"
-					+ rightType + "不支持比较操作。");
+			throw new UnsupportedOperationException("类型" + leftType + "与类型" + rightType + "不支持比较操作。");
 		}
 		return sb;
 	}
-
-	
 
 	/**
 	 * 小于等于 <=

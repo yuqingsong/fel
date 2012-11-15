@@ -1,5 +1,12 @@
 package com.greenpineyu.fel.compile;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.parser.FelNode;
@@ -30,6 +37,34 @@ public class CompileService {
 		String name = getCompilerClassName();
 		FelCompiler comp = newCompiler(name);
 		complier = comp;
+	}
+
+	public static List<String> getClassPath(ClassLoader cl) {
+		List<String> paths = new ArrayList<String>();
+		while (cl != null) {
+			boolean isUrlClassloader = cl instanceof URLClassLoader;
+			if (isUrlClassloader) {
+				URLClassLoader urlClassLoader = (URLClassLoader) cl;
+				for (URL url : urlClassLoader.getURLs()) {
+					paths.add(url.getFile());
+				}
+			} else {
+				Enumeration<URL> resources = null;
+				try {
+					resources = cl.getResources("/");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (resources != null) {
+					while (resources.hasMoreElements()) {
+						URL resource = resources.nextElement();
+						paths.add(resource.getFile());
+					}
+				}
+			}
+			cl = cl.getParent();
+		}
+		return paths;
 	}
 
 	private FelCompiler newCompiler(String name) {

@@ -10,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.greenpineyu.fel.Expression;
+import com.greenpineyu.fel.FelEngine;
+import com.greenpineyu.fel.context.FelContext;
 import com.sun.tools.javac.Main;
 
 /**
@@ -68,11 +70,13 @@ public class FelCompiler15 extends AbstCompiler {
 			}
 		}
 
-	
-
-
 
 	public static void main(String[] args) throws InstantiationException,
 			IllegalAccessException {
+		FelEngine engine = FelEngine.instance;
+		Integer num = new Integer(5);
+		FelContext jc = engine.getContext();
+		jc.set("num", num);
+		System.out.println(engine.compile("num+1", jc).eval(jc));
 	}
 }

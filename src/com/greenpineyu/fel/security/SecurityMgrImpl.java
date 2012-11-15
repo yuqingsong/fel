@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.greenpineyu.fel.Fel;
-
 public class SecurityMgrImpl implements SecurityMgr {
 
 	private Set<Method> callableSet;
@@ -16,7 +14,7 @@ public class SecurityMgrImpl implements SecurityMgr {
 		uncallableSet = new HashSet<Method>();
 	}
 
-	/* 
+	/**
 	 * 判断原则，以可访问方法列表为首要依据（包含目标方法表示允许访问，否则不允许），不可访问方法列表为次要依据
 	 * 当允许访问方法列表为空时，以不可访问方法列表为依据。
 	 * 
@@ -29,35 +27,36 @@ public class SecurityMgrImpl implements SecurityMgr {
 		}
 		return callableSet.contains(m);
 	}
+	 /* 
 
 	@Override
-	public void addCallableMethod(Method m) {
+	public void addCallable(Method m) {
 		this.callableSet.add(m);
 	}
 
 	@Override
-	public void addUncallableMethod(Method m) {
+	public void addUncallable(Method m) {
 		this.uncallableSet.add(m);
 	}
 
 	@Override
-	public void removeCallableMethod(Method m) {
+	public void removeCallable(Method m) {
 		this.callableSet.remove(m);
 	}
 
 	@Override
-	public void removeUncallableMethod(Method m) {
+	public void removeUncallable(Method m) {
 		this.uncallableSet.remove(m);
 
 	}
 
 	@Override
-	public Set<Method> getCallableMethods() {
+	public Set<Method> getCallables() {
 		return new HashSet<Method>(this.callableSet);
 	}
 
 	@Override
-	public Set<Method> getUnCallableMethods() {
+	public Set<Method> getUnCallables() {
 		return new HashSet<Method>(this.uncallableSet);
 	}
 
@@ -66,6 +65,6 @@ public class SecurityMgrImpl implements SecurityMgr {
 		System.out.println(eval);
 		// 会抛出异常
 		Fel.eval("$(System).exit(1)");
-	}
+	}*/
 
 }

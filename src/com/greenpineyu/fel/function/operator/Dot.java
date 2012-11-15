@@ -99,7 +99,7 @@ public class Dot implements Function {
 	}
 
 	private Method getCallableMethod(Method m) {
-		if (securityMgr.isCallable(m)) {
+		if (m == null || securityMgr.isCallable(m)) {
 			return m;
 		}
 		throw new SecurityException("安全管理器[" + securityMgr.getClass().getSimpleName() + "]禁止调用方法[" + m.toString() + "]");

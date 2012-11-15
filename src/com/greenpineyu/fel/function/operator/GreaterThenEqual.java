@@ -8,11 +8,14 @@ public class GreaterThenEqual extends LessThen {
 	public String getName() {
 		return ">=";
 	}
-	
+
 	/**
 	 * 大于等于
-	 * @see com.greenpineyu.fel.function.operator.RelationalOperator#compare(java.lang.Object, java.lang.Object)
+	 * @see com.greenpineyu.fel.function.operator.RelationalOperator#compare(java.lang.Object,
+	 *      java.lang.Object)
 	 */
+	@SuppressWarnings({
+			"rawtypes", "unchecked" })
 	@Override
 	public boolean compare(Object left, Object right) {
 		if(left == right){

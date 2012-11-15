@@ -68,6 +68,9 @@ public class FelEngineImplTest {
 
 		// 8进制、16进制
 		add(a, i, "011", 011);
+		if (true) {
+			// return a;
+		}
 		add(a, i, "021", 021);
 		add(a, i, "0x10abc", 0x10abc);
 		add(a, i, "0x1", 0x1);

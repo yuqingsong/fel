@@ -3,9 +3,13 @@
 	<property name="buildDir" value="bin" />
 	<property name="deployDir" value="deploy" />
 	<property name="srcDir" value="src" />
+	<property name="testDir" value="test" />
 	<property name="destClassDir" value="${deployDir}\classes" />
-	<property name="destLibPath" value="${deployDir}\fel-all.jar" />
+	<property name="destLibPath" value="${deployDir}\fel.jar" />
+	<property name="destSrcPath" value="${deployDir}\fel-src.tar.gz" />
+	<property name="destAllInOnePath" value="${deployDir}\fel-all.tar.gz" />
 	<property name="classpathDir" value="LibClass" />
+	<property name="antlrJarPath" value="lib/antlr-min-3.4.jar" />
 	<property name="toolsPath" value="d:\jdk1.5\lib\tools.jar" />
 	<target name="prepare">
 		<echo>clean ${deployDir} folder</echo>
@@ -19,17 +23,21 @@
 	<!-- 编译成jdk1.6版本 -->
 	<target name="compile" description="编译源文件" depends="prepare">
 		<echo>compile  ${srcDir}  to ${destClassDir}</echo>
-		<javac  srcdir="${srcDir}" destdir="${destClassDir}" >
+		<javac  srcdir="${srcDir}" destdir="${destClassDir}" excludes="**/FelCompiler15.java" >
 			<classpath>
+				<!--
 				<fileset file="${toolsPath}">
 				</fileset>
-				<dirset dir="${classpathDir}">
-				</dirset>
+				-->
+				<fileset file="${antlrJarPath}">
+				</fileset>
 			</classpath>
 		</javac>
 		<copy todir="${destClassDir}">
 			<fileset dir="${srcDir}" excludes="**/*.java/" />
+			<!--
 			<fileset dir="${classpathDir}" excludes="**/*.java/" />
+			-->
 		</copy>
 		<echo>compile success</echo>
 	</target>
@@ -37,16 +45,33 @@
 		<jar compress="true" destfile="${destLibPath}">
 			<fileset dir="${destClassDir}">
 			</fileset>
+			 <zipfileset excludes="META-INF/*.SF" src="${antlrJarPath}" /> 
 		</jar>
 		<echo>jar success</echo>
 		<exec executable="explorer">
 			<arg line="${deployDir}" />
 		</exec>
 	</target>
-	<target name="clean" depends="jar">
+	<target name="package" depends="jar">
+	<zip destfile="${destSrcPath}" compress="true">
+		<!--
+		<fileset dir="${srcDir}" excludes="**/FelCompiler15.*"></fileset>
+		<fileset dir="${testDir}" excludes="**/Test**.java"></fileset>
+		-->
+		<fileset dir="." includes="src/**,test/**" excludes="**/Test*.java"> </fileset>
+	</zip>
+	<zip destfile="${destAllInOnePath}" compress="true">
+		<fileset dir="." includes="src/**,test/**" excludes="**/Test*.java"> </fileset>
+		<fileset dir="." includes="docs/updateLog.txt,docs/Fel.pdf" > </fileset>
+		<fileset dir="." includes="lib/antlr-min-3.4.jar" > </fileset>
+		<fileset file="${destLibPath}"></fileset>
+	</zip>
+	</target>
+	<target name="clean" depends="package">
 		<delete includeEmptyDirs="true">
 			<fileset dir="${deployDir}">
-				<exclude name="*fel*.jar" />
+				<exclude name="fel*" />
+				<exclude name="fel*.tar.gz" />
 			</fileset>
 		</delete>
 		<copy todir="E:\workspace\yuqingsong\WebContent\WEB-INF\lib">

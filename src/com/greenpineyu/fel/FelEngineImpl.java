@@ -1,8 +1,9 @@
 package com.greenpineyu.fel;
 
+import com.greenpineyu.fel.common.FelBuilder;
 import com.greenpineyu.fel.compile.CompileService;
+import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.context.MapContext;
 import com.greenpineyu.fel.context.Var;
 import com.greenpineyu.fel.function.FunMgr;
 import com.greenpineyu.fel.function.Function;
@@ -12,7 +13,6 @@ import com.greenpineyu.fel.parser.AntlrParser;
 import com.greenpineyu.fel.parser.FelNode;
 import com.greenpineyu.fel.parser.Parser;
 import com.greenpineyu.fel.security.SecurityMgr;
-import com.greenpineyu.fel.security.SecurityMgrImpl;
 
 /**
  * 执行引擎
@@ -49,20 +49,12 @@ public class FelEngineImpl implements FelEngine {
 	}
 	
 	{
-		securityMgr = new SecurityMgrImpl();
-		try {
-			// 不能调用System.exit方法
-			securityMgr.addUncallableMethod(System.class.getMethod("exit", new Class<?>[] { int.class }));
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
+		this.securityMgr = FelBuilder.newSecurityMgr();
 	}
 
 	public FelEngineImpl() {
-		// this(new ArrayCtxImpl());
-		this(new MapContext());
+		this(new ArrayCtxImpl());
+		// this(new MapContext());
 	}
 
 	@Override

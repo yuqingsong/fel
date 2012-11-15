@@ -1,10 +1,14 @@
 package com.greenpineyu.fel.examples;
 
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.parser.AbstFelNode;
@@ -46,15 +50,16 @@ public class Test {
 		System.setErr(os);
 	}
 	public static void main(String[] args) {
-		System.out.println("abcd");
+		// System.out.println("abcd");
 		// t();
-		FelEngine e = FelEngine.instance;
-		String exp = "(1+2)1";
-		e.getParser().verify(exp);
+		// FelEngine e = FelEngine.instance;
+		// String exp = "(1+2)1";
+		// e.getParser().verify(exp);
 		// FelNode node = e.parse(exp);
 		// System.out.println(node);
 		// Object eval = Fel.eval(exp);
 		// System.out.println(eval);
+		testMatch();
 	}
 
 	private static void t() {
@@ -84,6 +89,58 @@ public class Test {
 			}
 		}
 		return false;
+	}
+
+	static void testMatch() {
+		System.out.println(Integer.class.getCanonicalName());
+		match("math(int,int)", "*math(int,int)");
+
+	}
+
+	static public boolean match(String input, String regex) {
+		char[] chars = regex.toCharArray();
+		StringBuilder sb = new StringBuilder("^");
+		for (int i = 0; i < chars.length; i++) {
+			char c = chars[i];
+			switch (c) {
+			case '.':
+			case '$':
+			case '(':
+			case ')':
+				sb.append('\\');
+				sb.append(c);
+				break;
+			case '*':
+				break;
+			default:
+
+				break;
+			}
+			if (c == '.') {
+				sb.append("\\.");
+			} else if (c == '*') {
+				sb.append(".*");
+			}else{
+				sb.append(c);
+			}
+		}
+		sb.append("$");
+		System.out.println(regex + ":" + input);
+		System.out.println(sb);
+		Matcher matcher = Pattern.compile(sb.toString()).matcher(input);
+		boolean finder = matcher.find();
+		System.out.println(finder);
+		Method[] declaredMethods = Map.Entry.class.getDeclaredMethods();
+		for (Method m : declaredMethods) {
+			System.out.println(m.getDeclaringClass().getCanonicalName());
+			System.out.println(m.getName());
+			Class<?>[] parameterTypes = m.getParameterTypes();
+			for (int i = 0; i < parameterTypes.length; i++) {
+				System.out.println(".." + parameterTypes[i].getCanonicalName());
+			}
+//			System.out.println(Arrays.toString(parameterTypes));
+		}
+		return finder;
 	}
 
 }

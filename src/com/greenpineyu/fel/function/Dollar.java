@@ -28,21 +28,25 @@ public class Dollar implements Function {
 		boolean isNew = isNew(txt);
 		Class<?> cls = getClass(txt, isNew);
 		if (isNew) {
-			Object o = null;
-			if (cls != null) {
-				try {
-					o = cls.newInstance();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				}
-			}
-			return o;
+			return newObject(cls);
 
 		} else {
 			return cls;
 		}
+	}
+
+	private Object newObject(Class<?> cls) {
+		Object o = null;
+		if (cls != null) {
+			try {
+				o = cls.newInstance();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return o;
 	}
 
 	private static final String suffix = ".new";

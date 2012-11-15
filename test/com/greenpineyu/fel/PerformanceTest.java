@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
+import com.googlecode.aviator.AviatorEvaluator;
 import com.greenpineyu.fel.context.AbstractContext;
 import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
@@ -17,8 +18,8 @@ public class PerformanceTest {
 
 	public static void main(String[] args) {
 		speed();
-//		 stable();
-//		 testConcurrent();
+		stable();
+		testConcurrent();
 	}
 
 	/**
@@ -163,15 +164,14 @@ public class PerformanceTest {
 	}
 
 	private static void aviator(String exp, Map<String, Object> vars, int times) {
-//		com.googlecode.aviator.Expression e = AviatorEvaluator.compile(exp);
-//		Object result = null;
-//		long start = System.currentTimeMillis();
-//		for (int i = 0; i < times; i++) {
-//			result = e.execute(vars);
-//		}
-//		long end = System.currentTimeMillis();
-//		System.out.println("--------cost[ " + (end - start) + " ] ------exp="
-//				+ result);
+		com.googlecode.aviator.Expression e = AviatorEvaluator.compile(exp);
+		Object result = null;
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < times; i++) {
+			result = e.execute(vars);
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("--------cost[ " + (end - start) + " ] ------exp=" + result);
 	}
 	
 	public static void stable() {
