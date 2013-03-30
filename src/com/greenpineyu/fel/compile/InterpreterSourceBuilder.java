@@ -47,7 +47,7 @@ public class InterpreterSourceBuilder implements SourceBuilder {
 			code += varName + ".interpret(context," + nodeVarName + ")";
 			boolean isNumber = Number.class.isAssignableFrom(type);
 			if(isNumber){
-				code="("+code+").doubleValue()";
+			code = "(" + code + ")";
 			}
 			return code;
 	}

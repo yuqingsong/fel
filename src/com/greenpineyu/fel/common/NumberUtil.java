@@ -15,13 +15,13 @@ import com.greenpineyu.fel.function.operator.Add;
 public class NumberUtil {
 	
 	/** Double.MAX_VALUE as BigDecimal. */
-    protected static final BigDecimal BIGD_DOUBLE_MAX_VALUE = BigDecimal.valueOf((long) Double.MAX_VALUE);
+	public static final BigDecimal BIGD_DOUBLE_MAX_VALUE = BigDecimal.valueOf(Double.MAX_VALUE);
     /** Double.MIN_VALUE as BigDecimal. */
-    protected static final BigDecimal BIGD_DOUBLE_MIN_VALUE = BigDecimal.valueOf((long) Double.MIN_VALUE);
+	public static final BigDecimal BIGD_DOUBLE_MIN_VALUE = BigDecimal.valueOf(Double.MIN_VALUE);
     /** Long.MAX_VALUE as BigInteger. */
-    protected static final BigInteger BIGI_LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
+	public static final BigInteger BIGI_LONG_MAX_VALUE = BigInteger.valueOf(Long.MAX_VALUE);
     /** Long.MIN_VALUE as BigInteger. */
-    protected static final BigInteger BIGI_LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
+	public static final BigInteger BIGI_LONG_MIN_VALUE = BigInteger.valueOf(Long.MIN_VALUE);
 
 	/**
 	 * 转换成Boolean 
@@ -146,7 +146,11 @@ public class NumberUtil {
                 return BigDecimal.valueOf(0);
             }
             return new BigDecimal(string);
-        } else if (val instanceof Number) {
+			// } else if (val instanceof Double) {
+			// return new BigDecimal((Double) val);
+			// } else if (val instanceof Float) {
+			// return new BigDecimal((Float) val);
+		} else if (val instanceof Number) {
             return new BigDecimal(val.toString());
         } else if (val instanceof Character) {
             int i = ((Character) val).charValue();
@@ -217,7 +221,7 @@ public class NumberUtil {
         if (original instanceof Double || original instanceof Float || original instanceof BigDecimal) {
             double value = original.doubleValue();
             if (value <= Float.MAX_VALUE && value >= Float.MIN_VALUE) {
-                result = Float.valueOf(result.floatValue()+"");
+				result = Float.valueOf(result.floatValue());
             }
         } else {
             if (original instanceof BigInteger) {
@@ -228,13 +232,16 @@ public class NumberUtil {
                 }
             }
             long value = original.longValue();
-            if (value <= Byte.MAX_VALUE && value >= Byte.MIN_VALUE) {
-                result = Byte.valueOf(value+"");
-            } else if (value <= Short.MAX_VALUE && value >= Short.MIN_VALUE) {
-                result = Short.valueOf(value+"");
-            } else if (value <= Integer.MAX_VALUE && value >= Integer.MIN_VALUE) {
-                result = Integer.valueOf(value+"");
-            }
+			return parseNumber(value);
+			// if (value <= Byte.MAX_VALUE && value >= Byte.MIN_VALUE) {
+			// result = Byte.valueOf(value+"");
+			// } else if (value <= Short.MAX_VALUE && value >= Short.MIN_VALUE)
+			// {
+			// result = Short.valueOf(value+"");
+			// } else if (value <= Integer.MAX_VALUE && value >=
+			// Integer.MIN_VALUE) {
+			// result = Integer.valueOf(value+"");
+			// }
         }
         return result;
     }
@@ -245,9 +252,9 @@ public class NumberUtil {
 	 * @param right
 	 * @return
 	 */
-	public static boolean isFloatingPointType(Object left, Object right) {
-        return left instanceof Float || left instanceof Double || right instanceof Float || right instanceof Double;
-    }
+	/*public static boolean isFloatingPointType(Object left, Object right) {
+	    return left instanceof Float || left instanceof Double || right instanceof Float || right instanceof Double;
+	}*/
 
 	/**
 	 * 测试是否浮点数
@@ -283,7 +290,8 @@ public class NumberUtil {
         return o instanceof Integer
             || o instanceof Long
             || o instanceof Byte
-            || o instanceof Short;
+ || o instanceof Short
+				|| o instanceof Character;
     }
 
 	/**
@@ -346,7 +354,7 @@ public class NumberUtil {
 	/**
 	 * @see parseNumber
 	 */
-	public static Object parseNumber(long l) {
+	public static Number parseNumber(long l) {
 		int i = (int) l;
 		if (i == l) {
 			return new Integer(i);
@@ -422,6 +430,7 @@ public class NumberUtil {
 		return result;
 	}
 	
+
 	/**
 	 * 两个类型进行四则运算的结果类型
 	 * @param left
@@ -452,6 +461,7 @@ public class NumberUtil {
 	public static boolean isLongClass(Class<?> type){
 		return type==Long.class||type == long.class;
 	}
+
 //	public static boolean isIntClass(Class<?> type){
 //		return type==Integer.class||type == int.class;
 //	}
@@ -465,4 +475,48 @@ public class NumberUtil {
 //		return type==Integer.class||type == int.class;
 //	}
 	
+	static public boolean equals(double left, float right) {
+		return left == toDouble(right);
+	}
+
+	static public boolean equals(float left, double right) {
+		return toDouble(left) == right;
+	}
+
+	static public boolean equals(float left, float right) {
+		return left == right;
+	}
+
+	static public boolean equals(double left, double right) {
+		return left == right;
+	}
+
+	static public boolean equals(long left, int right) {
+		return left == right;
+	}
+
+	static public boolean equals(int left, long right) {
+		return left == right;
+	}
+
+	static public boolean equals(int left, int right) {
+		return left == right;
+	}
+
+	static public boolean equals(long left, long right) {
+		return left == right;
+	}
+
+	public static void main(String[] args) {
+		Integer i = 1;
+		Long l = 1l;
+		float f = 1.0f;
+		double d = 1.0d;
+		System.out.println(equals(i, l));
+		System.out.println(equals(f, f));
+		System.out.println(equals(f, d));
+		System.out.println(equals(d, f));
+		System.out.println(equals(d, d));
+	}
+
 }

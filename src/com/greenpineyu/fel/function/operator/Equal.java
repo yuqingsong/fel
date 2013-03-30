@@ -3,7 +3,6 @@ package com.greenpineyu.fel.function.operator;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.greenpineyu.fel.common.Null;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
@@ -33,31 +32,39 @@ public class Equal extends StableFunction {
 		return equals(left, right);
 	}
 
-	public static boolean equals(Object left, Object right) {
+	public boolean equals(Object left, Object right) {
 		if (left == null && right == null) {
 			return true;
 		} else if (left == null || right == null) {
 			return false;
 		} else if (left.getClass().equals(right.getClass())) {
 			return left.equals(right);
-		} else if (left instanceof BigDecimal || right instanceof BigDecimal) {
-			return NumberUtil.toBigDecimal(left).compareTo(
-					NumberUtil.toBigDecimal(right)) == 0;
-		} else if (NumberUtil.isFloatingPointNumber(left)
-				|| NumberUtil.isFloatingPointNumber(right)) {
-			return NumberUtil.toDouble(left) == NumberUtil.toDouble(right);
-		} else if (left instanceof Number || right instanceof Number
-				|| left instanceof Character || right instanceof Character) {
-			return NumberUtil.toLong(left) == NumberUtil.toLong(right);
-		} else if (left instanceof Boolean || right instanceof Boolean) {
-			return NumberUtil.toBoolean(left) == NumberUtil.toBoolean(right);
+		} else if (left instanceof Number && right instanceof Number) {
+			return compareNumber(left, right);
+		}
+		/*
+		else if (left instanceof Boolean && right instanceof Boolean) {
+			// return NumberUtil.toBoolean(left) == NumberUtil.toBoolean(right);
+			return ((Boolean) left).equals(right);
 		} else if (left instanceof String || right instanceof String) {
 			return left.toString().equals(right.toString());
-		}
+		} else if (left instanceof Character || right instanceof Character) {
+			return NumberUtil.toLong(left) == NumberUtil.toLong(right);
+		}*/
 		return left.equals(right);
 	}
+
+	protected boolean compareNumber(Object left, Object right) {
+		if (left instanceof BigDecimal || right instanceof BigDecimal) {
+			return NumberUtil.toBigDecimal(left).compareTo(NumberUtil.toBigDecimal(right)) == 0;
+		} else if (NumberUtil.isFloatingPointNumber(left) || NumberUtil.isFloatingPointNumber(right)) {
+			return NumberUtil.toDouble(left) == NumberUtil.toDouble(right);
+		} else {
+			return NumberUtil.toLong(left) == NumberUtil.toLong(right);
+		}
+	}
 	
-	public FelMethod toMethod(FelNode node, FelContext ctx) {
+	public SourceBuilder toMethod(FelNode node, FelContext ctx) {
 		String operator = this.getName();
 		return toMethod(node, ctx, operator);
 	}
@@ -85,7 +92,7 @@ public class Equal extends StableFunction {
 		return code;
 	}
 
-	public static StringBuilder buildRelationExpr(FelNode node, FelContext ctx,
+	private static StringBuilder buildRelationExpr(FelNode node, FelContext ctx,
 			String operator) {
 		List<FelNode> child = node.getChildren();
 		FelNode leftNode = child.get(0);
@@ -97,10 +104,27 @@ public class Equal extends StableFunction {
 		String left = "(" + leftM.source(ctx, leftNode) + ")";
 		String right = "(" +rightM.source(ctx, rightNode) + ")";
 
+
+		
 		StringBuilder sb = new StringBuilder();
+		boolean isNotEqual = new NotEqual().getName().equals(operator);
+		if (ReflectUtil.isPrimitiveOrWrapNumber(leftType) && ReflectUtil.isPrimitiveOrWrapNumber(rightType)) {
+			if (isNotEqual) {
+				// 不等于
+				sb.append("!");
+			}
+			return sb.append("NumberUtil.equals(" + left + "," + right + ")");
+		} else {
+			if (isNotEqual) {
+				// 不等于
+				sb.append("!");
+			}
+			return sb.append("ObjectUtils.equals(" + left + "," + right + ")");
+		}
 		// 只要有一个是数值型，就将另一个也转成值型。
-		if(ReflectUtil.isPrimitiveNumber(leftType)&&ReflectUtil.isPrimitiveNumber(leftType)){
+		/*if(ReflectUtil.isPrimitiveNumber(leftType)&&ReflectUtil.isPrimitiveNumber(leftType)){
 			//如果左右都是基本数值类型，直接==运算就行了。
+			// 实践证明，这种处理方式不行
 			sb.append(left).append(operator).append(right);
 		}else	if (Number.class.isAssignableFrom(leftType)) {
 			sb.append(left);
@@ -125,11 +149,13 @@ public class Equal extends StableFunction {
 			sb.append("StringUtils.equals(ObjectUtils.toString(" + right + "),"
 					+ left + ")");
 		}
-		return sb;
+		return sb;*/
 	}
 
-	static public void appendNumber(Class<?> type, String src, StringBuilder sb) {
-		if (Number.class.isAssignableFrom(type)) {
+	/*static public void appendNumber(Class<?> type, String src, StringBuilder sb) {
+		// 当type是基本类型时，会出现问题
+		if (ReflectUtil.isPrimitiveOrWrapNumber(type)) {
+			// if (Number.class.isAssignableFrom(type)) {
 			// 当type是数值型时，使用toString
 			sb.append(src);
 		} else if (String.class.isAssignableFrom(type)) {
@@ -141,20 +167,20 @@ public class Equal extends StableFunction {
 			// 当type是Object时，this.equals
 			// FIXME
 		}
-	}
+	}*/
 
-	static public void appendBoolean(Class<?> type, String src, StringBuilder sb) {
-		if (Boolean.class.isAssignableFrom(type)) {
-			// 当type是Boolean时，使用toString
-			sb.append(src);
-		} else if (String.class.isAssignableFrom(type)) {
-			// 当type是字符型时，转成double型
-			sb.append("Boolean.valueOf(" + src + ")");
-		} else {
-			// 当type是Object时，this.equals
-			// FIXME
-		}
-	}
+	/*	static public void appendBoolean(Class<?> type, String src, StringBuilder sb) {
+			if (Boolean.class.isAssignableFrom(type)) {
+				// 当type是Boolean时，使用toString
+				sb.append(src);
+			} else if (String.class.isAssignableFrom(type)) {
+				// 当type是字符型时，转成double型
+				sb.append("Boolean.valueOf(" + src + ")");
+			} else {
+				// 当type是Object时，this.equals
+				// FIXME
+			}
+		}*/
 
 
 }

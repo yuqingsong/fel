@@ -8,11 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
 import com.greenpineyu.fel.Foo;
+import com.greenpineyu.fel.common.FelBuilder;
 import com.greenpineyu.fel.common.ObjectUtils;
 import com.greenpineyu.fel.context.AbstractContext;
 import com.greenpineyu.fel.context.ContextChain;
@@ -52,6 +52,8 @@ public class Example {
 		operatorOverload();
 		System.out.println("--------------------");
 		testCompile();
+		System.out.println("--------------------");
+		testBigNumber();
 		// FelContext ctx = fel.getContext();
 		// ctx.set("单价", "5000");
 		// ctx.set("数量", new Integer(12));
@@ -73,7 +75,7 @@ public class Example {
 	 * 使用变量
 	 */
 	public static void useVariable() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		FelContext ctx = fel.getContext();
 		ctx.set("单价", 5000);
 		ctx.set("数量", 12);
@@ -86,7 +88,7 @@ public class Example {
 	 * 获取对象属性
 	 */
 	public static void getAttr(){
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		FelContext ctx = fel.getContext();
 		Foo foo = new Foo();
 		ctx.set("foo", foo);
@@ -112,7 +114,7 @@ public class Example {
 	 * 调用对象的方法
 	 */
 	public static void callMethod() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		FelContext ctx = fel.getContext();
 		ctx.set("out", System.out);
 		fel.eval("out.println('Hello Everybody'.substring(6))");
@@ -122,7 +124,7 @@ public class Example {
 	 * 访问数组、集合
 	 */
 	public static void visitColl(){
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		FelContext ctx = fel.getContext();
 		
 		//数组
@@ -203,7 +205,7 @@ public class Example {
 	 * 多层次上下文环境(变量命名空间)
 	 */
 	public static void contexts() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		String costStr = "成本";
 		String priceStr = "价格";
 		FelContext baseCtx = fel.getContext();
@@ -221,9 +223,23 @@ public class Example {
 		Object allCost = fel.eval(exp, ctx);
 		System.out.println("实际利润：" + allCost);
 	}
+
+	private static FelEngine getEngine() {
+		return FelBuilder.engine();
+	}
 	
+	public static void testBigNumber() {
+		// 构建大数值计算引擎
+		FelEngine fel = FelBuilder.bigNumberEngine();
+		String input = "111111111111111111111111111111+22222222222222222222222222222222";
+		Object value = fel.eval(input);
+		Object compileValue = fel.compile(input, fel.getContext()).eval(fel.getContext());
+		System.out.println("大数值计算（解释执行）:" + value);
+		System.out.println("大数值计算（编译执行）:" + compileValue);
+	}
+
 	public static void testCompile(){
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		FelContext ctx = fel.getContext();
 		ctx.set("单价", 5000);
 		ctx.set("数量", 12);
@@ -256,7 +272,7 @@ public class Example {
 			}
 
 		};
-		FelEngine e = new FelEngineImpl();
+		FelEngine e = getEngine();
 		// 添加函数到引擎中。
 		e.addFun(fun);
 		String exp = "hello('fel')";
@@ -274,7 +290,7 @@ public class Example {
 	 * 
 	 */
 	public static void testCompileX(){
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		String exp = "单价*数量";
 		final MutableInt index = new MutableInt(0);
 
@@ -308,7 +324,7 @@ public class Example {
 	 * 自定义 解释器
 	 */
 	public static void userInterpreter() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		String costStr = "成本";
 		FelContext rootContext = fel.getContext();
 		rootContext.set(costStr, "60000");
@@ -322,7 +338,7 @@ public class Example {
 	 * 大数据量计算（计算1千万次)
 	 */
 	public static void massData() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		final Interpreters opti = new Interpreters();
 		final MutableInt index = new MutableInt(0);
 		int count = 10*1000*1000;
@@ -362,7 +378,7 @@ public class Example {
 		 * 扩展Fel的+运算符，使其支持数组+数组
 		 */
 		
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		// 单价
 		double[] price = new double[] { 2, 3, 4 };
 		// 费用
@@ -400,7 +416,7 @@ public class Example {
 
 
 	public static void testSpeed() {
-		FelEngine fel = new FelEngineImpl();
+		FelEngine fel = getEngine();
 		String exp = "40.52334+60*(21.8144+17*32.663)";
 		FelNode node = fel.parse(exp);
 		int times = 100 * 1000 * 1000;

@@ -1,146 +1,59 @@
 package com.greenpineyu.fel.examples;
 
-import java.io.PrintStream;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
-import com.greenpineyu.fel.parser.AbstFelNode;
-import com.greenpineyu.fel.parser.FelNode;
-import com.greenpineyu.fel.parser.VarAstNode;
+import com.greenpineyu.fel.FelEngineImpl;
+import com.greenpineyu.fel.context.FelContext;
 
 public class Test {
-	static public int[] sort(int[] a) {
-		for (int i = 1; i < a.length; i++) {
-			int current = a[i];
-			int j = i - 1;
-			for (; j > -1 && current < a[j]; j--) {
-				a[j + 1] = a[j];
-			}
-			a[j + 1] = current;
-		}
-		return a;
-	}
-	
-
-	private static void sort() {
-		int[] b = new int[10];
-		for (int i = 0; i < b.length; i++) {
-			b[i] = new Random().nextInt(10);
-		}
-
-		int[] a = sort(b);
-		System.out.println(Arrays.toString(a));
-	}
-
-	static {
-		PrintStream os = new PrintStream(System.out) {
-			@Override
-			public void print(String b) {
-				super.print(b);
-			};
-		};
-		System.setOut(os);
-		System.setErr(os);
-	}
 	public static void main(String[] args) {
-		// System.out.println("abcd");
-		// t();
-		// FelEngine e = FelEngine.instance;
-		// String exp = "(1+2)1";
-		// e.getParser().verify(exp);
-		// FelNode node = e.parse(exp);
-		// System.out.println(node);
-		// Object eval = Fel.eval(exp);
-		// System.out.println(eval);
-		testMatch();
+		// t1();
+
+		t2();
 	}
 
-	private static void t() {
-		String exp = "$a*3+b*5+c*4+$d*10";
-		FelNode node = FelEngine.instance.parse(exp);
-		List<FelNode> nodes = AbstFelNode.getNodes(node);
-		List<FelNode> $expNodes = new ArrayList<FelNode>();
-		for (FelNode n : nodes) {
-			if (n.getText().equals("*")) {
-				if (contains$Var(n)) {
-					$expNodes.add(n);
-				}
-			}
-		}
-		System.out.println(node);
+	private static void t2() {
+		FelEngine fel = new FelEngineImpl();
+		FelContext ctx = fel.getContext();
+		boolean isExp = FelEngine.instance.getParser().verify("abc");
+		System.out.println(isExp);
+		ctx.set("a", 5000);
+		ctx.set("b", 1200);
+		ctx.set("c", 750.0f);
+
+		// Expression exp = fel.compile("(a*b)<(c*b)",ctx); //报类型不匹配的错误
+
+		Expression exp = fel.compile("a-b>c", ctx);
+
+		Object result1 = fel.eval("a*b<c-b");
+		Object result2 = fel.eval("a-b>c");
+		Object result3 = exp.eval(ctx);
+
+		System.out.println(result1 + ":" + result2 + ":" + result3);
 	}
 
-	static public boolean contains$Var(FelNode n) {
-		List<FelNode> children = n.getChildren();
-		if (children != null) {
-			for (FelNode c : children) {
-				if (c instanceof VarAstNode) {
-					if (c.getText().startsWith("$")) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+	private static void t1() {
+		FelEngine engine = FelEngine.instance;
+		FelContext ctx = engine.getContext();
+		ctx.set("a", 20);
+		ctx.set("b", 50);
+		Float f = 123.4f;
+		ctx.set("c", f);
+		String exp = "(a*b)>c";
+		// exp = "(a*b)==c";
+		Object r = engine.eval(exp);
+		System.out.println(r);
+		Object eval = engine.compile(exp, ctx).eval(ctx);
+		System.out.println(eval);
 
-	static void testMatch() {
-		System.out.println(Integer.class.getCanonicalName());
-		match("math(int,int)", "*math(int,int)");
-
-	}
-
-	static public boolean match(String input, String regex) {
-		char[] chars = regex.toCharArray();
-		StringBuilder sb = new StringBuilder("^");
-		for (int i = 0; i < chars.length; i++) {
-			char c = chars[i];
-			switch (c) {
-			case '.':
-			case '$':
-			case '(':
-			case ')':
-				sb.append('\\');
-				sb.append(c);
-				break;
-			case '*':
-				break;
-			default:
-
-				break;
-			}
-			if (c == '.') {
-				sb.append("\\.");
-			} else if (c == '*') {
-				sb.append(".*");
-			}else{
-				sb.append(c);
-			}
-		}
-		sb.append("$");
-		System.out.println(regex + ":" + input);
-		System.out.println(sb);
-		Matcher matcher = Pattern.compile(sb.toString()).matcher(input);
-		boolean finder = matcher.find();
-		System.out.println(finder);
-		Method[] declaredMethods = Map.Entry.class.getDeclaredMethods();
-		for (Method m : declaredMethods) {
-			System.out.println(m.getDeclaringClass().getCanonicalName());
-			System.out.println(m.getName());
-			Class<?>[] parameterTypes = m.getParameterTypes();
-			for (int i = 0; i < parameterTypes.length; i++) {
-				System.out.println(".." + parameterTypes[i].getCanonicalName());
-			}
-//			System.out.println(Arrays.toString(parameterTypes));
-		}
-		return finder;
+		Integer i = 123456;
+		Long l = 123456l;
+		Integer j = 123456;
+		Double d = 123.4d;
+		ctx.set("d", d);
+		System.out.println(engine.compile("c==d", ctx).eval(ctx));
+		System.out.println("f>d:" + (f > d));
+		System.out.println("f<d:" + (f < d));
 	}
 
 }

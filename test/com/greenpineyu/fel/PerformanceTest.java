@@ -18,8 +18,8 @@ public class PerformanceTest {
 
 	public static void main(String[] args) {
 		speed();
-		stable();
-		testConcurrent();
+		// stable();
+		// testConcurrent();
 	}
 
 	/**
@@ -48,13 +48,16 @@ public class PerformanceTest {
 		JavaExp[] javaEls = buildJavaExp(vars, m);
 		
 		int times = 100 * 1000 * 1000;
+		// times = 100000;
 		int j = 0;
 		for (String exp : exps) {
 			if (exp == null) {
 				break;
 			}
-			fel(exp, vars, times);
-			// javaEl(javaEls[j++],times);
+			long fel = fel(exp, vars, times);
+			// long javaEl = javaEl(javaEls[j++], times);
+			// System.out.println("\nsub:" + (javaEl - fel) + ";\njavael<=>fel:"
+			// + javaEl + "<=>" + fel);
 			// jexl(exp, vars, times);
 			// aviator(exp, vars, times);
 		}
@@ -109,12 +112,14 @@ public class PerformanceTest {
 	
 	private static long javaEl(JavaExp el,int times){
 		long start = System.currentTimeMillis();
+		start = System.nanoTime();
 		Object result = null;
 		int i = 0;
 		while (i++ < times) {
 			result = el.eval();
 		}
 		long end = System.currentTimeMillis();
+		end = System.nanoTime();
 		long cost = end - start;
 		System.out.println("java el --------cost[" + cost + " ]---value[" + result
 				+ "]");
@@ -123,10 +128,10 @@ public class PerformanceTest {
 	
 	
 
-	private static void fel(String exp, Map<String, Object> vars, int times) {
+	private static long fel(String exp, Map<String, Object> vars, int times) {
 		FelContext ctx = new MapContext(vars);
 		ctx = new ArrayCtxImpl(vars);
-		fel(exp, ctx, times);
+		return fel(exp, ctx, times);
 	}
 
 	private static long fel(String exp, FelContext ctx, int times) {
@@ -134,12 +139,14 @@ public class PerformanceTest {
 		Expression expObj = engine.compile(exp, ctx);
 		Object evalResult = null;
 		long start = System.currentTimeMillis();
+		start = System.nanoTime();
 		Object result = null;
 		int i = 0;
 		while (i++ < times) {
 			result = expObj.eval(ctx);
 		}
 		long end = System.currentTimeMillis();
+		end = System.nanoTime();
 		// System.out.println(result + " == " + evalResult + "："
 //				+ result.equals(evalResult));
 		long cost = end - start;

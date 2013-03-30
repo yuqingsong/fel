@@ -1,5 +1,7 @@
 package com.greenpineyu.fel.parser;
 
+import java.math.BigInteger;
+
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeAdaptor;
@@ -69,7 +71,8 @@ public class NodeAdaptor extends CommonTreeAdaptor {
 			/* 常量开始 */
 			case FelParser.DecimalLiteral:
 			// 数字-10进制
-				returnMe = NumberUtil.parseNumber(new Long(text));
+			// returnMe = NumberUtil.parseNumber(new Long(text));
+			returnMe = narrowBigInteger(text, 10);
 				break;
 			case FelParser.HexLiteral:
 			// 数字-16进制
@@ -77,16 +80,24 @@ public class NodeAdaptor extends CommonTreeAdaptor {
 				if(text.startsWith("0x")||text.startsWith("0X")){
 					num = text.substring(2);
 				}
-				returnMe =  NumberUtil.parseNumber(new Long(Long.parseLong(num, 16)));
+			// returnMe = NumberUtil.parseNumber(Long.parseLong(num, 16));
+			returnMe = narrowBigInteger(num, 16);
 				break;
 			case FelParser.OctalLiteral:
 			// 数字-8进制
-				returnMe =  NumberUtil.parseNumber(new Long(Long.parseLong(text, 8)));
+			// returnMe = NumberUtil.parseNumber(Long.parseLong(text, 8));
+			returnMe = narrowBigInteger(text, 8);
 				break;
 
 			case FelParser.FloatingPointLiteral:
 			// 浮点型
-				returnMe = new Double(text);
+			// System.out.println("text  :" + text);
+			// returnMe = new Double(text);
+			// System.out.println("double:" + returnMe);
+			returnMe = newFloatNumber(text);
+			// returnMe = narrowBigDecimal(text);
+			// System.out.println("BigDec:" + returnMe);
+			// System.out.println();
 				break;
 			case FelParser.BooleanLiteral:
 			// 布尔值
@@ -112,5 +123,29 @@ public class NodeAdaptor extends CommonTreeAdaptor {
 		return new ConstNode(token, returnMe);
 	}
 
+	private static Number narrowBigInteger(String ext, int radix) {
+		BigInteger value = new BigInteger(ext, radix);
+		return NumberUtil.narrow(value);
+	}
+
+	// private static Number narrowBigDecimal(String ext) {
+	// char lastChar = ext.charAt(ext.length() - 1);
+	// if (lastChar == 'l' || lastChar == 'L' || lastChar == 'd' || lastChar ==
+	// 'D' || lastChar == 'f'
+	// || lastChar == 'F') {
+	// ext = ext.substring(0, ext.length() - 1);
+	// }
+	// BigDecimal value = new BigDecimal(ext);
+	// return NumberUtil.narrow(value);
+	// }
+
+	/**
+	 * 创建浮点型对象
+	 * @param text
+	 * @return
+	 */
+	protected Number newFloatNumber(String text) {
+		return new Double(text);
+	}
 
 }

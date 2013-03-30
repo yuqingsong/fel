@@ -76,7 +76,33 @@ public class ReflectUtil {
 		 map.put(Character.class, Character.class);
 		 return map;
 	}
-	
+
+	/**
+	 * 对象是基本类型中的数值类型(包含包装类型)
+	 * @return
+	 */
+	public static boolean isFloatingPointNumber(Object obj) {
+		return obj instanceof Float || obj instanceof Double;
+	}
+
+	/**
+	 * 是否float类型（包含基本类型或包含类型）
+	 * @param t
+	 * @return
+	 */
+	public static boolean isFloatType(Class<?> t) {
+		return t == float.class || t == Float.class;
+	}
+
+	/**
+	 * 是否double类型（包含基本类型或包含类型）
+	 * @param t
+	 * @return
+	 */
+	public static boolean isDoubleType(Class<?> t) {
+		return t == double.class || t == Double.class;
+	}
+
 	/**
 	 * 是基本类型中的数值类型(包含包装类型)
 	 * @return

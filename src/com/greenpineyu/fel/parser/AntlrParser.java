@@ -48,9 +48,18 @@ public class AntlrParser implements Parser {
 	};
 	
 	private final FelEngine engine;
+	private final NodeAdaptor adaptor;
 	
 	public AntlrParser(FelEngine engine){
+		this(engine, null);
+	}
+
+	public AntlrParser(FelEngine engine, NodeAdaptor adaptor) {
 		this.engine = engine;
+		if (adaptor == null) {
+			adaptor = new NodeAdaptor();
+		}
+		this.adaptor = adaptor;
 	}
 	
 	public FelNode parse(String exp) {
@@ -67,7 +76,7 @@ public class AntlrParser implements Parser {
 		FelLexer lexer = new FelLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		FelParser parser = new FelParser(tokens);
-		parser.setTreeAdaptor(new NodeAdaptor());
+		parser.setTreeAdaptor(adaptor);
 		ParserRuleReturnScope r = null;
 		try {
 			r = parser.program();

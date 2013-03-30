@@ -48,10 +48,7 @@ public class JavaMethodTest {
 			Class<?>[] paramTypes = new Class<?>[]{int.class,int.class};
 			Method staticWithoutParam = JavaMethodTest.class
 					.getMethod("staticWithoutParam");
-			engine.getFunMgr()
-					.add(
-							new JavaMethod("staticWithoutParam",
-									staticWithoutParam, null));
+			engine.getFunMgr().add(new JavaMethod("staticWithoutParam", staticWithoutParam, null));
 			Method staticWithParam = JavaMethodTest.class
 					.getMethod("staticWithParam",paramTypes);
 			engine.getFunMgr().add(

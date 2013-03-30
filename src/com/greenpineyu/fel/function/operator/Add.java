@@ -16,6 +16,7 @@ import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.function.StableFunction;
+import com.greenpineyu.fel.function.TolerantFunction;
 import com.greenpineyu.fel.parser.FelNode;
 
 public class Add extends StableFunction  {
@@ -36,10 +37,7 @@ public class Add extends StableFunction  {
 		for (Iterator<FelNode> iterator = node.getChildren().iterator(); iterator
 				.hasNext();) {
 			Object child = iterator.next();
-			if (child instanceof FelNode) {
-				FelNode childNode = (FelNode) child;
-				child = childNode.eval(context);
-			}
+			child = TolerantFunction.eval(context, child);
 			if (child instanceof String) {
 				if (returnMe == null) {
 					returnMe = child;
@@ -67,6 +65,7 @@ public class Add extends StableFunction  {
 		}
 		return returnMe;
 	}
+
 
 	@Override
 	public String getName() {

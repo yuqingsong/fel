@@ -1,9 +1,13 @@
 package com.greenpineyu.fel.function;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.greenpineyu.fel.function.operator.Add;
+import com.greenpineyu.fel.function.operator.And;
 import com.greenpineyu.fel.function.operator.CollectionGet;
 import com.greenpineyu.fel.function.operator.Cond;
 import com.greenpineyu.fel.function.operator.Div;
@@ -13,7 +17,6 @@ import com.greenpineyu.fel.function.operator.GreaterThan;
 import com.greenpineyu.fel.function.operator.GreaterThenEqual;
 import com.greenpineyu.fel.function.operator.LessThen;
 import com.greenpineyu.fel.function.operator.LessThenEqual;
-import com.greenpineyu.fel.function.operator.And;
 import com.greenpineyu.fel.function.operator.Mod;
 import com.greenpineyu.fel.function.operator.Mul;
 import com.greenpineyu.fel.function.operator.NotEqual;
@@ -32,7 +35,7 @@ public class FunMgr {
 	/**
 	 * 用户函数
 	 */
-	private Map<String, Function> userFunMap;
+	private final Map<String, Function> userFunMap;
 
 	/**
 	 * 共用函数
@@ -94,6 +97,24 @@ public class FunMgr {
 		
 		
 
+	}
+
+	public void autoLoad() {
+		Enumeration<URL> res;
+		try {
+			res = this.getClass().getClassLoader().getResources("com/greenpineyu/fel/function/");
+			while (res.hasMoreElements()) {
+				URL nex = res.nextElement();
+				System.out.println(nex.getFile());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void main(String[] args) {
+		new FunMgr().autoLoad();
 	}
 
 	private void addFun(Function fun) {
