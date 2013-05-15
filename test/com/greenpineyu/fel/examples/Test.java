@@ -1,12 +1,9 @@
 package com.greenpineyu.fel.examples;
 
-import sun.security.jca.GetInstance.Instance;
-
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.parser.FelNode;
 
 public class Test {
 	public static void main(String[] args) {
@@ -19,7 +16,17 @@ public class Test {
 	
 	private static void t3(){
 		FelEngine fel = FelEngine.instance;
-		fel.eval("1+2+a/10");
+		// fel.addExceptionHandle(new ExceptionHandler() {
+		//
+		// @Override
+		// public Object onException(Exception exception, String exp, FelContext
+		// context) {
+		// System.out.println("handle a Exception,the message is :" +
+		// exception.getMessage());
+		// return null;
+		// }
+		// });
+		System.out.println(fel.eval("1+2+a/10"));
 	}
 
 	private static void t2() {

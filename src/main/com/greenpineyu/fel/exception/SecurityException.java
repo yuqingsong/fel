@@ -1,7 +1,7 @@
 package com.greenpineyu.fel.exception;
 
 @SuppressWarnings("serial")
-public class SecurityException extends RuntimeException {
+public class SecurityException extends FelException {
 	public SecurityException(String msg) {
 		super(msg);
 	}

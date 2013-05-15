@@ -1,7 +1,7 @@
 package com.greenpineyu.fel.exception;
 
 @SuppressWarnings("serial")
-public class ParseException extends RuntimeException {
+public class ParseException extends FelException {
 	public ParseException(String msg) {
 		super(msg);
 	}

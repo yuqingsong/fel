@@ -1,18 +1,45 @@
 package com.greenpineyu.fel.event;
 
+import com.greenpineyu.fel.context.FelContext;
+
+
 public class EventImpl implements Event {
 	
 	private String id;
 
-	private Object source;
+	private String expression;
 
-	private String message;
+	private FelContext context;
 
-	public EventImpl(String id, Object source, String message) {
+	private final String message;
+
+	public EventImpl(String id, String expression, FelContext context, String message) {
 		this.id = id;
-		this.source = source;
+		this.expression = expression;
 		this.message = message;
 	}
+
+	public FelContext getContext() {
+		return context;
+	}
+
+	public void setContext(FelContext context) {
+		this.context = context;
+	}
+
+	public void setExpression(String expression) {
+		this.expression = expression;
+	}
+
+	public String getExpression() {
+		return expression;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+
 
 	public String getId() {
 		return id;
@@ -20,22 +47,6 @@ public class EventImpl implements Event {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Object getSource() {
-		return source;
-	}
-
-	public void setSource(Object source) {
-		this.source = source;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 
 

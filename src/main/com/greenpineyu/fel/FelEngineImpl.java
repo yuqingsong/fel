@@ -5,7 +5,12 @@ import com.greenpineyu.fel.compile.CompileService;
 import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.context.Var;
+import com.greenpineyu.fel.event.Event;
+import com.greenpineyu.fel.event.EventListener;
 import com.greenpineyu.fel.event.EventMgr;
+import com.greenpineyu.fel.event.Events;
+import com.greenpineyu.fel.event.ExceptionEvent;
+import com.greenpineyu.fel.exception.ExceptionHandler;
 import com.greenpineyu.fel.function.FunMgr;
 import com.greenpineyu.fel.function.Function;
 import com.greenpineyu.fel.optimizer.Optimizer;
@@ -75,15 +80,25 @@ public class FelEngineImpl implements FelEngine {
 	}
 
 	public Object eval(String exp, Var... vars) {
-		FelNode node = parse(exp);
-		Optimizer opt = new VarVisitOpti(vars);
-		node = opt.call(context, node);
-		return node.eval(context);
+		try {
+			FelNode node = parse(exp);
+			Optimizer opt = new VarVisitOpti(vars);
+			node = opt.call(context, node);
+			return node.eval(context);
+		} catch (Exception e) {
+			return this.eventMgr.onEvent(new ExceptionEvent(Events.EXCEPTION, exp, null, null));
+		}
 	}
 
 	@Override
 	public Object eval(String exp, FelContext ctx) {
-		return parse(exp).eval(ctx);
+		try {
+			return parse(exp).eval(ctx);
+		} catch (Exception e) {
+			ExceptionEvent event = new ExceptionEvent(Events.EXCEPTION, exp, ctx, null);
+			event.setException(e);
+			return this.eventMgr.onEvent(event);
+		}
 	}
 
 	public Expression compile(String exp, Var... vars) {
@@ -91,7 +106,7 @@ public class FelEngineImpl implements FelEngine {
 	}
 
 	@Override
-	public Expression compile(String exp, FelContext ctx, Optimizer... opts) {
+	public Expression compile(final String exp, FelContext ctx, Optimizer... opts) {
 		if (ctx == null) {
 			ctx = this.context;
 		}
@@ -103,7 +118,22 @@ public class FelEngineImpl implements FelEngine {
 				}
 			}
 		}
-		return compiler.compile(ctx, node, exp);
+		final Expression exception = compiler.compile(ctx, node, exp);
+		EventListener<Event> listener = this.eventMgr.getListener(Events.EXCEPTION);
+		if (listener == null) {
+			return exception;
+		}
+		return new Expression() {
+
+			@Override
+			public Object eval(FelContext context) {
+				try {
+					return exception.eval(context);
+				} catch (Exception e) {
+					return eventMgr.onEvent(new ExceptionEvent(Events.EXCEPTION, exp, context, null));
+				}
+			}
+		};
 	}
 
 	@Override
@@ -166,6 +196,22 @@ public class FelEngineImpl implements FelEngine {
 	public void setEventMgr(EventMgr mgr) {
 		this.eventMgr = mgr;
 
+	}
+
+	@Override
+	public void addExceptionHandle(final ExceptionHandler handler) {
+		this.eventMgr.addListener(new EventListener<ExceptionEvent>() {
+
+			@Override
+			public Object onEvent(ExceptionEvent event) {
+				return handler.onException(event.getException(), event.getExpression(), context);
+			}
+
+			@Override
+			public String getId() {
+				return Events.EXCEPTION;
+			}
+		});
 	}
 
 }

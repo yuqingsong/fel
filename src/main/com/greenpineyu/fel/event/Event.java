@@ -1,10 +1,14 @@
 package com.greenpineyu.fel.event;
 
+import com.greenpineyu.fel.context.FelContext;
+
 public interface Event {
 	
 	String getId();
 
-	Object getSource();
+	String getExpression();
+
+	FelContext getContext();
 
 	String getMessage();
 

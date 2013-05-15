@@ -31,10 +31,11 @@ public class VarAstNode extends AbstFelNode  {
 	public Object interpret(FelContext context, FelNode node) {
 		Var var = context.getVar(text);
 		if(var == FelContext.NOT_FOUND){
+			String exp = token.getInputStream().toString().trim();
 			String msg = "Variable " + text + " is not defined in expression[" + this.getTokenStartIndex() + ":"
 					+ this.getTokenStopIndex() + "]  "
-					+ token.getInputStream().toString().trim();
-			EventImpl event = new EventImpl(Events.UNDEFINED_VARIABLE, this, msg);
+					+ exp;
+			EventImpl event = new EventImpl(Events.UNDEFINED_VARIABLE, exp, context, msg);
 			onEvent(event);
 		}
 		return context.get(text);

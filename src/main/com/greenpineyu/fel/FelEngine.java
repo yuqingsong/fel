@@ -3,6 +3,7 @@ package com.greenpineyu.fel;
 import com.greenpineyu.fel.compile.CompileService;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.event.EventMgr;
+import com.greenpineyu.fel.exception.ExceptionHandler;
 import com.greenpineyu.fel.function.FunMgr;
 import com.greenpineyu.fel.function.Function;
 import com.greenpineyu.fel.optimizer.Optimizer;
@@ -127,5 +128,7 @@ public interface FelEngine {
 	EventMgr getEventMgr();
 
 	void setEventMgr(EventMgr mgr);
+
+	void addExceptionHandle(ExceptionHandler handler);
 
 }

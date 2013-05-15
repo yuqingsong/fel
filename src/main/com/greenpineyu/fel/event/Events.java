@@ -12,4 +12,9 @@ public interface Events {
 	 */
 	String DIVISOR_IS_0 = "DIVISOR_IS_0";
 
+	/**
+	 * 出现异常
+	 */
+	String EXCEPTION = "EXCEPTION";
+
 }

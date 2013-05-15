@@ -1,7 +1,9 @@
 package com.greenpineyu.fel.exception;
 
-public class ExceptionHandler {
+import com.greenpineyu.fel.context.FelContext;
+
+public interface ExceptionHandler {
 	
-    
+	Object onException(Exception exception, String exp, FelContext context);
 
 }
