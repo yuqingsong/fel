@@ -21,6 +21,7 @@ import javax.tools.ToolProvider;
 
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.exception.CompileException;
+import com.greenpineyu.fel.exception.FelException;
 
 public class FelCompiler16<T> implements FelCompiler {
 	private final FelCompilerClassloader classLoader;
@@ -59,7 +60,7 @@ public class FelCompiler16<T> implements FelCompiler {
 		try {
 			fileManager.setLocation(StandardLocation.CLASS_PATH, cpFiles);
 		} catch (IOException e) {
-			throw new CompileException(getCauseException(e), e);
+			throw new CompileException(FelException.getCauseMessage(e), e);
 		}
 
 		/*
@@ -120,7 +121,7 @@ public class FelCompiler16<T> implements FelCompiler {
 		try {
 			return (Expression) compile.newInstance();
 		} catch (Exception e) {
-			throw new CompileException(getCauseException(e), e);
+			throw new CompileException(FelException.getCauseMessage(e), e);
 		}
 	}
 
@@ -144,12 +145,8 @@ public class FelCompiler16<T> implements FelCompiler {
 		try {
 			return loadClass(src.getName());
 		} catch (ClassNotFoundException e) {
-			throw new CompileException(getCauseException(e), e);
+			throw new CompileException(FelException.getCauseMessage(e), e);
 		}
-	}
-
-	static private String getCauseException(Exception e) {
-		return "cause exception message:" + e.getMessage();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -162,7 +159,7 @@ public class FelCompiler16<T> implements FelCompiler {
 		try {
 			return new URI(name);
 		} catch (URISyntaxException e) {
-			throw new CompileException(getCauseException(e), e);
+			throw new CompileException(FelException.getCauseMessage(e), e);
 		}
 	}
 

@@ -14,4 +14,8 @@ public class FelException extends RuntimeException{
 	public FelException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
+
+	static public String getCauseMessage(Exception e) {
+		return "cause exception message:" + e.getMessage();
+	}
 }

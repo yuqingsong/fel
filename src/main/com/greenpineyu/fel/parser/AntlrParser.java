@@ -12,6 +12,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.common.Callable;
+import com.greenpineyu.fel.exception.FelException;
 import com.greenpineyu.fel.exception.ParseException;
 import com.greenpineyu.fel.function.Function;
 import com.greenpineyu.fel.function.operator.Dot;
@@ -71,7 +72,7 @@ public class AntlrParser implements Parser {
 		try {
 			input = new ANTLRInputStream(is);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new ParseException(FelException.getCauseMessage(e), e);
 		}
 		FelLexer lexer = new FelLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
