@@ -204,7 +204,7 @@ public class FelEngineImpl implements FelEngine {
 
 			@Override
 			public Object onEvent(ExceptionEvent event) {
-				return handler.onException(event.getException(), event.getExpression(), context);
+				return handler.onException(event.getException(), event.getExpression(), event.getContext());
 			}
 
 			@Override

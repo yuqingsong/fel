@@ -2,7 +2,9 @@
 <project name="fel" default="clean" basedir=".">
 	<property name="buildDir" value="bin" />
 	<property name="deployDir" value="deploy" />
-	<property name="srcDir" value="src" />
+	<property name="srcDir" value="src\main" />
+	<property name="srcDirJava15" value="src\java15" />
+	<property name="srcDirJava16" value="src\java16" />
 	<property name="testDir" value="test" />
 	<property name="destClassDir" value="${deployDir}\classes" />
 	<property name="destLibPath" value="${deployDir}\fel.jar" />
@@ -22,8 +24,8 @@
 	</target>
 	<!-- 编译成jdk1.6版本 -->
 	<target name="compile" description="编译源文件" depends="prepare">
-		<echo>compile  ${srcDir}  to ${destClassDir}</echo>
-		<javac  srcdir="${srcDir}" destdir="${destClassDir}" excludes="**/FelCompiler15.java" >
+		<echo>compile  ${srcDir}  ${srcDirJava16}  to ${destClassDir}</echo>
+		<javac  srcdir="${srcDir}${path.separator}${srcDirJava16}" destdir="${destClassDir}" excludes="**/FelCompiler15.java" >
 			<classpath>
 				<!--
 				<fileset file="${toolsPath}">
@@ -35,6 +37,7 @@
 		</javac>
 		<copy todir="${destClassDir}">
 			<fileset dir="${srcDir}" excludes="**/*.java/" />
+			<fileset dir="${srcDirJava16}" excludes="**/*.java/" />
 			<!--
 			<fileset dir="${classpathDir}" excludes="**/*.java/" />
 			-->
