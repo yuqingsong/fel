@@ -93,6 +93,22 @@ public class FunMgr {
 //		funcMap.put(LogicalOperator.OR2_STR, LogicalOperator.OR2);// ||
 //		funcMap.put(Like.getInstance().getName(), Like.getInstance());// like
 //		funcMap.put(In.getInstance().getName(), In.getInstance());// in
+		addFun(new CommonFunction() {
+			
+			@Override
+			public String getName() {
+				return "print";
+			}
+			
+			@Override
+			public Object call(Object[] arguments) {
+				if(arguments!=null&&arguments.length>0){
+					System.out.print(arguments[0]);
+				}
+				// FIXME return void
+				return null;
+			}
+		});
 
 		
 		
