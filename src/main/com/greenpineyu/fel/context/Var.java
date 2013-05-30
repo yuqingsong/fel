@@ -10,6 +10,12 @@ import com.greenpineyu.fel.common.Null;
  */
 public class Var {
 	
+	public static Var notFound() {
+		Var v = new Var("NOT_FOUND", null, Var.class);
+		v.setValue(v);
+		return v;
+	}
+
 	public Var(String name,Object value,Class<?> type){
 		this.name = name;
 		this.value = value;

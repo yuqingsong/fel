@@ -12,7 +12,7 @@ public interface FelContext {
 	/**
 	 * 如果没有找到变量，返回此变量
 	 */
-	Var NOT_FOUND = new Var("NOT_FOUND",null,Var.class);
+	Var NOT_FOUND = Var.notFound();
 
 
 	Object get(String name);
