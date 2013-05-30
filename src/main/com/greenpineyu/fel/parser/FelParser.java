@@ -1,4 +1,4 @@
-// $ANTLR 3.4 E:\\workspace\\Fel\\Fel.g 2012-11-12 09:00:06
+// $ANTLR 3.4 e:\\workspace\\Fel\\Fel.g 2013-05-30 21:53:58
 
 package com.greenpineyu.fel.parser;
 //import com.greenpineyu.fel.exception.ParseException;
@@ -90,7 +90,10 @@ public TreeAdaptor getTreeAdaptor() {
     return adaptor;
 }
     public String[] getTokenNames() { return FelParser.tokenNames; }
-    public String getGrammarFileName() { return "E:\\workspace\\Fel\\Fel.g"; }
+
+	public String getGrammarFileName() {
+		return "e:\\workspace\\Fel\\Fel.g";
+	}
 
 
     protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow)
@@ -112,7 +115,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "program"
-	// E:\\workspace\\Fel\\Fel.g:46:1: program : conditionalExpression EOF !;
+	// e:\\workspace\\Fel\\Fel.g:46:1: program : conditionalExpression EOF !;
     public final FelParser.program_return program() throws RecognitionException {
         FelParser.program_return retval = new FelParser.program_return();
         retval.start = input.LT(1);
@@ -130,8 +133,8 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:46:9: ( conditionalExpression EOF !)
-			// E:\\workspace\\Fel\\Fel.g:46:11: conditionalExpression EOF !
+			// e:\\workspace\\Fel\\Fel.g:46:9: ( conditionalExpression EOF !)
+			// e:\\workspace\\Fel\\Fel.g:46:11: conditionalExpression EOF !
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -179,7 +182,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parExpression"
-	// E:\\workspace\\Fel\\Fel.g:49:1: parExpression : '(' ! expressionList ')'
+	// e:\\workspace\\Fel\\Fel.g:49:1: parExpression : '(' ! expressionList ')'
 	// !;
     public final FelParser.parExpression_return parExpression() throws RecognitionException {
         FelParser.parExpression_return retval = new FelParser.parExpression_return();
@@ -200,8 +203,8 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:50:5: ( '(' ! expressionList ')' !)
-			// E:\\workspace\\Fel\\Fel.g:50:9: '(' ! expressionList ')' !
+			// e:\\workspace\\Fel\\Fel.g:50:5: ( '(' ! expressionList ')' !)
+			// e:\\workspace\\Fel\\Fel.g:50:9: '(' ! expressionList ')' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -255,7 +258,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expressionList"
-	// E:\\workspace\\Fel\\Fel.g:53:1: expressionList : ( conditionalExpression
+	// e:\\workspace\\Fel\\Fel.g:53:1: expressionList : ( conditionalExpression
 	// )? ( ',' ! ( conditionalExpression )? )* ;
     public final FelParser.expressionList_return expressionList() throws RecognitionException {
         FelParser.expressionList_return retval = new FelParser.expressionList_return();
@@ -276,15 +279,15 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:54:5: ( ( conditionalExpression )? (
+			// e:\\workspace\\Fel\\Fel.g:54:5: ( ( conditionalExpression )? (
 			// ',' ! ( conditionalExpression )? )* )
-			// E:\\workspace\\Fel\\Fel.g:54:9: ( conditionalExpression )? ( ','
+			// e:\\workspace\\Fel\\Fel.g:54:9: ( conditionalExpression )? ( ','
 			// ! ( conditionalExpression )? )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-				// E:\\workspace\\Fel\\Fel.g:54:9: ( conditionalExpression )?
+				// e:\\workspace\\Fel\\Fel.g:54:9: ( conditionalExpression )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -293,7 +296,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt1) {
                 case 1 :
-					// E:\\workspace\\Fel\\Fel.g:54:9: conditionalExpression
+				// e:\\workspace\\Fel\\Fel.g:54:9: conditionalExpression
                     {
 					pushFollow(FOLLOW_conditionalExpression_in_expressionList130);
                     conditionalExpression6=conditionalExpression();
@@ -308,7 +311,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-				// E:\\workspace\\Fel\\Fel.g:55:4: ( ',' ! (
+				// e:\\workspace\\Fel\\Fel.g:55:4: ( ',' ! (
 				// conditionalExpression )? )*
             loop3:
             do {
@@ -322,14 +325,14 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt3) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:55:5: ',' ! (
-						// conditionalExpression )?
+					// e:\\workspace\\Fel\\Fel.g:55:5: ',' ! (
+					// conditionalExpression )?
             	    {
 						char_literal7 = (Token) match(input, 37, FOLLOW_37_in_expressionList137);
 						if (state.failed)
 							return retval;
 
-            	    // E:\\workspace\\Fel\\Fel.g:55:10: (
+						// e:\\workspace\\Fel\\Fel.g:55:10: (
 						// conditionalExpression )?
             	    int alt2=2;
             	    int LA2_0 = input.LA(1);
@@ -339,8 +342,8 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    switch (alt2) {
             	        case 1 :
-							// E:\\workspace\\Fel\\Fel.g:55:10:
-							// conditionalExpression
+						// e:\\workspace\\Fel\\Fel.g:55:10:
+						// conditionalExpression
             	            {
 							pushFollow(FOLLOW_conditionalExpression_in_expressionList140);
             	            conditionalExpression8=conditionalExpression();
@@ -398,7 +401,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "conditionalExpression"
-	// E:\\workspace\\Fel\\Fel.g:57:1: conditionalExpression :
+	// e:\\workspace\\Fel\\Fel.g:57:1: conditionalExpression :
 	// conditionalOrExpression ( Ques ^ conditionalExpression Colon !
 	// conditionalExpression )? ;
     public final FelParser.conditionalExpression_return conditionalExpression() throws RecognitionException {
@@ -424,9 +427,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:58:5: ( conditionalOrExpression ( Ques
+			// e:\\workspace\\Fel\\Fel.g:58:5: ( conditionalOrExpression ( Ques
 			// ^ conditionalExpression Colon ! conditionalExpression )? )
-			// E:\\workspace\\Fel\\Fel.g:58:9: conditionalOrExpression ( Ques ^
+			// e:\\workspace\\Fel\\Fel.g:58:9: conditionalOrExpression ( Ques ^
 			// conditionalExpression Colon ! conditionalExpression )?
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -439,7 +442,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, conditionalOrExpression9.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:58:33: ( Ques ^
+				// e:\\workspace\\Fel\\Fel.g:58:33: ( Ques ^
 				// conditionalExpression Colon ! conditionalExpression )?
             int alt4=2;
             int LA4_0 = input.LA(1);
@@ -449,8 +452,8 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt4) {
                 case 1 :
-					// E:\\workspace\\Fel\\Fel.g:58:35: Ques ^
-					// conditionalExpression Colon ! conditionalExpression
+				// e:\\workspace\\Fel\\Fel.g:58:35: Ques ^ conditionalExpression
+				// Colon ! conditionalExpression
                     {
 					Ques10 = (Token) match(input, Ques, FOLLOW_Ques_in_conditionalExpression175);
 					if (state.failed)
@@ -520,7 +523,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "conditionalOrExpression"
-	// E:\\workspace\\Fel\\Fel.g:60:1: conditionalOrExpression :
+	// e:\\workspace\\Fel\\Fel.g:60:1: conditionalOrExpression :
 	// conditionalAndExpression ( Or ^ conditionalAndExpression )* ;
     public final FelParser.conditionalOrExpression_return conditionalOrExpression() throws RecognitionException {
         FelParser.conditionalOrExpression_return retval = new FelParser.conditionalOrExpression_return();
@@ -541,9 +544,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:61:2: ( conditionalAndExpression ( Or ^
+			// e:\\workspace\\Fel\\Fel.g:61:2: ( conditionalAndExpression ( Or ^
 			// conditionalAndExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:61:4: conditionalAndExpression ( Or ^
+			// e:\\workspace\\Fel\\Fel.g:61:4: conditionalAndExpression ( Or ^
 			// conditionalAndExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -556,7 +559,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, conditionalAndExpression14.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:61:29: ( Or ^
+				// e:\\workspace\\Fel\\Fel.g:61:29: ( Or ^
 				// conditionalAndExpression )*
             loop5:
             do {
@@ -570,8 +573,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt5) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:61:30: Or ^
-						// conditionalAndExpression
+					// e:\\workspace\\Fel\\Fel.g:61:30: Or ^
+					// conditionalAndExpression
             	    {
 						Or15 = (Token) match(input, Or, FOLLOW_Or_in_conditionalOrExpression202);
 						if (state.failed)
@@ -633,7 +636,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "conditionalAndExpression"
-	// E:\\workspace\\Fel\\Fel.g:64:1: conditionalAndExpression :
+	// e:\\workspace\\Fel\\Fel.g:64:1: conditionalAndExpression :
 	// equalityExpression ( And ^ equalityExpression )* ;
     public final FelParser.conditionalAndExpression_return conditionalAndExpression() throws RecognitionException {
         FelParser.conditionalAndExpression_return retval = new FelParser.conditionalAndExpression_return();
@@ -654,9 +657,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:65:2: ( equalityExpression ( And ^
+			// e:\\workspace\\Fel\\Fel.g:65:2: ( equalityExpression ( And ^
 			// equalityExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:65:4: equalityExpression ( And ^
+			// e:\\workspace\\Fel\\Fel.g:65:4: equalityExpression ( And ^
 			// equalityExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -669,7 +672,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, equalityExpression17.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:65:23: ( And ^ equalityExpression
+				// e:\\workspace\\Fel\\Fel.g:65:23: ( And ^ equalityExpression
 				// )*
             loop6:
             do {
@@ -683,8 +686,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt6) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:65:24: And ^
-						// equalityExpression
+					// e:\\workspace\\Fel\\Fel.g:65:24: And ^ equalityExpression
             	    {
 						And18 = (Token) match(input, And, FOLLOW_And_in_conditionalAndExpression222);
 						if (state.failed)
@@ -746,7 +748,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "equalityExpression"
-	// E:\\workspace\\Fel\\Fel.g:68:1: equalityExpression : relationalExpression
+	// e:\\workspace\\Fel\\Fel.g:68:1: equalityExpression : relationalExpression
 	// ( Equals ^ relationalExpression )* ;
     public final FelParser.equalityExpression_return equalityExpression() throws RecognitionException {
         FelParser.equalityExpression_return retval = new FelParser.equalityExpression_return();
@@ -767,9 +769,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:69:5: ( relationalExpression ( Equals ^
+			// e:\\workspace\\Fel\\Fel.g:69:5: ( relationalExpression ( Equals ^
 			// relationalExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:69:9: relationalExpression ( Equals ^
+			// e:\\workspace\\Fel\\Fel.g:69:9: relationalExpression ( Equals ^
 			// relationalExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -782,7 +784,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, relationalExpression20.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:69:30: ( Equals ^
+				// e:\\workspace\\Fel\\Fel.g:69:30: ( Equals ^
 				// relationalExpression )*
             loop7:
             do {
@@ -796,8 +798,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt7) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:69:32: Equals ^
-						// relationalExpression
+					// e:\\workspace\\Fel\\Fel.g:69:32: Equals ^
+					// relationalExpression
             	    {
 						Equals21 = (Token) match(input, Equals, FOLLOW_Equals_in_equalityExpression247);
 						if (state.failed)
@@ -859,7 +861,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "relationalExpression"
-	// E:\\workspace\\Fel\\Fel.g:72:1: relationalExpression : additiveExpression
+	// e:\\workspace\\Fel\\Fel.g:72:1: relationalExpression : additiveExpression
 	// ( Relational ^ additiveExpression )* ;
     public final FelParser.relationalExpression_return relationalExpression() throws RecognitionException {
         FelParser.relationalExpression_return retval = new FelParser.relationalExpression_return();
@@ -880,9 +882,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:73:5: ( additiveExpression ( Relational
+			// e:\\workspace\\Fel\\Fel.g:73:5: ( additiveExpression ( Relational
 			// ^ additiveExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:73:9: additiveExpression ( Relational ^
+			// e:\\workspace\\Fel\\Fel.g:73:9: additiveExpression ( Relational ^
 			// additiveExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -895,7 +897,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, additiveExpression23.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:73:28: ( Relational ^
+				// e:\\workspace\\Fel\\Fel.g:73:28: ( Relational ^
 				// additiveExpression )*
             loop8:
             do {
@@ -909,8 +911,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt8) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:73:30: Relational ^
-						// additiveExpression
+					// e:\\workspace\\Fel\\Fel.g:73:30: Relational ^
+					// additiveExpression
             	    {
 						Relational24 = (Token) match(input, Relational, FOLLOW_Relational_in_relationalExpression276);
 						if (state.failed)
@@ -972,7 +974,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "additiveExpression"
-	// E:\\workspace\\Fel\\Fel.g:76:1: additiveExpression :
+	// e:\\workspace\\Fel\\Fel.g:76:1: additiveExpression :
 	// multiplicativeExpression ( Additive ^ multiplicativeExpression )* ;
     public final FelParser.additiveExpression_return additiveExpression() throws RecognitionException {
         FelParser.additiveExpression_return retval = new FelParser.additiveExpression_return();
@@ -993,9 +995,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:77:5: ( multiplicativeExpression (
+			// e:\\workspace\\Fel\\Fel.g:77:5: ( multiplicativeExpression (
 			// Additive ^ multiplicativeExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:77:9: multiplicativeExpression (
+			// e:\\workspace\\Fel\\Fel.g:77:9: multiplicativeExpression (
 			// Additive ^ multiplicativeExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -1008,7 +1010,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, multiplicativeExpression26.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:77:34: ( Additive ^
+				// e:\\workspace\\Fel\\Fel.g:77:34: ( Additive ^
 				// multiplicativeExpression )*
             loop9:
             do {
@@ -1022,8 +1024,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt9) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:77:35: Additive ^
-						// multiplicativeExpression
+					// e:\\workspace\\Fel\\Fel.g:77:35: Additive ^
+					// multiplicativeExpression
             	    {
 						Additive27 = (Token) match(input, Additive, FOLLOW_Additive_in_additiveExpression304);
 						if (state.failed)
@@ -1085,7 +1087,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "multiplicativeExpression"
-	// E:\\workspace\\Fel\\Fel.g:80:1: multiplicativeExpression :
+	// e:\\workspace\\Fel\\Fel.g:80:1: multiplicativeExpression :
 	// unaryExpression ( Multiplicative ^ unaryExpression )* ;
     public final FelParser.multiplicativeExpression_return multiplicativeExpression() throws RecognitionException {
         FelParser.multiplicativeExpression_return retval = new FelParser.multiplicativeExpression_return();
@@ -1106,9 +1108,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:81:5: ( unaryExpression (
+			// e:\\workspace\\Fel\\Fel.g:81:5: ( unaryExpression (
 			// Multiplicative ^ unaryExpression )* )
-			// E:\\workspace\\Fel\\Fel.g:81:9: unaryExpression ( Multiplicative
+			// e:\\workspace\\Fel\\Fel.g:81:9: unaryExpression ( Multiplicative
 			// ^ unaryExpression )*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -1121,7 +1123,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, unaryExpression29.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:81:25: ( Multiplicative ^
+				// e:\\workspace\\Fel\\Fel.g:81:25: ( Multiplicative ^
 				// unaryExpression )*
             loop10:
             do {
@@ -1135,8 +1137,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt10) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:81:27: Multiplicative ^
-						// unaryExpression
+					// e:\\workspace\\Fel\\Fel.g:81:27: Multiplicative ^
+					// unaryExpression
             	    {
 						Multiplicative30 = (Token) match(input, Multiplicative,
 								FOLLOW_Multiplicative_in_multiplicativeExpression333);
@@ -1199,7 +1201,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "unaryExpression"
-	// E:\\workspace\\Fel\\Fel.g:84:1: unaryExpression : ( Additive ^
+	// e:\\workspace\\Fel\\Fel.g:84:1: unaryExpression : ( Additive ^
 	// unaryExpression | unaryExpressionNotPlusMinus );
     public final FelParser.unaryExpression_return unaryExpression() throws RecognitionException {
         FelParser.unaryExpression_return retval = new FelParser.unaryExpression_return();
@@ -1220,7 +1222,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:85:7: ( Additive ^ unaryExpression |
+			// e:\\workspace\\Fel\\Fel.g:85:7: ( Additive ^ unaryExpression |
 			// unaryExpressionNotPlusMinus )
             int alt11=2;
             int LA11_0 = input.LA(1);
@@ -1241,7 +1243,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt11) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:85:9: Additive ^ unaryExpression
+			// e:\\workspace\\Fel\\Fel.g:85:9: Additive ^ unaryExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1266,7 +1268,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:86:3: unaryExpressionNotPlusMinus
+			// e:\\workspace\\Fel\\Fel.g:86:3: unaryExpressionNotPlusMinus
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1314,7 +1316,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "unaryExpressionNotPlusMinus"
-	// E:\\workspace\\Fel\\Fel.g:89:1: unaryExpressionNotPlusMinus : ( Not ^
+	// e:\\workspace\\Fel\\Fel.g:89:1: unaryExpressionNotPlusMinus : ( Not ^
 	// unaryExpressionNotPlusMinus | array ( Dot ^ parDot )* );
     public final FelParser.unaryExpressionNotPlusMinus_return unaryExpressionNotPlusMinus() throws RecognitionException {
         FelParser.unaryExpressionNotPlusMinus_return retval = new FelParser.unaryExpressionNotPlusMinus_return();
@@ -1339,7 +1341,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:90:5: ( Not ^
+			// e:\\workspace\\Fel\\Fel.g:90:5: ( Not ^
 			// unaryExpressionNotPlusMinus | array ( Dot ^ parDot )* )
             int alt13=2;
             int LA13_0 = input.LA(1);
@@ -1360,8 +1362,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt13) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:90:8: Not ^
-				// unaryExpressionNotPlusMinus
+			// e:\\workspace\\Fel\\Fel.g:90:8: Not ^ unaryExpressionNotPlusMinus
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1386,7 +1387,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:92:9: array ( Dot ^ parDot )*
+			// e:\\workspace\\Fel\\Fel.g:92:9: array ( Dot ^ parDot )*
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1398,7 +1399,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, array37.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:92:15: ( Dot ^ parDot )*
+				// e:\\workspace\\Fel\\Fel.g:92:15: ( Dot ^ parDot )*
                     loop12:
                     do {
                         int alt12=2;
@@ -1411,7 +1412,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt12) {
                     	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:92:16: Dot ^ parDot
+					// e:\\workspace\\Fel\\Fel.g:92:16: Dot ^ parDot
                     	    {
 						Dot38 = (Token) match(input, Dot, FOLLOW_Dot_in_unaryExpressionNotPlusMinus400);
 						if (state.failed)
@@ -1475,7 +1476,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "array"
-	// E:\\workspace\\Fel\\Fel.g:94:3: array : primary ( Bracket ^
+	// e:\\workspace\\Fel\\Fel.g:94:3: array : primary ( Bracket ^
 	// conditionalExpression ']' !)* ;
     public final FelParser.array_return array() throws RecognitionException {
         FelParser.array_return retval = new FelParser.array_return();
@@ -1498,9 +1499,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:95:3: ( primary ( Bracket ^
+			// e:\\workspace\\Fel\\Fel.g:95:3: ( primary ( Bracket ^
 			// conditionalExpression ']' !)* )
-			// E:\\workspace\\Fel\\Fel.g:95:6: primary ( Bracket ^
+			// e:\\workspace\\Fel\\Fel.g:95:6: primary ( Bracket ^
 			// conditionalExpression ']' !)*
             {
             root_0 = (CommonTree)adaptor.nil();
@@ -1513,7 +1514,7 @@ public TreeAdaptor getTreeAdaptor() {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, primary40.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:95:14: ( Bracket ^
+				// e:\\workspace\\Fel\\Fel.g:95:14: ( Bracket ^
 				// conditionalExpression ']' !)*
             loop14:
             do {
@@ -1527,8 +1528,8 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt14) {
             	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:95:15: Bracket ^
-						// conditionalExpression ']' !
+					// e:\\workspace\\Fel\\Fel.g:95:15: Bracket ^
+					// conditionalExpression ']' !
             	    {
 						Bracket41 = (Token) match(input, Bracket, FOLLOW_Bracket_in_array427);
 						if (state.failed)
@@ -1594,7 +1595,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "primary"
-	// E:\\workspace\\Fel\\Fel.g:97:5: primary : ( parExpression | parDot ( Dot
+	// e:\\workspace\\Fel\\Fel.g:97:5: primary : ( parExpression | parDot ( Dot
 	// ^ parDot )* | literal );
     public final FelParser.primary_return primary() throws RecognitionException {
         FelParser.primary_return retval = new FelParser.primary_return();
@@ -1619,7 +1620,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:98:5: ( parExpression | parDot ( Dot ^
+			// e:\\workspace\\Fel\\Fel.g:98:5: ( parExpression | parDot ( Dot ^
 			// parDot )* | literal )
             int alt16=3;
             switch ( input.LA(1) ) {
@@ -1693,7 +1694,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt16) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:98:9: parExpression
+			// e:\\workspace\\Fel\\Fel.g:98:9: parExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1708,7 +1709,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:99:9: parDot ( Dot ^ parDot )*
+			// e:\\workspace\\Fel\\Fel.g:99:9: parDot ( Dot ^ parDot )*
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1720,7 +1721,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, parDot45.getTree());
 
-				// E:\\workspace\\Fel\\Fel.g:99:16: ( Dot ^ parDot )*
+				// e:\\workspace\\Fel\\Fel.g:99:16: ( Dot ^ parDot )*
                     loop15:
                     do {
                         int alt15=2;
@@ -1769,7 +1770,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt15) {
                     	case 1 :
-						// E:\\workspace\\Fel\\Fel.g:99:17: Dot ^ parDot
+					// e:\\workspace\\Fel\\Fel.g:99:17: Dot ^ parDot
                     	    {
 						Dot46 = (Token) match(input, Dot, FOLLOW_Dot_in_primary479);
 						if (state.failed)
@@ -1800,7 +1801,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-				// E:\\workspace\\Fel\\Fel.g:100:7: literal
+			// e:\\workspace\\Fel\\Fel.g:100:7: literal
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1848,7 +1849,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parDot"
-	// E:\\workspace\\Fel\\Fel.g:110:5: parDot : ( identifierOrFun |
+	// e:\\workspace\\Fel\\Fel.g:110:5: parDot : ( identifierOrFun |
 	// StringLiteral | CharacterLiteral );
     public final FelParser.parDot_return parDot() throws RecognitionException {
         FelParser.parDot_return retval = new FelParser.parDot_return();
@@ -1869,7 +1870,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:111:5: ( identifierOrFun |
+			// e:\\workspace\\Fel\\Fel.g:111:5: ( identifierOrFun |
 			// StringLiteral | CharacterLiteral )
             int alt17=3;
             switch ( input.LA(1) ) {
@@ -1899,7 +1900,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt17) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:111:7: identifierOrFun
+			// e:\\workspace\\Fel\\Fel.g:111:7: identifierOrFun
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1914,7 +1915,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:112:7: StringLiteral
+			// e:\\workspace\\Fel\\Fel.g:112:7: StringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1932,7 +1933,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-				// E:\\workspace\\Fel\\Fel.g:113:7: CharacterLiteral
+			// e:\\workspace\\Fel\\Fel.g:113:7: CharacterLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1983,7 +1984,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "identifierOrFun"
-	// E:\\workspace\\Fel\\Fel.g:116:5: identifierOrFun : ( Identifier |
+	// e:\\workspace\\Fel\\Fel.g:116:5: identifierOrFun : ( Identifier |
 	// Identifier ^ arguments );
     public final FelParser.identifierOrFun_return identifierOrFun() throws RecognitionException {
         FelParser.identifierOrFun_return retval = new FelParser.identifierOrFun_return();
@@ -2004,7 +2005,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:117:6: ( Identifier | Identifier ^
+			// e:\\workspace\\Fel\\Fel.g:117:6: ( Identifier | Identifier ^
 			// arguments )
             int alt18=2;
             int LA18_0 = input.LA(1);
@@ -2037,7 +2038,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt18) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:117:8: Identifier
+			// e:\\workspace\\Fel\\Fel.g:117:8: Identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2055,7 +2056,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:118:9: Identifier ^ arguments
+			// e:\\workspace\\Fel\\Fel.g:118:9: Identifier ^ arguments
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2119,7 +2120,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "arguments"
-	// E:\\workspace\\Fel\\Fel.g:126:5: arguments : '(' ! ( expressionList )?
+	// e:\\workspace\\Fel\\Fel.g:126:5: arguments : '(' ! ( expressionList )?
 	// ')' !;
     public final FelParser.arguments_return arguments() throws RecognitionException {
         FelParser.arguments_return retval = new FelParser.arguments_return();
@@ -2140,9 +2141,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:127:5: ( '(' ! ( expressionList )? ')'
+			// e:\\workspace\\Fel\\Fel.g:127:5: ( '(' ! ( expressionList )? ')'
 			// !)
-			// E:\\workspace\\Fel\\Fel.g:127:9: '(' ! ( expressionList )? ')' !
+			// e:\\workspace\\Fel\\Fel.g:127:9: '(' ! ( expressionList )? ')' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -2151,7 +2152,7 @@ public TreeAdaptor getTreeAdaptor() {
 				if (state.failed)
 					return retval;
 
-            // E:\\workspace\\Fel\\Fel.g:127:14: ( expressionList )?
+				// e:\\workspace\\Fel\\Fel.g:127:14: ( expressionList )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2167,7 +2168,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt19) {
                 case 1 :
-					// E:\\workspace\\Fel\\Fel.g:127:14: expressionList
+				// e:\\workspace\\Fel\\Fel.g:127:14: expressionList
                     {
 					pushFollow(FOLLOW_expressionList_in_arguments627);
                     expressionList56=expressionList();
@@ -2220,7 +2221,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "literal"
-	// E:\\workspace\\Fel\\Fel.g:163:1: literal : ( integerLiteral |
+	// e:\\workspace\\Fel\\Fel.g:163:1: literal : ( integerLiteral |
 	// FloatingPointLiteral | CharacterLiteral | StringLiteral | BooleanLiteral
 	// );
     public final FelParser.literal_return literal() throws RecognitionException {
@@ -2246,7 +2247,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:164:5: ( integerLiteral |
+			// e:\\workspace\\Fel\\Fel.g:164:5: ( integerLiteral |
 			// FloatingPointLiteral | CharacterLiteral | StringLiteral |
 			// BooleanLiteral )
             int alt20=5;
@@ -2289,7 +2290,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt20) {
                 case 1 :
-				// E:\\workspace\\Fel\\Fel.g:164:9: integerLiteral
+			// e:\\workspace\\Fel\\Fel.g:164:9: integerLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2304,7 +2305,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-				// E:\\workspace\\Fel\\Fel.g:165:9: FloatingPointLiteral
+			// e:\\workspace\\Fel\\Fel.g:165:9: FloatingPointLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2323,7 +2324,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-				// E:\\workspace\\Fel\\Fel.g:166:9: CharacterLiteral
+			// e:\\workspace\\Fel\\Fel.g:166:9: CharacterLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2341,7 +2342,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-				// E:\\workspace\\Fel\\Fel.g:167:9: StringLiteral
+			// e:\\workspace\\Fel\\Fel.g:167:9: StringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2359,7 +2360,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-				// E:\\workspace\\Fel\\Fel.g:168:9: BooleanLiteral
+			// e:\\workspace\\Fel\\Fel.g:168:9: BooleanLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -2410,7 +2411,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "integerLiteral"
-	// E:\\workspace\\Fel\\Fel.g:170:1: integerLiteral : ( HexLiteral |
+	// e:\\workspace\\Fel\\Fel.g:170:1: integerLiteral : ( HexLiteral |
 	// OctalLiteral | DecimalLiteral );
     public final FelParser.integerLiteral_return integerLiteral() throws RecognitionException {
         FelParser.integerLiteral_return retval = new FelParser.integerLiteral_return();
@@ -2427,9 +2428,9 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
 
-			// E:\\workspace\\Fel\\Fel.g:171:5: ( HexLiteral | OctalLiteral |
+			// e:\\workspace\\Fel\\Fel.g:171:5: ( HexLiteral | OctalLiteral |
 			// DecimalLiteral )
-            // E:\\workspace\\Fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -2479,8 +2480,8 @@ public TreeAdaptor getTreeAdaptor() {
 
     // $ANTLR start synpred16_Fel
     public final void synpred16_Fel_fragment() throws RecognitionException {
-		// E:\\workspace\\Fel\\Fel.g:99:17: ( Dot parDot )
-		// E:\\workspace\\Fel\\Fel.g:99:17: Dot parDot
+		// e:\\workspace\\Fel\\Fel.g:99:17: ( Dot parDot )
+		// e:\\workspace\\Fel\\Fel.g:99:17: Dot parDot
         {
 			match(input, Dot, FOLLOW_Dot_in_synpred16_Fel479);
 			if (state.failed)
@@ -2499,8 +2500,8 @@ public TreeAdaptor getTreeAdaptor() {
 
     // $ANTLR start synpred17_Fel
     public final void synpred17_Fel_fragment() throws RecognitionException {
-		// E:\\workspace\\Fel\\Fel.g:99:9: ( parDot ( Dot parDot )* )
-		// E:\\workspace\\Fel\\Fel.g:99:9: parDot ( Dot parDot )*
+		// e:\\workspace\\Fel\\Fel.g:99:9: ( parDot ( Dot parDot )* )
+		// e:\\workspace\\Fel\\Fel.g:99:9: parDot ( Dot parDot )*
         {
 			pushFollow(FOLLOW_parDot_in_synpred17_Fel476);
         parDot();
@@ -2508,7 +2509,7 @@ public TreeAdaptor getTreeAdaptor() {
         state._fsp--;
         if (state.failed) return ;
 
-			// E:\\workspace\\Fel\\Fel.g:99:16: ( Dot parDot )*
+			// e:\\workspace\\Fel\\Fel.g:99:16: ( Dot parDot )*
         loop22:
         do {
             int alt22=2;
@@ -2521,7 +2522,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt22) {
         	case 1 :
-					// E:\\workspace\\Fel\\Fel.g:99:17: Dot parDot
+				// e:\\workspace\\Fel\\Fel.g:99:17: Dot parDot
         	    {
 					match(input, Dot, FOLLOW_Dot_in_synpred17_Fel479);
 					if (state.failed)
@@ -2549,8 +2550,8 @@ public TreeAdaptor getTreeAdaptor() {
 
     // $ANTLR start synpred21_Fel
     public final void synpred21_Fel_fragment() throws RecognitionException {
-		// E:\\workspace\\Fel\\Fel.g:127:14: ( expressionList )
-		// E:\\workspace\\Fel\\Fel.g:127:14: expressionList
+		// e:\\workspace\\Fel\\Fel.g:127:14: ( expressionList )
+		// e:\\workspace\\Fel\\Fel.g:127:14: expressionList
         {
 			pushFollow(FOLLOW_expressionList_in_synpred21_Fel627);
         expressionList();

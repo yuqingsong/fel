@@ -107,7 +107,56 @@ public class NodeAdaptor extends CommonTreeAdaptor {
 			case FelParser.StringLiteral:
 			// 字符串
 			// 出掉字符串两端的单引号和双引号
+			/*if (text.indexOf('\\', 1) == -1) {*/
+				// 不包含\
 				returnMe = text.substring(1, text.length() - 1);
+			/*} else {
+				char[] charArray = text.toCharArray();
+				// 如果text 为'abc'则循环abc(不包含字符串前后的引号
+				StringBuilder newString = new StringBuilder();
+				for (int i = 1; i < charArray.length - 1; i++) {
+					char c = charArray[i];
+					if (c != '\\') {
+						newString.append(c);
+						continue;
+					}
+					c = charArray[++i];
+					switch (c) {
+					case 'b':
+						newString.append('\b');
+						break;
+					case 't':
+						newString.append('\t');
+						break;
+					case 'n':
+						newString.append('\n');
+						break;
+					case 'f':
+						newString.append('\f');
+						break;
+					case 'r':
+						newString.append('\r');
+						break;
+					case '\"':
+						newString.append('\"');
+						break;
+					case '\'':
+						newString.append('\'');
+						break;
+					case '\\':
+						newString.append('\\');
+						break;
+					}
+				}
+				returnMe = newString.toString();
+			}
+			 */
+
+			/*String str = text.substring(1, text.length() - 1);
+			if (str.indexOf("\\") != -1) {
+				str = StringUtils.replace(str, "\\\\", "\\");
+			}
+			returnMe = str;*/
 				break;
 		/* 常量结束 */
 			default:

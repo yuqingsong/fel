@@ -1,10 +1,15 @@
-// $ANTLR 3.4 D:\\129\\ws\\fel\\Fel.g 2012-03-22 14:56:55
+// $ANTLR 3.4 e:\\workspace\\Fel\\Fel.g 2013-05-30 21:53:58
 package com.greenpineyu.fel.parser;
 
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class FelLexer extends Lexer {
@@ -45,6 +50,10 @@ public class FelLexer extends Lexer {
     public static final int UnicodeEscape=33;
     public static final int WS=34;
 
+	public void reportError(RecognitionException e) {
+		throw new RuntimeException(e.toString());
+	}
+
     // delegates
     // delegators
     public Lexer[] getDelegates() {
@@ -58,15 +67,18 @@ public class FelLexer extends Lexer {
     public FelLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "D:\\129\\ws\\fel\\Fel.g"; }
+
+	public String getGrammarFileName() {
+		return "e:\\workspace\\Fel\\Fel.g";
+	}
 
     // $ANTLR start "T__35"
     public final void mT__35() throws RecognitionException {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:9:7: ( '(' )
-            // D:\\129\\ws\\fel\\Fel.g:9:9: '('
+			// e:\\workspace\\Fel\\Fel.g:15:7: ( '(' )
+			// e:\\workspace\\Fel\\Fel.g:15:9: '('
             {
             match('('); 
 
@@ -86,8 +98,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:10:7: ( ')' )
-            // D:\\129\\ws\\fel\\Fel.g:10:9: ')'
+			// e:\\workspace\\Fel\\Fel.g:16:7: ( ')' )
+			// e:\\workspace\\Fel\\Fel.g:16:9: ')'
             {
             match(')'); 
 
@@ -107,8 +119,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:11:7: ( ',' )
-            // D:\\129\\ws\\fel\\Fel.g:11:9: ','
+			// e:\\workspace\\Fel\\Fel.g:17:7: ( ',' )
+			// e:\\workspace\\Fel\\Fel.g:17:9: ','
             {
             match(','); 
 
@@ -128,8 +140,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:12:7: ( ']' )
-            // D:\\129\\ws\\fel\\Fel.g:12:9: ']'
+			// e:\\workspace\\Fel\\Fel.g:18:7: ( ']' )
+			// e:\\workspace\\Fel\\Fel.g:18:9: ']'
             {
             match(']'); 
 
@@ -149,8 +161,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Dot;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:163:5: ( '.' )
-            // D:\\129\\ws\\fel\\Fel.g:163:7: '.'
+			// e:\\workspace\\Fel\\Fel.g:178:5: ( '.' )
+			// e:\\workspace\\Fel\\Fel.g:178:7: '.'
             {
             match('.'); 
 
@@ -170,8 +182,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Or;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:165:4: ( '||' )
-            // D:\\129\\ws\\fel\\Fel.g:165:6: '||'
+			// e:\\workspace\\Fel\\Fel.g:180:4: ( '||' )
+			// e:\\workspace\\Fel\\Fel.g:180:6: '||'
             {
             match("||"); 
 
@@ -193,8 +205,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = And;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:167:5: ( '&&' )
-            // D:\\129\\ws\\fel\\Fel.g:167:7: '&&'
+			// e:\\workspace\\Fel\\Fel.g:182:5: ( '&&' )
+			// e:\\workspace\\Fel\\Fel.g:182:7: '&&'
             {
             match("&&"); 
 
@@ -216,8 +228,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Not;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:169:5: ( '!' )
-            // D:\\129\\ws\\fel\\Fel.g:169:7: '!'
+			// e:\\workspace\\Fel\\Fel.g:184:5: ( '!' )
+			// e:\\workspace\\Fel\\Fel.g:184:7: '!'
             {
             match('!'); 
 
@@ -237,8 +249,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Ques;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:171:6: ( '?' )
-            // D:\\129\\ws\\fel\\Fel.g:171:8: '?'
+			// e:\\workspace\\Fel\\Fel.g:186:6: ( '?' )
+			// e:\\workspace\\Fel\\Fel.g:186:8: '?'
             {
             match('?'); 
 
@@ -258,8 +270,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Bracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:173:9: ( '[' )
-            // D:\\129\\ws\\fel\\Fel.g:173:11: '['
+			// e:\\workspace\\Fel\\Fel.g:188:9: ( '[' )
+			// e:\\workspace\\Fel\\Fel.g:188:11: '['
             {
             match('['); 
 
@@ -279,8 +291,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Colon;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:175:7: ( ':' )
-            // D:\\129\\ws\\fel\\Fel.g:175:9: ':'
+			// e:\\workspace\\Fel\\Fel.g:190:7: ( ':' )
+			// e:\\workspace\\Fel\\Fel.g:190:9: ':'
             {
             match(':'); 
 
@@ -300,7 +312,7 @@ public class FelLexer extends Lexer {
         try {
             int _type = Relational;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:177:12: ( '>' | '<' | '<=' | '>=' )
+			// e:\\workspace\\Fel\\Fel.g:192:12: ( '>' | '<' | '<=' | '>=' )
             int alt1=4;
             int LA1_0 = input.LA(1);
 
@@ -333,21 +345,21 @@ public class FelLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:177:14: '>'
+			// e:\\workspace\\Fel\\Fel.g:192:14: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:177:18: '<'
+			// e:\\workspace\\Fel\\Fel.g:192:18: '<'
                     {
                     match('<'); 
 
                     }
                     break;
                 case 3 :
-                    // D:\\129\\ws\\fel\\Fel.g:177:22: '<='
+			// e:\\workspace\\Fel\\Fel.g:192:22: '<='
                     {
                     match("<="); 
 
@@ -356,7 +368,7 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // D:\\129\\ws\\fel\\Fel.g:177:27: '>='
+			// e:\\workspace\\Fel\\Fel.g:192:27: '>='
                     {
                     match(">="); 
 
@@ -380,7 +392,7 @@ public class FelLexer extends Lexer {
         try {
             int _type = Equals;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:179:8: ( '==' | '!=' )
+			// e:\\workspace\\Fel\\Fel.g:194:8: ( '==' | '!=' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -399,7 +411,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:179:10: '=='
+			// e:\\workspace\\Fel\\Fel.g:194:10: '=='
                     {
                     match("=="); 
 
@@ -408,7 +420,7 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:179:15: '!='
+			// e:\\workspace\\Fel\\Fel.g:194:15: '!='
                     {
                     match("!="); 
 
@@ -432,8 +444,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Multiplicative;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:181:16: ( '*' | '/' | '%' )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:196:16: ( '*' | '/' | '%' )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( input.LA(1)=='%'||input.LA(1)=='*'||input.LA(1)=='/' ) {
                 input.consume();
@@ -461,8 +473,8 @@ public class FelLexer extends Lexer {
         try {
             int _type = Additive;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:183:10: ( ( '+' | '-' ) )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:198:10: ( ( '+' | '-' ) )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                 input.consume();
@@ -490,8 +502,10 @@ public class FelLexer extends Lexer {
         try {
             int _type = HexLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:185:12: ( '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )? )
-            // D:\\129\\ws\\fel\\Fel.g:185:15: '0' ( 'x' | 'X' ) ( HexDigit )+ ( IntegerTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:200:12: ( '0' ( 'x' | 'X' ) ( HexDigit
+			// )+ ( IntegerTypeSuffix )? )
+			// e:\\workspace\\Fel\\Fel.g:200:15: '0' ( 'x' | 'X' ) ( HexDigit )+
+			// ( IntegerTypeSuffix )?
             {
             match('0'); 
 
@@ -505,7 +519,7 @@ public class FelLexer extends Lexer {
             }
 
 
-            // D:\\129\\ws\\fel\\Fel.g:185:29: ( HexDigit )+
+				// e:\\workspace\\Fel\\Fel.g:200:29: ( HexDigit )+
             int cnt3=0;
             loop3:
             do {
@@ -519,7 +533,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
             	        input.consume();
@@ -544,7 +558,7 @@ public class FelLexer extends Lexer {
             } while (true);
 
 
-            // D:\\129\\ws\\fel\\Fel.g:185:39: ( IntegerTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:200:39: ( IntegerTypeSuffix )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -553,7 +567,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                     {
                     if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                         input.consume();
@@ -587,10 +601,13 @@ public class FelLexer extends Lexer {
         try {
             int _type = DecimalLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:187:16: ( ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )? )
-            // D:\\129\\ws\\fel\\Fel.g:187:18: ( '0' | '1' .. '9' ( '0' .. '9' )* ) ( IntegerTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:202:16: ( ( '0' | '1' .. '9' ( '0' ..
+			// '9' )* ) ( IntegerTypeSuffix )? )
+			// e:\\workspace\\Fel\\Fel.g:202:18: ( '0' | '1' .. '9' ( '0' .. '9'
+			// )* ) ( IntegerTypeSuffix )?
             {
-            // D:\\129\\ws\\fel\\Fel.g:187:18: ( '0' | '1' .. '9' ( '0' .. '9' )* )
+				// e:\\workspace\\Fel\\Fel.g:202:18: ( '0' | '1' .. '9' ( '0' ..
+				// '9' )* )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -609,18 +626,18 @@ public class FelLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:187:19: '0'
+				// e:\\workspace\\Fel\\Fel.g:202:19: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:187:25: '1' .. '9' ( '0' .. '9' )*
+				// e:\\workspace\\Fel\\Fel.g:202:25: '1' .. '9' ( '0' .. '9' )*
                     {
                     matchRange('1','9'); 
 
-                    // D:\\129\\ws\\fel\\Fel.g:187:34: ( '0' .. '9' )*
+					// e:\\workspace\\Fel\\Fel.g:202:34: ( '0' .. '9' )*
                     loop5:
                     do {
                         int alt5=2;
@@ -633,7 +650,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+						// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -660,7 +677,7 @@ public class FelLexer extends Lexer {
             }
 
 
-            // D:\\129\\ws\\fel\\Fel.g:187:45: ( IntegerTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:202:45: ( IntegerTypeSuffix )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -669,7 +686,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                     {
                     if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                         input.consume();
@@ -703,12 +720,14 @@ public class FelLexer extends Lexer {
         try {
             int _type = OctalLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:189:14: ( '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )? )
-            // D:\\129\\ws\\fel\\Fel.g:189:17: '0' ( '0' .. '7' )+ ( IntegerTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:204:14: ( '0' ( '0' .. '7' )+ (
+			// IntegerTypeSuffix )? )
+			// e:\\workspace\\Fel\\Fel.g:204:17: '0' ( '0' .. '7' )+ (
+			// IntegerTypeSuffix )?
             {
             match('0'); 
 
-            // D:\\129\\ws\\fel\\Fel.g:189:21: ( '0' .. '7' )+
+				// e:\\workspace\\Fel\\Fel.g:204:21: ( '0' .. '7' )+
             int cnt8=0;
             loop8:
             do {
@@ -722,7 +741,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '7') ) {
             	        input.consume();
@@ -747,7 +766,7 @@ public class FelLexer extends Lexer {
             } while (true);
 
 
-            // D:\\129\\ws\\fel\\Fel.g:189:33: ( IntegerTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:204:33: ( IntegerTypeSuffix )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -756,7 +775,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                     {
                     if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                         input.consume();
@@ -790,7 +809,7 @@ public class FelLexer extends Lexer {
         try {
             int _type = BooleanLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:192:5: ( 'true' | 'false' )
+			// e:\\workspace\\Fel\\Fel.g:207:5: ( 'true' | 'false' )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -809,7 +828,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:192:9: 'true'
+			// e:\\workspace\\Fel\\Fel.g:207:9: 'true'
                     {
                     match("true"); 
 
@@ -818,7 +837,7 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:193:9: 'false'
+			// e:\\workspace\\Fel\\Fel.g:208:9: 'false'
                     {
                     match("false"); 
 
@@ -840,8 +859,9 @@ public class FelLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:198:10: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:213:10: ( ( '0' .. '9' | 'a' .. 'f' |
+			// 'A' .. 'F' ) )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
                 input.consume();
@@ -866,8 +886,8 @@ public class FelLexer extends Lexer {
     // $ANTLR start "IntegerTypeSuffix"
     public final void mIntegerTypeSuffix() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:201:19: ( ( 'l' | 'L' ) )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:216:19: ( ( 'l' | 'L' ) )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                 input.consume();
@@ -894,14 +914,18 @@ public class FelLexer extends Lexer {
         try {
             int _type = FloatingPointLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:203:2: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ FloatTypeSuffix )
+			// e:\\workspace\\Fel\\Fel.g:218:2: ( ( '0' .. '9' )+ '.' ( '0' ..
+			// '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ (
+			// Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent (
+			// FloatTypeSuffix )? | ( '0' .. '9' )+ FloatTypeSuffix )
             int alt21=4;
             alt21 = dfa21.predict(input);
             switch (alt21) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:203:2: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:218:2: ( '0' .. '9' )+ '.' ( '0' .. '9'
+			// )* ( Exponent )? ( FloatTypeSuffix )?
                     {
-                    // D:\\129\\ws\\fel\\Fel.g:203:2: ( '0' .. '9' )+
+				// e:\\workspace\\Fel\\Fel.g:218:2: ( '0' .. '9' )+
                     int cnt11=0;
                     loop11:
                     do {
@@ -915,7 +939,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -942,7 +966,7 @@ public class FelLexer extends Lexer {
 
                     match('.'); 
 
-                    // D:\\129\\ws\\fel\\Fel.g:203:18: ( '0' .. '9' )*
+				// e:\\workspace\\Fel\\Fel.g:218:18: ( '0' .. '9' )*
                     loop12:
                     do {
                         int alt12=2;
@@ -955,7 +979,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -976,7 +1000,7 @@ public class FelLexer extends Lexer {
                     } while (true);
 
 
-                    // D:\\129\\ws\\fel\\Fel.g:203:30: ( Exponent )?
+				// e:\\workspace\\Fel\\Fel.g:218:30: ( Exponent )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -985,7 +1009,7 @@ public class FelLexer extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // D:\\129\\ws\\fel\\Fel.g:203:30: Exponent
+				// e:\\workspace\\Fel\\Fel.g:218:30: Exponent
                             {
                             mExponent(); 
 
@@ -996,7 +1020,7 @@ public class FelLexer extends Lexer {
                     }
 
 
-                    // D:\\129\\ws\\fel\\Fel.g:203:40: ( FloatTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:218:40: ( FloatTypeSuffix )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -1005,7 +1029,7 @@ public class FelLexer extends Lexer {
                     }
                     switch (alt14) {
                         case 1 :
-                            // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                             {
                             if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='d'||input.LA(1)=='f' ) {
                                 input.consume();
@@ -1026,11 +1050,12 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:204:9: '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:219:9: '.' ( '0' .. '9' )+ ( Exponent
+			// )? ( FloatTypeSuffix )?
                     {
                     match('.'); 
 
-                    // D:\\129\\ws\\fel\\Fel.g:204:13: ( '0' .. '9' )+
+				// e:\\workspace\\Fel\\Fel.g:219:13: ( '0' .. '9' )+
                     int cnt15=0;
                     loop15:
                     do {
@@ -1044,7 +1069,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt15) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1069,7 +1094,7 @@ public class FelLexer extends Lexer {
                     } while (true);
 
 
-                    // D:\\129\\ws\\fel\\Fel.g:204:25: ( Exponent )?
+				// e:\\workspace\\Fel\\Fel.g:219:25: ( Exponent )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -1078,7 +1103,7 @@ public class FelLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // D:\\129\\ws\\fel\\Fel.g:204:25: Exponent
+				// e:\\workspace\\Fel\\Fel.g:219:25: Exponent
                             {
                             mExponent(); 
 
@@ -1089,7 +1114,7 @@ public class FelLexer extends Lexer {
                     }
 
 
-                    // D:\\129\\ws\\fel\\Fel.g:204:35: ( FloatTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:219:35: ( FloatTypeSuffix )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -1098,7 +1123,7 @@ public class FelLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                             {
                             if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='d'||input.LA(1)=='f' ) {
                                 input.consume();
@@ -1119,9 +1144,10 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\129\\ws\\fel\\Fel.g:205:9: ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )?
+			// e:\\workspace\\Fel\\Fel.g:220:9: ( '0' .. '9' )+ Exponent (
+			// FloatTypeSuffix )?
                     {
-                    // D:\\129\\ws\\fel\\Fel.g:205:9: ( '0' .. '9' )+
+				// e:\\workspace\\Fel\\Fel.g:220:9: ( '0' .. '9' )+
                     int cnt18=0;
                     loop18:
                     do {
@@ -1135,7 +1161,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1163,7 +1189,7 @@ public class FelLexer extends Lexer {
                     mExponent(); 
 
 
-                    // D:\\129\\ws\\fel\\Fel.g:205:30: ( FloatTypeSuffix )?
+				// e:\\workspace\\Fel\\Fel.g:220:30: ( FloatTypeSuffix )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -1172,7 +1198,7 @@ public class FelLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                             {
                             if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='d'||input.LA(1)=='f' ) {
                                 input.consume();
@@ -1193,9 +1219,9 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // D:\\129\\ws\\fel\\Fel.g:206:9: ( '0' .. '9' )+ FloatTypeSuffix
+			// e:\\workspace\\Fel\\Fel.g:221:9: ( '0' .. '9' )+ FloatTypeSuffix
                     {
-                    // D:\\129\\ws\\fel\\Fel.g:206:9: ( '0' .. '9' )+
+				// e:\\workspace\\Fel\\Fel.g:221:9: ( '0' .. '9' )+
                     int cnt20=0;
                     loop20:
                     do {
@@ -1209,7 +1235,7 @@ public class FelLexer extends Lexer {
 
                         switch (alt20) {
                     	case 1 :
-                    	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1253,8 +1279,10 @@ public class FelLexer extends Lexer {
     // $ANTLR start "Exponent"
     public final void mExponent() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:211:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // D:\\129\\ws\\fel\\Fel.g:211:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+			// e:\\workspace\\Fel\\Fel.g:226:10: ( ( 'e' | 'E' ) ( '+' | '-' )?
+			// ( '0' .. '9' )+ )
+			// e:\\workspace\\Fel\\Fel.g:226:12: ( 'e' | 'E' ) ( '+' | '-' )? (
+			// '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1266,7 +1294,7 @@ public class FelLexer extends Lexer {
             }
 
 
-            // D:\\129\\ws\\fel\\Fel.g:211:22: ( '+' | '-' )?
+				// e:\\workspace\\Fel\\Fel.g:226:22: ( '+' | '-' )?
             int alt22=2;
             int LA22_0 = input.LA(1);
 
@@ -1275,7 +1303,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt22) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:
+				// e:\\workspace\\Fel\\Fel.g:
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -1293,7 +1321,7 @@ public class FelLexer extends Lexer {
             }
 
 
-            // D:\\129\\ws\\fel\\Fel.g:211:33: ( '0' .. '9' )+
+				// e:\\workspace\\Fel\\Fel.g:226:33: ( '0' .. '9' )+
             int cnt23=0;
             loop23:
             do {
@@ -1307,7 +1335,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt23) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -1345,8 +1373,8 @@ public class FelLexer extends Lexer {
     // $ANTLR start "FloatTypeSuffix"
     public final void mFloatTypeSuffix() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:214:17: ( ( 'f' | 'F' | 'd' | 'D' ) )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:229:17: ( ( 'f' | 'F' | 'd' | 'D' ) )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='d'||input.LA(1)=='f' ) {
                 input.consume();
@@ -1373,28 +1401,31 @@ public class FelLexer extends Lexer {
         try {
             int _type = CharacterLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:216:5: ( '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) )* '\\'' )
-            // D:\\129\\ws\\fel\\Fel.g:216:9: '\\'' ( EscapeSequence |~ ( '\\'' | '\\\\' ) )* '\\''
+			// e:\\workspace\\Fel\\Fel.g:231:5: ( '\\'' ( EscapeSequence |~ (
+			// '\\'' | '\\\\' ) )* '\\'' )
+			// e:\\workspace\\Fel\\Fel.g:231:9: '\\'' ( EscapeSequence |~ (
+			// '\\'' | '\\\\' ) )* '\\''
             {
             match('\''); 
 
-            // D:\\129\\ws\\fel\\Fel.g:216:14: ( EscapeSequence |~ ( '\\'' | '\\\\' ) )*
+				// e:\\workspace\\Fel\\Fel.g:231:14: ( EscapeSequence |~ ( '\\''
+				// | '\\\\' ) )*
             loop24:
             do {
                 int alt24=3;
                 int LA24_0 = input.LA(1);
 
-                if ( (LA24_0=='\\') ) {
+					if ((LA24_0 == '\\')) {
                     alt24=1;
                 }
-                else if ( ((LA24_0 >= '\u0000' && LA24_0 <= '&')||(LA24_0 >= '(' && LA24_0 <= '[')||(LA24_0 >= ']' && LA24_0 <= '\uFFFF')) ) {
+ else if (((LA24_0 >= '\u0000' && LA24_0 <= '&') || (LA24_0 >= '(' && LA24_0 <= '[') || (LA24_0 >= ']' && LA24_0 <= '\uFFFF'))) {
                     alt24=2;
                 }
 
 
                 switch (alt24) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:216:16: EscapeSequence
+					// e:\\workspace\\Fel\\Fel.g:231:16: EscapeSequence
             	    {
             	    mEscapeSequence(); 
 
@@ -1402,7 +1433,7 @@ public class FelLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // D:\\129\\ws\\fel\\Fel.g:216:33: ~ ( '\\'' | '\\\\' )
+					// e:\\workspace\\Fel\\Fel.g:231:33: ~ ( '\\'' | '\\\\' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1441,28 +1472,31 @@ public class FelLexer extends Lexer {
         try {
             int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:220:5: ( '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"' )
-            // D:\\129\\ws\\fel\\Fel.g:220:8: '\"' ( EscapeSequence |~ ( '\\\\' | '\"' ) )* '\"'
+			// e:\\workspace\\Fel\\Fel.g:235:5: ( '\"' ( EscapeSequence |~ (
+			// '\\\\' | '\"' ) )* '\"' )
+			// e:\\workspace\\Fel\\Fel.g:235:8: '\"' ( EscapeSequence |~ (
+			// '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // D:\\129\\ws\\fel\\Fel.g:220:12: ( EscapeSequence |~ ( '\\\\' | '\"' ) )*
+				// e:\\workspace\\Fel\\Fel.g:235:12: ( EscapeSequence |~ (
+				// '\\\\' | '\"' ) )*
             loop25:
             do {
                 int alt25=3;
                 int LA25_0 = input.LA(1);
 
-                if ( (LA25_0=='\\') ) {
+					if ((LA25_0 == '\\')) {
                     alt25=1;
                 }
-                else if ( ((LA25_0 >= '\u0000' && LA25_0 <= '!')||(LA25_0 >= '#' && LA25_0 <= '[')||(LA25_0 >= ']' && LA25_0 <= '\uFFFF')) ) {
+ else if (((LA25_0 >= '\u0000' && LA25_0 <= '!') || (LA25_0 >= '#' && LA25_0 <= '[') || (LA25_0 >= ']' && LA25_0 <= '\uFFFF'))) {
                     alt25=2;
                 }
 
 
                 switch (alt25) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:220:14: EscapeSequence
+					// e:\\workspace\\Fel\\Fel.g:235:14: EscapeSequence
             	    {
             	    mEscapeSequence(); 
 
@@ -1470,7 +1504,7 @@ public class FelLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // D:\\129\\ws\\fel\\Fel.g:220:31: ~ ( '\\\\' | '\"' )
+					// e:\\workspace\\Fel\\Fel.g:235:31: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1507,27 +1541,16 @@ public class FelLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:227:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UnicodeEscape | OctalEscape )
-            int alt26=3;
-            int LA26_0 = input.LA(1);
+			// e:\\workspace\\Fel\\Fel.g:242:5: ( '\\\\' | UnicodeEscape |
+			// OctalEscape )
+			int alt26 = 3;
+			int LA26_0 = input.LA(1);
 
-            if ( (LA26_0=='\\') ) {
+			if ((LA26_0 == '\\')) {
                 switch ( input.LA(2) ) {
-                case '\"':
-                case '\'':
-                case '\\':
-                case 'b':
-                case 'f':
-                case 'n':
-                case 'r':
-                case 't':
-                    {
-                    alt26=1;
-                    }
-                    break;
                 case 'u':
                     {
-                    alt26=2;
+					alt26 = 2;
                     }
                     break;
                 case '0':
@@ -1539,19 +1562,14 @@ public class FelLexer extends Lexer {
                 case '6':
                 case '7':
                     {
-                    alt26=3;
+					alt26 = 3;
                     }
                     break;
                 default:
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 26, 1, input);
+					alt26 = 1;
+				}
 
-                    throw nvae;
-
-                }
-
-            }
-            else {
+			} else {
                 NoViableAltException nvae =
                     new NoViableAltException("", 26, 0, input);
 
@@ -1560,32 +1578,22 @@ public class FelLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:227:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+			// e:\\workspace\\Fel\\Fel.g:251:5: '\\\\'
                     {
                     match('\\'); 
 
-                    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||input.LA(1)=='t' ) {
-                        input.consume();
-                    }
-                    else {
-                        MismatchedSetException mse = new MismatchedSetException(null,input);
-                        recover(mse);
-                        throw mse;
-                    }
-
-
                     }
                     break;
-                case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:228:9: UnicodeEscape
+			case 2:
+			// e:\\workspace\\Fel\\Fel.g:252:6: UnicodeEscape
                     {
                     mUnicodeEscape(); 
 
 
                     }
                     break;
-                case 3 :
-                    // D:\\129\\ws\\fel\\Fel.g:229:9: OctalEscape
+			case 3:
+			// e:\\workspace\\Fel\\Fel.g:253:9: OctalEscape
                     {
                     mOctalEscape(); 
 
@@ -1605,7 +1613,9 @@ public class FelLexer extends Lexer {
     // $ANTLR start "OctalEscape"
     public final void mOctalEscape() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:234:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+			// e:\\workspace\\Fel\\Fel.g:258:5: ( '\\\\' ( '0' .. '3' ) ( '0' ..
+			// '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) |
+			// '\\\\' ( '0' .. '7' ) )
             int alt27=3;
             int LA27_0 = input.LA(1);
 
@@ -1656,7 +1666,8 @@ public class FelLexer extends Lexer {
             }
             switch (alt27) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:234:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+			// e:\\workspace\\Fel\\Fel.g:258:9: '\\\\' ( '0' .. '3' ) ( '0' ..
+			// '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -1693,7 +1704,8 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // D:\\129\\ws\\fel\\Fel.g:235:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+			// e:\\workspace\\Fel\\Fel.g:259:9: '\\\\' ( '0' .. '7' ) ( '0' ..
+			// '7' )
                     {
                     match('\\'); 
 
@@ -1720,7 +1732,7 @@ public class FelLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // D:\\129\\ws\\fel\\Fel.g:236:9: '\\\\' ( '0' .. '7' )
+			// e:\\workspace\\Fel\\Fel.g:260:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -1749,8 +1761,10 @@ public class FelLexer extends Lexer {
     // $ANTLR start "UnicodeEscape"
     public final void mUnicodeEscape() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:241:5: ( '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit )
-            // D:\\129\\ws\\fel\\Fel.g:241:9: '\\\\' 'u' HexDigit HexDigit HexDigit HexDigit
+			// e:\\workspace\\Fel\\Fel.g:265:5: ( '\\\\' 'u' HexDigit HexDigit
+			// HexDigit HexDigit )
+			// e:\\workspace\\Fel\\Fel.g:265:9: '\\\\' 'u' HexDigit HexDigit
+			// HexDigit HexDigit
             {
             match('\\'); 
 
@@ -1783,13 +1797,14 @@ public class FelLexer extends Lexer {
         try {
             int _type = Identifier;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:245:5: ( Letter ( Letter | JavaIDDigit )* )
-            // D:\\129\\ws\\fel\\Fel.g:245:9: Letter ( Letter | JavaIDDigit )*
+			// e:\\workspace\\Fel\\Fel.g:269:5: ( Letter ( Letter | JavaIDDigit
+			// )* )
+			// e:\\workspace\\Fel\\Fel.g:269:9: Letter ( Letter | JavaIDDigit )*
             {
             mLetter(); 
 
 
-            // D:\\129\\ws\\fel\\Fel.g:245:16: ( Letter | JavaIDDigit )*
+				// e:\\workspace\\Fel\\Fel.g:269:16: ( Letter | JavaIDDigit )*
             loop28:
             do {
                 int alt28=2;
@@ -1802,7 +1817,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt28) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
             	    {
             	    if ( input.LA(1)=='$'||(input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z')||(input.LA(1) >= '\u00C0' && input.LA(1) <= '\u00D6')||(input.LA(1) >= '\u00D8' && input.LA(1) <= '\u00F6')||(input.LA(1) >= '\u00F8' && input.LA(1) <= '\u1FFF')||(input.LA(1) >= '\u3040' && input.LA(1) <= '\u318F')||(input.LA(1) >= '\u3300' && input.LA(1) <= '\u337F')||(input.LA(1) >= '\u3400' && input.LA(1) <= '\u3D2D')||(input.LA(1) >= '\u4E00' && input.LA(1) <= '\u9FFF')||(input.LA(1) >= '\uF900' && input.LA(1) <= '\uFAFF') ) {
             	        input.consume();
@@ -1837,8 +1852,13 @@ public class FelLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:252:5: ( '\\u0024' | '\\u0041' .. '\\u005a' | '\\u005f' | '\\u0061' .. '\\u007a' | '\\u00c0' .. '\\u00d6' | '\\u00d8' .. '\\u00f6' | '\\u00f8' .. '\\u00ff' | '\\u0100' .. '\\u1fff' | '\\u3040' .. '\\u318f' | '\\u3300' .. '\\u337f' | '\\u3400' .. '\\u3d2d' | '\\u4e00' .. '\\u9fff' | '\\uf900' .. '\\ufaff' )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:276:5: ( '\\u0024' | '\\u0041' ..
+			// '\\u005a' | '\\u005f' | '\\u0061' .. '\\u007a' | '\\u00c0' ..
+			// '\\u00d6' | '\\u00d8' .. '\\u00f6' | '\\u00f8' .. '\\u00ff' |
+			// '\\u0100' .. '\\u1fff' | '\\u3040' .. '\\u318f' | '\\u3300' ..
+			// '\\u337f' | '\\u3400' .. '\\u3d2d' | '\\u4e00' .. '\\u9fff' |
+			// '\\uf900' .. '\\ufaff' )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( input.LA(1)=='$'||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z')||(input.LA(1) >= '\u00C0' && input.LA(1) <= '\u00D6')||(input.LA(1) >= '\u00D8' && input.LA(1) <= '\u00F6')||(input.LA(1) >= '\u00F8' && input.LA(1) <= '\u1FFF')||(input.LA(1) >= '\u3040' && input.LA(1) <= '\u318F')||(input.LA(1) >= '\u3300' && input.LA(1) <= '\u337F')||(input.LA(1) >= '\u3400' && input.LA(1) <= '\u3D2D')||(input.LA(1) >= '\u4E00' && input.LA(1) <= '\u9FFF')||(input.LA(1) >= '\uF900' && input.LA(1) <= '\uFAFF') ) {
                 input.consume();
@@ -1863,8 +1883,14 @@ public class FelLexer extends Lexer {
     // $ANTLR start "JavaIDDigit"
     public final void mJavaIDDigit() throws RecognitionException {
         try {
-            // D:\\129\\ws\\fel\\Fel.g:269:5: ( '\\u0030' .. '\\u0039' | '\\u0660' .. '\\u0669' | '\\u06f0' .. '\\u06f9' | '\\u0966' .. '\\u096f' | '\\u09e6' .. '\\u09ef' | '\\u0a66' .. '\\u0a6f' | '\\u0ae6' .. '\\u0aef' | '\\u0b66' .. '\\u0b6f' | '\\u0be7' .. '\\u0bef' | '\\u0c66' .. '\\u0c6f' | '\\u0ce6' .. '\\u0cef' | '\\u0d66' .. '\\u0d6f' | '\\u0e50' .. '\\u0e59' | '\\u0ed0' .. '\\u0ed9' | '\\u1040' .. '\\u1049' )
-            // D:\\129\\ws\\fel\\Fel.g:
+			// e:\\workspace\\Fel\\Fel.g:293:5: ( '\\u0030' .. '\\u0039' |
+			// '\\u0660' .. '\\u0669' | '\\u06f0' .. '\\u06f9' | '\\u0966' ..
+			// '\\u096f' | '\\u09e6' .. '\\u09ef' | '\\u0a66' .. '\\u0a6f' |
+			// '\\u0ae6' .. '\\u0aef' | '\\u0b66' .. '\\u0b6f' | '\\u0be7' ..
+			// '\\u0bef' | '\\u0c66' .. '\\u0c6f' | '\\u0ce6' .. '\\u0cef' |
+			// '\\u0d66' .. '\\u0d6f' | '\\u0e50' .. '\\u0e59' | '\\u0ed0' ..
+			// '\\u0ed9' | '\\u1040' .. '\\u1049' )
+			// e:\\workspace\\Fel\\Fel.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= '\u0660' && input.LA(1) <= '\u0669')||(input.LA(1) >= '\u06F0' && input.LA(1) <= '\u06F9')||(input.LA(1) >= '\u0966' && input.LA(1) <= '\u096F')||(input.LA(1) >= '\u09E6' && input.LA(1) <= '\u09EF')||(input.LA(1) >= '\u0A66' && input.LA(1) <= '\u0A6F')||(input.LA(1) >= '\u0AE6' && input.LA(1) <= '\u0AEF')||(input.LA(1) >= '\u0B66' && input.LA(1) <= '\u0B6F')||(input.LA(1) >= '\u0BE7' && input.LA(1) <= '\u0BEF')||(input.LA(1) >= '\u0C66' && input.LA(1) <= '\u0C6F')||(input.LA(1) >= '\u0CE6' && input.LA(1) <= '\u0CEF')||(input.LA(1) >= '\u0D66' && input.LA(1) <= '\u0D6F')||(input.LA(1) >= '\u0E50' && input.LA(1) <= '\u0E59')||(input.LA(1) >= '\u0ED0' && input.LA(1) <= '\u0ED9')||(input.LA(1) >= '\u1040' && input.LA(1) <= '\u1049') ) {
                 input.consume();
@@ -1891,8 +1917,10 @@ public class FelLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:285:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // D:\\129\\ws\\fel\\Fel.g:285:8: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+			// e:\\workspace\\Fel\\Fel.g:309:5: ( ( ' ' | '\\r' | '\\t' | '\ ' |
+			// '\\n' ) )
+			// e:\\workspace\\Fel\\Fel.g:309:8: ( ' ' | '\\r' | '\\t' | '\ ' |
+			// '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -1922,14 +1950,17 @@ public class FelLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:289:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // D:\\129\\ws\\fel\\Fel.g:289:9: '/*' ( options {greedy=false; } : . )* '*/'
+			// e:\\workspace\\Fel\\Fel.g:313:5: ( '/*' ( options {greedy=false;
+			// } : . )* '*/' )
+			// e:\\workspace\\Fel\\Fel.g:313:9: '/*' ( options {greedy=false; }
+			// : . )* '*/'
             {
             match("/*"); 
 
 
 
-            // D:\\129\\ws\\fel\\Fel.g:289:14: ( options {greedy=false; } : . )*
+				// e:\\workspace\\Fel\\Fel.g:313:14: ( options {greedy=false; }
+				// : . )*
             loop29:
             do {
                 int alt29=2;
@@ -1954,7 +1985,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt29) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:289:42: .
+					// e:\\workspace\\Fel\\Fel.g:313:42: .
             	    {
             	    matchAny(); 
 
@@ -1989,14 +2020,16 @@ public class FelLexer extends Lexer {
         try {
             int _type = LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // D:\\129\\ws\\fel\\Fel.g:293:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-            // D:\\129\\ws\\fel\\Fel.g:293:7: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+			// e:\\workspace\\Fel\\Fel.g:317:5: ( '//' (~ ( '\\n' | '\\r' ) )* (
+			// '\\r' )? '\\n' )
+			// e:\\workspace\\Fel\\Fel.g:317:7: '//' (~ ( '\\n' | '\\r' ) )* (
+			// '\\r' )? '\\n'
             {
             match("//"); 
 
 
 
-            // D:\\129\\ws\\fel\\Fel.g:293:12: (~ ( '\\n' | '\\r' ) )*
+				// e:\\workspace\\Fel\\Fel.g:317:12: (~ ( '\\n' | '\\r' ) )*
             loop30:
             do {
                 int alt30=2;
@@ -2009,7 +2042,7 @@ public class FelLexer extends Lexer {
 
                 switch (alt30) {
             	case 1 :
-            	    // D:\\129\\ws\\fel\\Fel.g:
+					// e:\\workspace\\Fel\\Fel.g:
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -2030,7 +2063,7 @@ public class FelLexer extends Lexer {
             } while (true);
 
 
-            // D:\\129\\ws\\fel\\Fel.g:293:26: ( '\\r' )?
+				// e:\\workspace\\Fel\\Fel.g:317:26: ( '\\r' )?
             int alt31=2;
             int LA31_0 = input.LA(1);
 
@@ -2039,7 +2072,7 @@ public class FelLexer extends Lexer {
             }
             switch (alt31) {
                 case 1 :
-                    // D:\\129\\ws\\fel\\Fel.g:293:26: '\\r'
+				// e:\\workspace\\Fel\\Fel.g:317:26: '\\r'
                     {
                     match('\r'); 
 
@@ -2065,12 +2098,17 @@ public class FelLexer extends Lexer {
     // $ANTLR end "LINE_COMMENT"
 
     public void mTokens() throws RecognitionException {
-        // D:\\129\\ws\\fel\\Fel.g:1:8: ( T__35 | T__36 | T__37 | T__38 | Dot | Or | And | Not | Ques | Bracket | Colon | Relational | Equals | Multiplicative | Additive | HexLiteral | DecimalLiteral | OctalLiteral | BooleanLiteral | FloatingPointLiteral | CharacterLiteral | StringLiteral | Identifier | WS | COMMENT | LINE_COMMENT )
+		// e:\\workspace\\Fel\\Fel.g:1:8: ( T__35 | T__36 | T__37 | T__38 | Dot
+		// | Or | And | Not | Ques | Bracket | Colon | Relational | Equals |
+		// Multiplicative | Additive | HexLiteral | DecimalLiteral |
+		// OctalLiteral | BooleanLiteral | FloatingPointLiteral |
+		// CharacterLiteral | StringLiteral | Identifier | WS | COMMENT |
+		// LINE_COMMENT )
         int alt32=26;
         alt32 = dfa32.predict(input);
         switch (alt32) {
             case 1 :
-                // D:\\129\\ws\\fel\\Fel.g:1:10: T__35
+		// e:\\workspace\\Fel\\Fel.g:1:10: T__35
                 {
                 mT__35(); 
 
@@ -2078,7 +2116,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // D:\\129\\ws\\fel\\Fel.g:1:16: T__36
+		// e:\\workspace\\Fel\\Fel.g:1:16: T__36
                 {
                 mT__36(); 
 
@@ -2086,7 +2124,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // D:\\129\\ws\\fel\\Fel.g:1:22: T__37
+		// e:\\workspace\\Fel\\Fel.g:1:22: T__37
                 {
                 mT__37(); 
 
@@ -2094,7 +2132,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // D:\\129\\ws\\fel\\Fel.g:1:28: T__38
+		// e:\\workspace\\Fel\\Fel.g:1:28: T__38
                 {
                 mT__38(); 
 
@@ -2102,7 +2140,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // D:\\129\\ws\\fel\\Fel.g:1:34: Dot
+		// e:\\workspace\\Fel\\Fel.g:1:34: Dot
                 {
                 mDot(); 
 
@@ -2110,7 +2148,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 6 :
-                // D:\\129\\ws\\fel\\Fel.g:1:38: Or
+		// e:\\workspace\\Fel\\Fel.g:1:38: Or
                 {
                 mOr(); 
 
@@ -2118,7 +2156,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 7 :
-                // D:\\129\\ws\\fel\\Fel.g:1:41: And
+		// e:\\workspace\\Fel\\Fel.g:1:41: And
                 {
                 mAnd(); 
 
@@ -2126,7 +2164,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 8 :
-                // D:\\129\\ws\\fel\\Fel.g:1:45: Not
+		// e:\\workspace\\Fel\\Fel.g:1:45: Not
                 {
                 mNot(); 
 
@@ -2134,7 +2172,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // D:\\129\\ws\\fel\\Fel.g:1:49: Ques
+		// e:\\workspace\\Fel\\Fel.g:1:49: Ques
                 {
                 mQues(); 
 
@@ -2142,7 +2180,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // D:\\129\\ws\\fel\\Fel.g:1:54: Bracket
+		// e:\\workspace\\Fel\\Fel.g:1:54: Bracket
                 {
                 mBracket(); 
 
@@ -2150,7 +2188,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // D:\\129\\ws\\fel\\Fel.g:1:62: Colon
+		// e:\\workspace\\Fel\\Fel.g:1:62: Colon
                 {
                 mColon(); 
 
@@ -2158,7 +2196,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // D:\\129\\ws\\fel\\Fel.g:1:68: Relational
+		// e:\\workspace\\Fel\\Fel.g:1:68: Relational
                 {
                 mRelational(); 
 
@@ -2166,7 +2204,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // D:\\129\\ws\\fel\\Fel.g:1:79: Equals
+		// e:\\workspace\\Fel\\Fel.g:1:79: Equals
                 {
                 mEquals(); 
 
@@ -2174,7 +2212,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // D:\\129\\ws\\fel\\Fel.g:1:86: Multiplicative
+		// e:\\workspace\\Fel\\Fel.g:1:86: Multiplicative
                 {
                 mMultiplicative(); 
 
@@ -2182,7 +2220,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // D:\\129\\ws\\fel\\Fel.g:1:101: Additive
+		// e:\\workspace\\Fel\\Fel.g:1:101: Additive
                 {
                 mAdditive(); 
 
@@ -2190,7 +2228,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // D:\\129\\ws\\fel\\Fel.g:1:110: HexLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:110: HexLiteral
                 {
                 mHexLiteral(); 
 
@@ -2198,7 +2236,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // D:\\129\\ws\\fel\\Fel.g:1:121: DecimalLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:121: DecimalLiteral
                 {
                 mDecimalLiteral(); 
 
@@ -2206,7 +2244,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // D:\\129\\ws\\fel\\Fel.g:1:136: OctalLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:136: OctalLiteral
                 {
                 mOctalLiteral(); 
 
@@ -2214,7 +2252,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // D:\\129\\ws\\fel\\Fel.g:1:149: BooleanLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:149: BooleanLiteral
                 {
                 mBooleanLiteral(); 
 
@@ -2222,7 +2260,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // D:\\129\\ws\\fel\\Fel.g:1:164: FloatingPointLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:164: FloatingPointLiteral
                 {
                 mFloatingPointLiteral(); 
 
@@ -2230,7 +2268,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // D:\\129\\ws\\fel\\Fel.g:1:185: CharacterLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:185: CharacterLiteral
                 {
                 mCharacterLiteral(); 
 
@@ -2238,7 +2276,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // D:\\129\\ws\\fel\\Fel.g:1:202: StringLiteral
+		// e:\\workspace\\Fel\\Fel.g:1:202: StringLiteral
                 {
                 mStringLiteral(); 
 
@@ -2246,7 +2284,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 23 :
-                // D:\\129\\ws\\fel\\Fel.g:1:216: Identifier
+		// e:\\workspace\\Fel\\Fel.g:1:216: Identifier
                 {
                 mIdentifier(); 
 
@@ -2254,7 +2292,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 24 :
-                // D:\\129\\ws\\fel\\Fel.g:1:227: WS
+		// e:\\workspace\\Fel\\Fel.g:1:227: WS
                 {
                 mWS(); 
 
@@ -2262,7 +2300,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 25 :
-                // D:\\129\\ws\\fel\\Fel.g:1:230: COMMENT
+		// e:\\workspace\\Fel\\Fel.g:1:230: COMMENT
                 {
                 mCOMMENT(); 
 
@@ -2270,7 +2308,7 @@ public class FelLexer extends Lexer {
                 }
                 break;
             case 26 :
-                // D:\\129\\ws\\fel\\Fel.g:1:238: LINE_COMMENT
+		// e:\\workspace\\Fel\\Fel.g:1:238: LINE_COMMENT
                 {
                 mLINE_COMMENT(); 
 
@@ -2336,7 +2374,7 @@ public class FelLexer extends Lexer {
             this.transition = DFA21_transition;
         }
         public String getDescription() {
-            return "202:1: FloatingPointLiteral : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ FloatTypeSuffix );";
+			return "217:1: FloatingPointLiteral : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? ( FloatTypeSuffix )? | '.' ( '0' .. '9' )+ ( Exponent )? ( FloatTypeSuffix )? | ( '0' .. '9' )+ Exponent ( FloatTypeSuffix )? | ( '0' .. '9' )+ FloatTypeSuffix );";
         }
     }
     static final String DFA32_eotS =

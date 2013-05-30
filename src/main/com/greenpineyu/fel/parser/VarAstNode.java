@@ -9,7 +9,6 @@ import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.AbstractContext;
 import com.greenpineyu.fel.context.ArrayCtx;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.context.Var;
 import com.greenpineyu.fel.event.EventImpl;
 import com.greenpineyu.fel.event.Events;
 import com.greenpineyu.fel.function.operator.Dot;
@@ -29,7 +28,7 @@ public class VarAstNode extends AbstFelNode  {
 	
 	@Override
 	public Object interpret(FelContext context, FelNode node) {
-		Var var = context.getVar(text);
+		Object var = context.get(text);
 		if(var == FelContext.NOT_FOUND){
 			String exp = token.getInputStream().toString().trim();
 			String msg = "Variable " + text + " is not defined in expression[" + this.getTokenStartIndex() + ":"
@@ -38,7 +37,7 @@ public class VarAstNode extends AbstFelNode  {
 			EventImpl event = new EventImpl(Events.UNDEFINED_VARIABLE, exp, context, msg);
 			onEvent(event);
 		}
-		return context.get(text);
+		return var;
 	}
 	
 	public static boolean isVar(FelNode n) {
