@@ -364,7 +364,7 @@ public class FelEngineImplTest {
 	 */
 	@Test(dataProvider = "eval")
 	public void testEvalWithCompiler(String expr, Object expected) {
-		Expression ins = engine.compile(expr, null);
+		Expression ins = engine.compile(expr, engine.getContext());
 		Object actual = ins.eval(engine.getContext());
 		compare(expected, actual);
 	}
@@ -400,7 +400,7 @@ public class FelEngineImplTest {
 
 	@Test(dataProvider = "bigEval")
 	public void testBigEvalWithCompiler(String expr, Object expected) {
-		Expression ins = bigEngine.compile(expr, null);
+		Expression ins = bigEngine.compile(expr, bigEngine.getContext());
 		Object actual = ins.eval(bigEngine.getContext());
 		compare(expected, actual);
 	}

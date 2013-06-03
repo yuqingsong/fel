@@ -1,5 +1,7 @@
 package com.greenpineyu.fel;
 
+import java.util.Map;
+
 import com.greenpineyu.fel.compile.CompileService;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.event.EventMgr;
@@ -39,24 +41,42 @@ public interface FelEngine {
 	 * @return
 	 */
 	Object eval(String exp, FelContext ctx);
+	
+	/**
+	 * 使用指定的Map执行表达式，获取结果
+	 * @param exp
+	 * @param varMap
+	 * @return
+	 */
+	Object eval(String exp, Map<String, Object> varMap);
 
 	/**
 	 * 解析表达式为节点
 	 * 
 	 * @param exp
-	 * @return
+	 * @return AST节点
 	 */
 	FelNode parse(String exp);
 
 	/**
 	 * 编译表达式
 	 * 
-	 * @param exp
-	 * @param ctx
+	 * @param exp 表达式
+	 * @param ctx 引擎上下文
 	 * @param opts 编译优化选项
-	 * @return
+	 * @return 可执行的表达式对象
 	 */
 	Expression compile(String exp, FelContext ctx, Optimizer... opts);
+	
+	/**
+	 * 编译表达式
+	 * 
+	 * @param exp 表达式
+	 * @param ctx 引擎上下文
+	 * @param varMap 变量map
+	 * @return 可执行的表达式对象
+	 */
+	Expression compile(String exp, Map<String, Object> varMap);
 
 	/**
 	 * @return 引擎执行环境
@@ -66,8 +86,7 @@ public interface FelEngine {
 	/**
 	 * 添加函数到用户函数库中（执行表达式时，优先从用户函数库中获取函数）
 	 * 
-	 * @param fun
-	 * @return
+	 * @param fun 要添加的函数
 	 */
 	void addFun(Function fun);
 
@@ -125,10 +144,29 @@ public interface FelEngine {
 	 */
 	void setSecurityMgr(SecurityMgr mgr);
 
+	/**
+	 * 获取事件管理器
+	 * @return
+	 */
 	EventMgr getEventMgr();
 
+	/**
+	 * 设置事件管理器
+	 * @param mgr
+	 */
 	void setEventMgr(EventMgr mgr);
 
-	void addExceptionHandle(ExceptionHandler handler);
+	/**
+	 * 添加异常处理机制
+	 * @param handler
+	 */
+	void setExceptionHandler(ExceptionHandler handler);
+
+	/**
+	 * 移除异常处理机制
+	 */
+	void removeExceptionHandler();
+
+	
 
 }

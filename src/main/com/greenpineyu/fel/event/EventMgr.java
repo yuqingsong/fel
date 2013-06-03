@@ -26,9 +26,8 @@ public class EventMgr {
 		return listeners.get(id);
 	}
 
-	public void removeListener(EventListener<? extends Event> listener) {
-		checkParam(listener);
-		listeners.remove(listener.getId());
+	public void removeListenerById(String id) {
+		listeners.remove(id);
 	}
 	
 	public Object onEvent(Event e) {

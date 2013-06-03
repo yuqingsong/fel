@@ -1,9 +1,12 @@
 package com.greenpineyu.fel;
 
+import java.util.Map;
+
 import com.greenpineyu.fel.common.FelBuilder;
 import com.greenpineyu.fel.compile.CompileService;
 import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
+import com.greenpineyu.fel.context.ReadOnlyMapContext;
 import com.greenpineyu.fel.context.Var;
 import com.greenpineyu.fel.event.Event;
 import com.greenpineyu.fel.event.EventListener;
@@ -65,8 +68,12 @@ public class FelEngineImpl implements FelEngine {
 	}
 
 	public FelEngineImpl() {
-		this(new ArrayCtxImpl());
+		this(newContext());
 		// this(new MapContext());
+	}
+
+	private static ArrayCtxImpl newContext() {
+		return new ArrayCtxImpl();
 	}
 
 	@Override
@@ -100,12 +107,29 @@ public class FelEngineImpl implements FelEngine {
 			return this.eventMgr.onEvent(event);
 		}
 	}
-
-	public Expression compile(String exp, Var... vars) {
-		return compile(exp, null, new VarVisitOpti(vars));
+	@Override
+	public Object eval(String exp, Map<String,Object> varMap) {
+		FelContext ctx = null;
+		try {
+			ctx= getContext(varMap);
+			return parse(exp).eval(ctx);
+		} catch (Exception e) {
+			ExceptionEvent event = new ExceptionEvent(Events.EXCEPTION, exp, ctx, null);
+			event.setException(e);
+			return this.eventMgr.onEvent(event);
+		}
 	}
 
-	@Override
+
+	public Expression compile(String exp, Var... vars) {
+		return compile(exp, (FelContext)null, new VarVisitOpti(vars));
+	}
+
+	public Expression compile(final String exp, Map<String, Object> varMap) {
+		FelContext ctx = getContext(varMap);
+		return compile(exp,ctx);
+	}
+
 	public Expression compile(final String exp, FelContext ctx, Optimizer... opts) {
 		if (ctx == null) {
 			ctx = this.context;
@@ -199,7 +223,7 @@ public class FelEngineImpl implements FelEngine {
 	}
 
 	@Override
-	public void addExceptionHandle(final ExceptionHandler handler) {
+	public void setExceptionHandler(final ExceptionHandler handler) {
 		this.eventMgr.addListener(new EventListener<ExceptionEvent>() {
 
 			@Override
@@ -213,5 +237,16 @@ public class FelEngineImpl implements FelEngine {
 			}
 		});
 	}
+	
+	private FelContext getContext(Map<String, Object> varMap) {
+		return new ReadOnlyMapContext(varMap);
+	}
+
+	@Override
+	public void removeExceptionHandler() {
+		this.eventMgr.removeListenerById(Events.EXCEPTION);
+	}
+	
+    
 
 }
