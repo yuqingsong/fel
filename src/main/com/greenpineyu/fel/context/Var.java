@@ -1,6 +1,5 @@
 package com.greenpineyu.fel.context;
 
-import com.greenpineyu.fel.common.Null;
 
 /**
  * 变量
@@ -11,7 +10,7 @@ import com.greenpineyu.fel.common.Null;
 public class Var {
 	
 	public static Var notFound() {
-		Var v = new Var("NOT_FOUND", null, Var.class);
+		Var v = new Var("NOT_FOUND", null, Undefined.class);
 		v.setValue(v);
 		return v;
 	}
@@ -26,7 +25,7 @@ public class Var {
 //		}
 	}
 	private Class<?> getTypeByValue() {
-		return  value!=null?value.getClass():Null.class;
+		return  value!=null?value.getClass():FelContext.NULL.getClass();
 //		this.type = getTypeByValue;
 	}
 	public Var(String name,Object value){

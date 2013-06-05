@@ -44,6 +44,8 @@ public interface FelNode extends Expression, Tree ,Stable{
 	SourceBuilder toMethod(FelContext ctx);
 
 	void setEngine(FelEngine engine);
+	
+	String getTokenText();
 
 
 }

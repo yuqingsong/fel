@@ -104,6 +104,9 @@ public abstract class AbstFelNode extends CommonTree implements FelNode, Interpr
 
 	//	abstract public Object evalWithoutCache(FelContext context);
 
+	public String getTokenText() {
+		return token.getInputStream().toString().trim();
+	}
 
 	public static List<FelNode> getNodes(FelNode node) {
 		List<FelNode> returnMe = new ArrayList<FelNode>();

@@ -30,7 +30,7 @@ public class VarAstNode extends AbstFelNode  {
 	public Object interpret(FelContext context, FelNode node) {
 		Object var = context.get(text);
 		if(var == FelContext.NOT_FOUND){
-			String exp = token.getInputStream().toString().trim();
+			String exp = getTokenText();
 			String msg = "Variable " + text + " is not defined in expression[" + this.getTokenStartIndex() + ":"
 					+ this.getTokenStopIndex() + "]  "
 					+ exp;
@@ -39,7 +39,7 @@ public class VarAstNode extends AbstFelNode  {
 		}
 		return var;
 	}
-	
+
 	public static boolean isVar(FelNode n) {
 		if (n == null) {
 			return false;
@@ -71,6 +71,10 @@ public class VarAstNode extends AbstFelNode  {
 					return InterpreterSourceBuilder.getInstance().source(ctx, node);
 				}
 				Class<?> type = returnType(ctx, node);
+				if (type == FelContext.NOT_FOUND_TYPE) {
+					type = Object.class;
+//					return InterpreterSourceBuilder.getInstance().source(ctx, node);
+				}
 				String varName = node.getText();
 				String getVarCode = "context.get(\""+varName+"\")";
 				if (ctx instanceof ArrayCtx) {

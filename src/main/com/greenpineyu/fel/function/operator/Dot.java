@@ -9,7 +9,6 @@ import java.util.Map;
 
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.common.ArrayUtils;
-import com.greenpineyu.fel.common.Null;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
@@ -66,7 +65,7 @@ public class Dot implements Function {
 			argsType = new Class[args.length];
 			for (int i = 0; i < args.length; i++) {
 				if (args[i] == null) {
-					argsType[i] = Null.class;
+					argsType[i] = FelContext.NULL.getClass();
 					continue;
 				}
 				argsType[i] = args[i].getClass();

@@ -6,6 +6,8 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.greenpineyu.fel.compile.SourceBuilder;
+import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.function.operator.Add;
 import com.greenpineyu.fel.function.operator.And;
 import com.greenpineyu.fel.function.operator.CollectionGet;
@@ -23,6 +25,7 @@ import com.greenpineyu.fel.function.operator.NotEqual;
 import com.greenpineyu.fel.function.operator.NotOper;
 import com.greenpineyu.fel.function.operator.Or;
 import com.greenpineyu.fel.function.operator.Sub;
+import com.greenpineyu.fel.parser.FelNode;
 
 public class FunMgr {
 
@@ -93,22 +96,7 @@ public class FunMgr {
 //		funcMap.put(LogicalOperator.OR2_STR, LogicalOperator.OR2);// ||
 //		funcMap.put(Like.getInstance().getName(), Like.getInstance());// like
 //		funcMap.put(In.getInstance().getName(), In.getInstance());// in
-		addFun(new CommonFunction() {
-			
-			@Override
-			public String getName() {
-				return "print";
-			}
-			
-			@Override
-			public Object call(Object[] arguments) {
-				if(arguments!=null&&arguments.length>0){
-					System.out.print(arguments[0]);
-				}
-				// FIXME return void
-				return null;
-			}
-		});
+		addFun(new Print());
 
 		
 		

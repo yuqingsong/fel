@@ -1,6 +1,5 @@
 package com.greenpineyu.fel.optimizer;
 
-import com.greenpineyu.fel.common.Null;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.compile.VarBuffer;
@@ -39,7 +38,7 @@ public class ConstExpOpti implements Optimizer {
 						}
 						return cls;
 					}
-					return Null.class;
+					return FelContext.NULL.getClass();
 				}
 			});
 		}

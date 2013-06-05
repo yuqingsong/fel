@@ -102,7 +102,7 @@ public class CompileService {
 				ConstExpSrc s = (ConstExpSrc) src;
 				return s.getValue();
 			}
-			src.setSource("// 表达式:" + originalExp + "\n" + src.getSource());
+			src.setSource("/*表达式:" + originalExp + "*/\n" + src.getSource());
 			// System.out.println("****************\n" + src.getSource());
 			return complier.compile(src);
 		} catch (Exception e) {

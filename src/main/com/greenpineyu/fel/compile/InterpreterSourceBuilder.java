@@ -41,6 +41,9 @@ public class InterpreterSourceBuilder implements SourceBuilder {
 		Interpreter inte = node.getInterpreter();
 			SourceBuilder nodeBuilder = node.toMethod(ctx);
 			Class<?> type =nodeBuilder.returnType(ctx, node);
+			if(type == FelContext.NOT_FOUND_TYPE){
+				type = Object.class;
+			}
 			String code = "("+type.getName()+")";
 			String varName = VarBuffer.push(inte,Interpreter.class);
 			String nodeVarName = VarBuffer.push(node, FelNode.class);

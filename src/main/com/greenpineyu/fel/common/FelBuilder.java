@@ -47,7 +47,7 @@ public class FelBuilder {
 
 	public static EventMgr newEventMgr(){
 		EventMgr mgr = new EventMgr();
-		mgr.addListener(new EventListener<Event>() {
+	/*	mgr.addListener(new EventListener<Event>() {
 			
 			@Override
 			public Object onEvent(Event event) {
@@ -58,7 +58,7 @@ public class FelBuilder {
 			public String getId() {
 				return Events.UNDEFINED_VARIABLE;
 			}
-		});
+		});*/
 		return mgr;
 	}
 

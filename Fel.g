@@ -238,8 +238,17 @@ StringLiteral
 
 fragment
 EscapeSequence
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-    |   UnicodeEscape
+    :   
+    // java start
+    //'\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    //|  
+    //java end
+    //fel start
+   // '\\'|'\''|'\"'
+   // |
+    //fel end
+    '\\'|
+     UnicodeEscape
     |   OctalEscape
     ;
 

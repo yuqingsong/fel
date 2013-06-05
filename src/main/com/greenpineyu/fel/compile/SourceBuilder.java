@@ -11,6 +11,11 @@ import com.greenpineyu.fel.parser.FelNode;
 public interface SourceBuilder {
 	
 	/**
+	 * 返回void类型
+	 */
+	Object VOID=new Object(){};
+	
+	/**
 	 * 类型
 	 * @param ctx TODO
 	 * @param node TODO

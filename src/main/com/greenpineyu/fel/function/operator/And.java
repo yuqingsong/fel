@@ -2,7 +2,6 @@ package com.greenpineyu.fel.function.operator;
 
 import java.util.List;
 
-import com.greenpineyu.fel.common.Null;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
@@ -162,10 +161,11 @@ public class And extends StableFunction {
 		if (Boolean.class.isAssignableFrom(type)) {
 			return "(" + method.source(ctx, child) + ")";
 		}
+		// FIXME 重新考虑对其他类型的支持
 		if (String.class.isAssignableFrom(type)) {
 			return "Boolean.valueOf(" + method.source(ctx, child) + ")";
 		}
-		if (Null.class.isAssignableFrom(type)) {
+		if (FelContext.NULL.getClass().isAssignableFrom(type)) {
 			return "false";
 		}
 		return "false";

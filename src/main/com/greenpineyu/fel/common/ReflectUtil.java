@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.greenpineyu.fel.context.FelContext;
+
 public class ReflectUtil {
 	
 	/**
@@ -220,7 +222,7 @@ public class ReflectUtil {
 	}
 	
 	public static boolean isTypeMatch(Class<?> c1,Class<?> c2){
-		if(c1 == c2||c2==Null.class){
+		if(c1 == c2||c2==FelContext.NULL.getClass()){
 			//当c2为Null.class时，表示参数值是null,null值可以与任何类型匹配类型
 			return true;
 		}

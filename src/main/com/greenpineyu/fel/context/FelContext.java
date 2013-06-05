@@ -1,18 +1,21 @@
 package com.greenpineyu.fel.context;
 
-import com.greenpineyu.fel.common.Null;
 
 
 
 public interface FelContext {
 
-	
-	Null NULL = new Null();
-	
 	/**
 	 * 如果没有找到变量，返回此变量
 	 */
 	Var NOT_FOUND = Var.notFound();
+	
+	Null NULL = new Null();
+
+	/**
+	 * NOT_FOUND对应的变量类型
+	 */
+	Class<?> NOT_FOUND_TYPE = NOT_FOUND.getType();
 
 
 	Object get(String name);

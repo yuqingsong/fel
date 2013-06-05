@@ -417,7 +417,7 @@ public class NumberUtil {
 	 * @param obj
 	 * @return
 	 */
-	public static Object calArray(Object obj) {
+/*	public static Object calArray(Object obj) {
 		if (!(obj instanceof Object[]))
 			return obj;
 		
@@ -428,7 +428,7 @@ public class NumberUtil {
 			}
 		}
 		return result;
-	}
+	}*/
 	
 
 	/**

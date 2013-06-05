@@ -57,7 +57,7 @@ public abstract class AbstractContext implements FelContext{
 
 	public static Class<?> getVarType(Class<? extends Object> type) {
 		if(type == null){
-			return NULL.getClass();
+			return Object.class;
 		}
 		if(type.isPrimitive()){
 			// 基本类型转换成包装类型

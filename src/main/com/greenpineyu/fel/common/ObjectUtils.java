@@ -1,5 +1,7 @@
 package com.greenpineyu.fel.common;
 
+import com.greenpineyu.fel.compile.SourceBuilder;
+
 
 public class ObjectUtils {
 	 /**
@@ -49,7 +51,9 @@ public class ObjectUtils {
      * @since 2.0
      */
     public static String toString(Object obj) {
-        return obj == null ? "" : obj.toString();
+        //return obj == null ? "" : obj.toString();
+    	//modify by yqs
+    	return obj == null ? "null" : obj.toString();
     }
     
     /**
@@ -74,4 +78,10 @@ public class ObjectUtils {
     public static boolean notEqual(Object object1, Object object2) {
         return ObjectUtils.equals(object1, object2) == false;
     }
+    
+    //append by yqs
+	static public Object print(Object arg){
+		System.out.print(arg);
+		return SourceBuilder.VOID;
+	}
 }

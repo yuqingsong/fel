@@ -11,6 +11,24 @@ public class FelMethod implements SourceBuilder {
 	private Class<?> returnType;
 	
 	private String code;
+	
+	/**
+	 * 类型是否VOID
+	 * @param c
+	 * @return
+	 */
+	public static boolean isVoidType(Class<?> c){
+		return c == VOID.getClass();
+	}
+	
+	/**
+	 * 对象是否VOID
+	 * @param obj
+	 * @return
+	 */
+	public static boolean isVoid(Object obj){
+		return obj == VOID;
+	}
 	  
 	
 	public FelMethod(Class<?> returnType,String code){
@@ -37,6 +55,7 @@ public class FelMethod implements SourceBuilder {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
 
 
 }
