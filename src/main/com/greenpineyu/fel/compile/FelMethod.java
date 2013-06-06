@@ -17,6 +17,19 @@ public class FelMethod implements SourceBuilder {
 	 * @param c
 	 * @return
 	 */
+	public static boolean isUndefinedType(Class<?> c){
+		return c == FelContext.NOT_FOUND_TYPE;
+	}
+	
+	public static Class<?> getType(Class<?> c){
+		return c == FelContext.NOT_FOUND_TYPE?Object.class:c;
+	}
+	
+	/**
+	 * 类型是否VOID
+	 * @param c
+	 * @return
+	 */
 	public static boolean isVoidType(Class<?> c){
 		return c == VOID.getClass();
 	}

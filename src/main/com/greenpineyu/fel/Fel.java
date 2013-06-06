@@ -2,6 +2,7 @@ package com.greenpineyu.fel;
 
 import java.util.Map;
 
+import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
 
 /**
@@ -61,6 +62,15 @@ public class Fel {
 	public static Expression compile(String exp, FelContext context) {
 		return engine.compile(exp, context);
 	}
+	/**
+	 * 编译表达式
+	 * @param exp 表达式
+	 * @param context 引擎上下文
+	 * @return
+	 */
+	public static Expression compile(String exp) {
+		return compile(exp, (FelContext)null);
+	}
 
 	/**
 	 * 创建表达式引擎
@@ -68,6 +78,13 @@ public class Fel {
 	 */
 	public static FelEngine newEngine() {
 		return new FelEngineImpl();
+	}
+	/**
+	 * 创建表达式引擎
+	 * @return
+	 */
+	public static FelContext newContext() {
+		return new ArrayCtxImpl();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
+import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.StableFunction;
@@ -93,6 +94,16 @@ public class And extends StableFunction {
 		}
 		return toBoolean(context, children.get(1));
 	}
+	
+	{
+		/*boolean a = 0;
+		a&&b
+		toBoolean(a)?toBoolean(b):false;
+		a||b
+		toBoolean(a)?true:toBoolean(b);*/
+	}
+	
+	
 
 //	Boolean or(FelContext context, Object[] children) {
 //		Boolean leftValue = toBoolean(context, children[0]);
@@ -106,6 +117,7 @@ public class And extends StableFunction {
 		node = TolerantFunction.eval(context, node);
 		return  NumberUtil.toBooleanObj(node);
 	}
+	
 
 	/**
 	 * AND 和 &&
@@ -140,7 +152,7 @@ public class And extends StableFunction {
 
 	@Override
 	public FelMethod toMethod(FelNode node, FelContext ctx) {
-		String code = toBoolean(node, ctx, 0)+this.toJavaOper()+toBoolean(node, ctx, 1);
+		String code = toBooleanCode(node, ctx, 0)+this.toJavaOper()+toBooleanCode(node, ctx, 1);
 		return new FelMethod(Boolean.class, code);
 //		List<FelNode> children = node.getChildren();
 //		FelNode left = children.get(0);
@@ -153,22 +165,26 @@ public class And extends StableFunction {
 //		return null;
 	}
 
-	public String toBoolean(FelNode node, FelContext ctx, int index) {
+	public String toBooleanCode(FelNode node, FelContext ctx, int index) {
 		List<FelNode> children = node.getChildren();
 		FelNode child = children.get(index);
 		SourceBuilder method = child.toMethod(ctx);
 		Class<?> type = method.returnType(ctx, child);
+		String childCode = method.source(ctx, child);
 		if (Boolean.class.isAssignableFrom(type)) {
-			return "(" + method.source(ctx, child) + ")";
+			return "(" + childCode + ")";
 		}
+	    return "NumberUtil.toBoolean("+childCode+")";
+	    
+	    /*
 		// FIXME 重新考虑对其他类型的支持
 		if (String.class.isAssignableFrom(type)) {
-			return "Boolean.valueOf(" + method.source(ctx, child) + ")";
+			return "Boolean.valueOf(" + childCode + ")";
 		}
 		if (FelContext.NULL.getClass().isAssignableFrom(type)) {
 			return "false";
 		}
-		return "false";
+		return "false";*/
 	}
 
 }

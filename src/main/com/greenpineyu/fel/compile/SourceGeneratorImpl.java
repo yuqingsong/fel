@@ -276,6 +276,9 @@ public class SourceGeneratorImpl implements SourceGenerator {
 						// String varName = getLocalVarName();
 						String varName = text;
 						Class<?> type = this.returnType(ctx, node);
+						if(FelMethod.isUndefinedType(type)){
+							type = Object.class;
+						}
 						String declare = "";
 						String typeDeclare = type.getCanonicalName();
 						if(ReflectUtil.isPrimitiveOrWrapNumber(type)){

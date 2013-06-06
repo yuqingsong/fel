@@ -1,8 +1,13 @@
 package com.greenpineyu.fel.examples;
 
+import java.util.Map;
+import java.util.regex.Pattern;
+
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
+import com.greenpineyu.fel.context.ArrayCtx;
+import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
 
 public class Test {
@@ -11,9 +16,17 @@ public class Test {
 
 //		t2();
 		
-		t3();
+		// t3();
+		t4();
+		t5();
+
 	}
 	
+	private static void t4() {
+		System.out.println(Pattern.matches("\\\\", "\\"));
+		Object eval = FelEngine.instance.eval("$('java.util.regex.Pattern').matches('\\\\','\\')");
+		System.out.println(eval);
+	}
 	private static void t3(){
 		FelEngine fel = FelEngine.instance;
 		// fel.addExceptionHandle(new ExceptionHandler() {
@@ -73,4 +86,64 @@ public class Test {
 		System.out.println("f<d:" + (f < d));
 	}
 
+	Expression compiledExp;
+	FelContext ctx;
+
+	void init(String exp, Map<String, Object> context) {
+		FelEngine engine = new FelEngineImpl();
+		ctx = engine.getContext();
+		for (String s : context.keySet()) {
+			ctx.set(s, context.get(s));
+		}
+		compiledExp = engine.compile(exp, ctx);
+	}
+
+	Object evalExp() {
+		return compiledExp.eval(ctx);
+	}
+
+	{
+		/*final Map<String, Object> context = new HashMap<String, Object>();
+		FelContext ctx = new AbstractContext() {
+			@Override
+			public Object get(String name) {
+				return context.get(name);
+			}
+		};
+		class MyCtx extends AbstractContext {
+
+			private Map<String, Object> context = new HashMap<String, Object>();
+
+			public void setContext(Map<String, Object> context) {
+				this.context = context;
+			}
+
+			@Override
+			public Object get(String name) {
+				return context.get(name);
+			}
+		}*/
+	}
+
+	static class Exp implements Expression {
+
+		@Override
+		public Object eval(FelContext context) {
+			System.out.println("FelContext");
+			return null;
+		}
+
+		public Object eval(ArrayCtx context) {
+			System.out.println("arrayctx");
+			return null;
+		}
+
+	}
+
+	public static void t5() {
+		Expression exp = new Exp();
+		exp.eval(new ArrayCtxImpl());
+	}
+
 }
+

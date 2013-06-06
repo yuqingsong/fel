@@ -7,26 +7,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.runtime.tree.Tree;
-
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.common.ObjectUtils;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
-import com.greenpineyu.fel.compile.InterpreterSourceBuilder;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.context.ReadOnlyMapContext;
-import com.greenpineyu.fel.exception.CompileException;
 import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.StableFunction;
 import com.greenpineyu.fel.function.TolerantFunction;
-import com.greenpineyu.fel.parser.ConstNode;
 import com.greenpineyu.fel.parser.FelNode;
-import com.sun.org.apache.xpath.internal.axes.ChildIterator;
 
 public class Add extends StableFunction  {
 
@@ -81,14 +75,14 @@ public class Add extends StableFunction  {
 	 * @param param
 	 * @return
 	 */
-	public Object call(String text,Object param){
+	public Object addObject(FelNode node,Object param){
 		if(param == null){
-			throw new EvalException("执行["+text+"]操作失败，参数["+param+"]不能为空。");
+			throw new EvalException("执行["+getNodeText(node)+"]操作失败，参数["+param+"]不能为空。");
 		}
 		if(param instanceof Number){
 			return param;
 		}else{
-			throw new EvalException("执行["+text+"]操作失败，参数["+param+"]必须是数值型。");
+			throw new EvalException("执行["+getNodeText(node)+"]操作失败，参数["+param+"]必须是数值型。");
 		}
 	}
 	
@@ -99,7 +93,7 @@ public class Add extends StableFunction  {
 	 * @param right
 	 * @return
 	 */
-	public Object call(String text,Object left,Object right){
+	public Object addObject(FelNode node,Object left,Object right){
 		if(left == null||right==null){
 			return ObjectUtils.toString(left)+ObjectUtils.toString(right);
 		}
@@ -134,24 +128,6 @@ public class Add extends StableFunction  {
 			FelNode right = children.get(1);
 			SourceBuilder rm = right.toMethod(ctx);
 			Class<?> rightType = rm.returnType(ctx, right);
-			if(leftType == FelContext.NOT_FOUND_TYPE||rightType==FelContext.NOT_FOUND_TYPE){
-				addCallCode(node, sb);
-//				if(leftType == FelContext.NOT_FOUND_TYPE){
-//					sb.append(InterpreterSourceBuilder.getInstance().source(ctx, left));
-//				}else{
-					appendArg(sb,lm,ctx,left);
-//				}
-				sb.append(",");
-//				if(rightType == FelContext.NOT_FOUND_TYPE){
-//					sb.append(InterpreterSourceBuilder.getInstance().source(ctx, right));
-//				}else{
-					appendArg(sb,rm,ctx,right);
-//				}
-				sb.append(")");
-				type = Object.class;
-			}else{
-				appendArg(sb, lm,ctx,left);
-				sb.append("+");
 				if(CharSequence.class.isAssignableFrom(leftType)){
 					type = leftType;
 				} else if (CharSequence.class.isAssignableFrom(rightType)) {
@@ -159,27 +135,36 @@ public class Add extends StableFunction  {
 				}else if(ReflectUtil.isPrimitiveOrWrapNumber(leftType)
 						&&ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
 					type = NumberUtil.arithmeticClass(leftType, rightType);
-				}else {
-					//不支持的类型，返回字符串。
-					type = String.class;
 				}
-				appendArg(sb, rm,ctx,right);
-			}
+			
+				if(type != null){
+					appendArg(sb, lm,ctx,left);
+					sb.append("+");
+					appendArg(sb, rm,ctx,right);
+				}else{
+					//参数类型未知
+					addCallCode(node, sb,this,"addObject");
+					sb.append(lm.source(ctx, left));
+					sb.append(",");
+					sb.append(rm.source(ctx, right));
+					sb.append(")");
+					type = Object.class;
+				}
+				
 			
 		} else if (children.size() == 1) {
 			FelNode right = children.get(0);
 			SourceBuilder rm = right.toMethod(ctx);
 			Class<?> rightType = rm.returnType(ctx, right);
-			if(rightType == FelContext.NOT_FOUND_TYPE){
-				addCallCode(node, sb);
-				sb.append(InterpreterSourceBuilder.getInstance().source(ctx, right));
-				sb.append(")");
-				type=Number.class;
-			}else if(ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
+		    if(ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
 				appendArg(sb, rm,ctx,right);
 				type = rightType;
 			}else {
-				throw new CompileException("编译["+node.getTokenText()+"]失败，参数必须是数值型");
+				addCallCode(node, sb,this,"addObject");
+				sb.append(rm.source(ctx, right));
+				sb.append(")");
+				type=Number.class;
+//				throw new CompileException("编译["+getNodeText(node)+"]失败，参数必须是数值型");
 			}
 		}
 		
@@ -188,23 +173,42 @@ public class Add extends StableFunction  {
 		return m;
 	}
 
-	private void addCallCode(FelNode node, StringBuilder sb) {
+	public static void addCallCode(FelNode node, StringBuilder sb,Object obj,String methodName) {
 //		sb.append("("+Object.class.getName()+")");
-		sb.append(VarBuffer.push(this,Add.class));
-		String txt = node.getTokenText();
-		String nodeText = txt.substring(node.getTokenStartIndex(),node.getTokenStopIndex());
-		String text = ConstNode.toJavaSrc(nodeText+" in "+txt);
-		System.out.println(text);
-		sb.append(".call(\"").append(text).append("\",");
+//		sb.append(VarBuffer.push(node,FelNode.class));
+		sb.append(VarBuffer.push(obj));
+//		String text = ConstNode.toJavaSrc(getNodeText(node));
+		sb.append(".").append(methodName).append("(").append(VarBuffer.push(node,FelNode.class)).append(",");
 	}
 	
-	public String getNodeText(FelNode node){
-		FelNode child = node;
-		int leftIndex = Integer.MAX_VALUE;
+	public static String getNodeText(FelNode node){
+		/*FelNode child = node;
+		int startIndex = Integer.MAX_VALUE;
+		int startLine =Integer.MAX_VALUE;
+		int endIndex = Integer.MAX_VALUE;
+		int endLine = Integer.MAX_VALUE;
 		while(node!=null){
+			int line = node.getLine();
+			int charInLine = node.getCharPositionInLine();
+			//设置起始行和起始位置
+			if(line<startLine){
+				startLine = line;
+				startIndex = charInLine;
+			}else if(line == startLine){
+				if(charInLine<startLine){
+					startLine = charInLine; 
+				}
+			}
+			//设置结束行和结束位置
 			
+			startLine = line<startLine?line:startLine;
 		}
 		return null;
+		*/String text = node.getText();
+		String tokenText = node.getTokenText();
+		int line = node.getLine();
+		int charPositionInLine = node.getCharPositionInLine();
+		return "expression:"+tokenText+"; function:"+text+"; line:"+line+";charIndex:"+charPositionInLine;
 	}
 	
 
@@ -279,12 +283,15 @@ public class Add extends StableFunction  {
 		ReadOnlyMapContext ctx = new ReadOnlyMapContext(m);
 //		Fel.eval("print(100+4+'\n')");
 		String e = "print(a+b+'\\'+'\n..')";
-		e = "print(a\n+b)";
+		String method = "*";
+		method = "/";
+		method = "%";
+		e = "print(-(a\n"+method+"b"+method+"100))";
 		Expression exp = Fel.compile(e, ctx);
 //		Expression exp2 = Fel.compile("print(+c+'\n..')", ctx);
-//		m.put("a",10);
-//		m.put("b",11);
-//		exp.eval(ctx);
+		m.put("a",10);
+		m.put("b",11);
+		exp.eval(ctx);
 //		exp2.eval(ctx);
 //		Expression compile = Fel.compile("print('\n', context)",ctx);
 //		compile.eval(ctx);

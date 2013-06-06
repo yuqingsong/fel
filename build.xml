@@ -25,7 +25,7 @@
 	<!-- 编译成jdk1.6版本 -->
 	<target name="compile" description="编译源文件" depends="prepare">
 		<echo>compile  ${srcDir}  ${srcDirJava16}  to ${destClassDir}</echo>
-		<javac  srcdir="${srcDir}${path.separator}${srcDirJava16}" destdir="${destClassDir}" excludes="**/FelCompiler15.java" >
+		<javac  srcdir="${srcDir}${path.separator}${srcDirJava16}" destdir="${destClassDir}" excludes="**/FelCompiler15.java"  includeantruntime="on">
 			<classpath>
 				<!--
 				<fileset file="${toolsPath}">

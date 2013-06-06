@@ -79,10 +79,14 @@ public class VarAstNode extends AbstFelNode  {
 				String getVarCode = "context.get(\""+varName+"\")";
 				if (ctx instanceof ArrayCtx) {
 					ArrayCtx c = (ArrayCtx) ctx;
-					getVarCode = "((context instanceof ArrayCtx)?((ArrayCtx)context).get("
-							+ c.getIndex(varName)
+					int index = c.getIndex(varName);
+					if(index>-1){
+						//包含此节点
+						getVarCode = "((context instanceof ArrayCtx)?((ArrayCtx)context).get("
+							+ index
 							+ "):context.get(\""
 							+ varName + "\"))";
+					}
 				}
 					
 				String code = getVarFullCode(type, getVarCode);

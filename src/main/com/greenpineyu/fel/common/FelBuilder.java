@@ -39,6 +39,7 @@ public class FelBuilder {
 		disables.add(Runtime.class.getCanonicalName() + ".*");
 		disables.add(Process.class.getCanonicalName() + ".*");
 		disables.add(File.class.getCanonicalName() + ".*");
+		disables.add(Class.class.getCanonicalName() + ".*");
 		disables.add("java.net.*");
 		disables.add("com.greenpineyu.fel.compile.*");
 		disables.add("com.greenpineyu.fel.security.*");

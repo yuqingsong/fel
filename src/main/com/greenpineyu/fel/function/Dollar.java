@@ -1,7 +1,7 @@
 package com.greenpineyu.fel.function;
 
-import com.greenpineyu.fel.FelEngine;
-import com.greenpineyu.fel.common.StringUtils;
+import com.greenpineyu.fel.Fel;
+import com.greenpineyu.fel.common.ObjectUtils;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.FelContext;
@@ -23,7 +23,7 @@ public class Dollar implements Function {
 
 	@Override
 	public Object call(FelNode node, FelContext context) {
-		String txt = getChildText(node);
+		String txt = getChildValue(node,context);
 
 		boolean isNew = isNew(txt);
 		Class<?> cls = getClass(txt, isNew);
@@ -51,13 +51,6 @@ public class Dollar implements Function {
 
 	private static final String suffix = ".new";
 
-	@SuppressWarnings("unused")
-	private Class<?> getClass(FelNode node) {
-		String txt = getChildText(node);
-		boolean isNew = isNew(txt);
-		return getClass(txt, isNew);
-	}
-
 	private Class<?> getClass(String txt, boolean isNew) {
 		String className = txt;
 		if (isNew) {
@@ -80,17 +73,37 @@ public class Dollar implements Function {
 		return isNew;
 	}
 
-	private String getChildText(FelNode node) {
-		String txt = node.getChildren().get(0).getText();
-		txt = StringUtils.remove(txt, '\'');
-		txt = StringUtils.remove(txt, '"');
-		return txt;
+	private String getChildValue(FelNode node,FelContext ctx) {
+		if(node.getChildCount()>0){
+			FelNode child = (FelNode) node.getChild(0);
+			return ObjectUtils.toString(TolerantFunction.eval(ctx, child));
+		}
+		return null;
+	}
+	private String getChildText(FelNode node,FelContext ctx) {
+		if(node.getChildCount()>0){
+			FelNode child = (FelNode) node.getChild(0);
+			SourceBuilder sb = child.toMethod(ctx);
+			Class<?> returnType = sb.returnType(ctx, child);
+			String childCode = sb.source(ctx, child);
+			if(!String.class.isAssignableFrom(returnType)){
+			   childCode = "ObjectUtils.toString("+childCode+")";	
+			}
+			return childCode;
+		}
+		return "null";
 	}
 
 	@Override
 	public SourceBuilder toMethod(FelNode node, FelContext ctx) {
-		String txt = getChildText(node);
+		String txt = getChildText(node,ctx);
 
+		if (txt != null) {
+			txt = txt.trim();
+			if (txt.startsWith("\"") && txt.endsWith("\"")) {
+				txt = txt.substring(1, txt.length() - 1);
+			}
+		}
 		boolean isNew = isNew(txt);
 		Class<?> cls = getClass(txt, isNew);
 		String code = cls.getName();
@@ -98,14 +111,19 @@ public class Dollar implements Function {
 			code = "new " + code + "()";
 		}
 		return new FelMethod(cls, code);
+		/*
+		Class<?> cls = getClass(txt,false);
+		return new FelMethod(cls, cls.getName());
+		*/
 	}
 
 	public static void main(String[] args) {
 		// System.out.println("abc.new".endsWith(".new"));
 		String exp = "$('Math').max($('Math').min(1,2),3).doubleValue()";
-		exp = "$('String.new').concat('abc')";
-		Object eval = FelEngine.instance
-.eval(exp);
+		// exp = "$('String.new').concat('abc')";
+		exp = "'abc'.indexOf('bc')";
+		exp = "-1";
+		Object eval = Fel.compile(exp).eval(null);
 		System.out.println(eval);
 	}
 

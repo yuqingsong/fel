@@ -38,15 +38,15 @@ public class NotOper extends StableFunction {
 			public String source(FelContext ctx, FelNode node) {
 				List<FelNode> children = node.getChildren();
 				FelNode child = children.get(0);
-				String src = "";
 				SourceBuilder builder = child.toMethod(ctx);
 				Class<?> returnType = builder.returnType(ctx, child);
+				String childCode = null;
 				if(boolean.class.isAssignableFrom(returnType)||Boolean.class.isAssignableFrom(returnType)){
-					src = "!("+builder.source(ctx, child)+")";
+					childCode = builder.source(ctx, child);
 				}else{
-					// FIXME 抛出编译异常
+					childCode = "NumberUtil.toBoolean("+builder.source(ctx, child)+")";
 				}
-				return src;
+				return "!("+childCode+")";
 			}
 			
 			@Override
@@ -59,7 +59,7 @@ public class NotOper extends StableFunction {
 	public static void main(String[] args) {
 		FelEngine fel = FelEngine.instance;
 		FelContext ctx = fel.getContext();
-		ctx.set("b", false);
+//		ctx.set("b", false);
 		Object r = fel.compile("!b",ctx).eval(ctx);
 		System.out.println(r);
 	}

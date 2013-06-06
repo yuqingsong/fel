@@ -133,6 +133,7 @@ public class Dot implements Function {
 		FelNode l = children.get(0);
 		SourceBuilder leftMethod = l.toMethod(context);
 		Class<?> cls = leftMethod.returnType(context, l);
+		cls = FelMethod.getType(cls);
 		String leftSrc = leftMethod.source(context, l);
 		if (cls.isPrimitive()) {
 			Class<?> wrapperClass = ReflectUtil.toWrapperClass(cls);
@@ -157,7 +158,7 @@ public class Dot implements Function {
 				FelNode p = params.get(i);
 				SourceBuilder paramMethod = p.toMethod(context);
 				paramMethods.add(paramMethod);
-				paramValueTypes[i] = paramMethod.returnType(context, p);
+				paramValueTypes[i] = FelMethod.getType(paramMethod.returnType(context, p));
 			}
 			// 根据参数查找方法
 			method = findMethod(cls, rightNode.getText(), paramValueTypes);

@@ -2,11 +2,14 @@ package com.greenpineyu.fel.function.operator;
 
 import java.util.List;
 
+import com.greenpineyu.fel.Expression;
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
+import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.function.Function;
 import com.greenpineyu.fel.function.TolerantFunction;
@@ -81,7 +84,7 @@ public class LessThen implements Stable, Function {
 	 * @return
 	 */
 	@SuppressWarnings({
-			"rawtypes", "unchecked" })
+			 "unchecked" })
 	public boolean compare(Object left, Object right) {
 		if (left == right) {
 			return false;
@@ -201,7 +204,8 @@ public class LessThen implements Stable, Function {
 		if (Comparable.class.isAssignableFrom(leftType) && Comparable.class.isAssignableFrom(rightType)) {
 			sb.append("NumberUtil.compare(" + left + "," + right + ")" + operator + "0");
 		} else {
-			throw new UnsupportedOperationException("类型" + leftType + "与类型" + rightType + "不支持比较操作。");
+			sb.append(VarBuffer.push(this)).append(".compare(").append(left).append(",").append(right).append(")");
+			//throw new UnsupportedOperationException("类型" + leftType + "与类型" + rightType + "不支持比较操作。");
 		}
 		return sb;
 	}
@@ -243,8 +247,16 @@ public class LessThen implements Stable, Function {
 	}
 
 	public static void main(String[] args) {
-		FelEngine engine = FelEngine.instance;
-		System.out.println(engine.eval("6>=5"));
+		FelContext empty = Fel.newContext();
+		FelContext c = Fel.newContext();
+		c.set("a",10);
+		c.set("b",11);
+		String[] ops = new String[]{">",">=","<","<=","==","!="};
+		for (String op : ops) {
+			Expression exp = Fel.compile("print((a"+op+"b)+'\n')");
+			exp.eval(empty);
+			exp.eval(c);
+		}
 
 	}
 

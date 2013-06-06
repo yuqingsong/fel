@@ -2,6 +2,7 @@ package com.greenpineyu.fel.parser;
 
 import org.antlr.runtime.Token;
 
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.InterpreterSourceBuilder;
@@ -17,17 +18,19 @@ import com.greenpineyu.fel.context.FelContext;
  */
 public class ConstNode extends AbstFelNode {
 
-	private Object value;
+	private final Object value;
 
 	public ConstNode(Token token, Object value) {
 		super(token);
 		this.value = value;
 	}
 
+	@Override
 	public Object interpret(FelContext context, FelNode node) {
 		return value;
 	}
 
+	@Override
 	public SourceBuilder toMethod(FelContext ctx) {
 		if (this.builder != null) {
 			return this.builder;
@@ -90,8 +93,15 @@ public class ConstNode extends AbstFelNode {
 	}
 	
 
+	@Override
 	public boolean stable() {
 		return true;
+	}
+
+	public static void main(String[] args) {
+		FelContext ctx = Fel.newContext();
+		ctx.set("a", 1);
+		Fel.compile("print('a'+a)", ctx).eval(ctx);
 	}
 
 }

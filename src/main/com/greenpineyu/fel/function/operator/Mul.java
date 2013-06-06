@@ -7,7 +7,6 @@ import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.exception.CompileException;
 import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.StableFunction;
 import com.greenpineyu.fel.parser.FelNode;
@@ -70,16 +69,24 @@ public class Mul  extends StableFunction{
 			Object leftValue = left.eval(context);
 			FelNode right = children.get(1);
 			Object rightValue = right.eval(context);
-			if (leftValue instanceof Number && rightValue instanceof Number) {
-				double l = NumberUtil.toDouble(leftValue);
-				double r = NumberUtil.toDouble(rightValue);
-//				Object calc = null;
-				return calc(l, r);
-//				throw new EvalException("执行"+this.operator+"出错，未知的操作符");
-			}
-			throw new EvalException("执行"+this.getName()+"出错，参数必须是数值型");
+			return mulObject(node,leftValue, rightValue);
+			
 		}
 		throw new EvalException("执行"+this.getName()+"出错，参数数量必须为2。");
+	}
+
+	public Object mulObject(FelNode node,Object left, Object right) {
+		if(left == null||right==null){
+			throw new EvalException("执行["+Add.getNodeText(node)+"]操作失败，参数["+left+","+right+"]必须是数值型。");
+		}
+		if (left instanceof Number && right instanceof Number) {
+			double l = NumberUtil.toDouble(left);
+			double r = NumberUtil.toDouble(right);
+//				Object calc = null;
+			return calc(l, r);
+//				throw new EvalException("执行"+this.operator+"出错，未知的操作符");
+		}
+		throw new EvalException("执行["+Add.getNodeText(node)+"]操作失败，参数["+left+","+right+"]必须是数值型。");
 	}
 
 	Object calc(double l, double r) {
@@ -243,7 +250,7 @@ public class Mul  extends StableFunction{
 	}
 
 	public FelMethod toMethod(FelNode node, FelContext ctx) {
-		String code = "";
+		StringBuilder  sb  = new StringBuilder();
 		FelNode left = node.getChildren().get(0);
 		FelNode right = node.getChildren().get(1);
 		SourceBuilder lm = left.toMethod(ctx);
@@ -255,13 +262,19 @@ public class Mul  extends StableFunction{
 		if(ReflectUtil.isPrimitiveOrWrapNumber(leftType)
 				&&ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
 			type = NumberUtil.arithmeticClass(leftType, rightType);
+			sb.append("("+lm.source(ctx, left)+")"+this.getName()+"("+rm.source(ctx, right)+")");
 		}else{
-			throw new CompileException("不支持的类型["+ReflectUtil.getClassName(leftType)
-					+"、"+ReflectUtil.getClassName(rightType)+"]。["+this.getName()+"]运算只支持数值类型");
+			Add.addCallCode(node, sb, this,getMethodName()+"/* "+this.getMethodName()+" */");
+			sb.append(lm.source(ctx, left)).append(",").append(rm.source(ctx, right)).append(")");
+//			throw new CompileException("不支持的类型["+ReflectUtil.getClassName(leftType)
+//					+"、"+ReflectUtil.getClassName(rightType)+"]。["+this.getName()+"]运算只支持数值类型");
 		}
-		code = "("+lm.source(ctx, left)+")"+this.getName()+"("+rm.source(ctx, right)+")";
-		FelMethod m = new FelMethod(type, code);
+		FelMethod m = new FelMethod(type, sb.toString());
 		return m;
+	}
+
+	String getMethodName() {
+		return "mulObject";
 	}
 
 	public boolean stable() {

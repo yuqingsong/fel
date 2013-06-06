@@ -9,10 +9,17 @@ import java.util.concurrent.Executors;
 
 
 public  class  VarBuffer {
-	static private ThreadLocal<Stack<String>> varCodes;
+	/**
+	 * 保存生成的代码
+	 * 数组中的内容为{var,varCode,varName}
+	 */
+	static private ThreadLocal<Stack<Object[]>> varCodes;
+	/**
+	 * 保存变量对象
+	 */
 	static private ThreadLocal<Map<String,Object>> vars;
 	static {
-		varCodes = new ThreadLocal<Stack<String>>();
+		varCodes = new ThreadLocal<Stack<Object[]>>();
 		vars = new ThreadLocal<Map<String, Object>>();
 	}
 	
@@ -23,10 +30,10 @@ public  class  VarBuffer {
 	 * 
 	 * @return
 	 */
-	private static Stack<String> getVarCodes(){
-		Stack<String> stack = varCodes.get();
+	private static Stack<Object[]> getVarCodes(){
+		Stack<Object[]> stack = varCodes.get();
 		if(stack == null){
-			stack = new Stack<String>();
+			stack = new Stack<Object[]>();
 			varCodes.set(stack);
 		}
 		return stack;
@@ -38,12 +45,22 @@ public  class  VarBuffer {
 	 * @return
 	 */
 	private static Map<String, Object> getVars(){
-		Map<String, Object> map = vars.get();
+		return getFromThread(vars);
+	}
+
+	private static Map<String, Object> getFromThread(
+			ThreadLocal<Map<String, Object>> threadLocal) {
+		Map<String, Object> map = threadLocal.get();
 		if(map == null){
 			map = new HashMap<String, Object>();
-			vars.set(map);
+			threadLocal.set(map);
 		}
 		return map;
+	}
+	
+	public static void clean(){
+		varCodes.set(null);
+		vars.set(null);
 	}
 
 	/**
@@ -56,22 +73,37 @@ public  class  VarBuffer {
 		
 	}
 	static public String push(Object var,Class<?> cls){
-		String varName = getVarName();
+		
+		Stack<Object[]> varCodeInThread = getVarCodes();
+		for (Object[] varInfo : varCodeInThread) {
+			if(var == varInfo[0]){
+				//重得push的对象，直接返回原有变量名称
+				// return (String)varInfo[1];
+			}
+		}
+		String varName = getVarName(cls);
 		
 		String type = cls.getName();
 		String varId = UUID.randomUUID().toString();
 		
-		getVars().put(varId, var);
+		Map<String, Object> varMap = getVars();
+		varMap.put(varId, var);
+		
 		String code = "private static final " + type + " " + varName
 		+" = ("+type+")"+VarBuffer.class.getSimpleName()+".pop(\""+varId+"\");";
-		getVarCodes().push(code);
+		Object[] varInfo = new Object[]{var,varName,code};
+		varCodeInThread.push(varInfo);
 		return varName;
 	}
 	
 	
 	
-	synchronized static private String getVarName(){
-		return "attr_"+count++;
+	static private String getVarName(Class<?> cls){
+		int c;
+		synchronized (VarBuffer.class) {
+			c = count++;
+		}
+		return cls.getSimpleName().toLowerCase()+"_"+c;
 	}
 
 	/**
@@ -81,11 +113,11 @@ public  class  VarBuffer {
 	 * @return
 	 */
 	public static String pop(){
-		Stack<String> stack = getVarCodes();
+		Stack<Object[]> stack = getVarCodes();
 		if(stack.empty()){
 			return null;
 		}
-		return stack.pop();
+		return (String)stack.pop()[2];
 	}
 	
 	public static Object pop(String name){

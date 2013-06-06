@@ -369,6 +369,13 @@ public class FelEngineImplTest {
 		compare(expected, actual);
 	}
 
+	@Test(dataProvider = "eval")
+	public void testEvalWithCompilerNoContext(String expr, Object expected) {
+		Expression ins = engine.compile(expr, (FelContext) null);
+		Object actual = ins.eval(engine.getContext());
+		compare(expected, actual);
+	}
+
 
 	public static void compare(Object expected, Object actual) {
 		if (actual instanceof Number && expected instanceof Number) {
@@ -401,6 +408,13 @@ public class FelEngineImplTest {
 	@Test(dataProvider = "bigEval")
 	public void testBigEvalWithCompiler(String expr, Object expected) {
 		Expression ins = bigEngine.compile(expr, bigEngine.getContext());
+		Object actual = ins.eval(bigEngine.getContext());
+		compare(expected, actual);
+	}
+
+	@Test(dataProvider = "bigEval")
+	public void testBigEvalWithCompilerNoContext(String expr, Object expected) {
+		Expression ins = bigEngine.compile(expr, (FelContext) null);
 		Object actual = ins.eval(bigEngine.getContext());
 		compare(expected, actual);
 	}
