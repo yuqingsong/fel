@@ -103,7 +103,7 @@ public class CompileService {
 				return s.getValue();
 			}
 			src.setSource("/*表达式:" + originalExp + "*/\n" + src.getSource());
-			System.out.println("****************\n" + src.getSource());
+			// System.out.println("****************\n" + src.getSource());
 			return complier.compile(src);
 		} catch (Exception e) {
 			//清空线程变量

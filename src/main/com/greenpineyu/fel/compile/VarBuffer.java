@@ -72,18 +72,20 @@ public  class  VarBuffer {
 		return push(var,var.getClass());
 		
 	}
-	static public String push(Object var,Class<?> cls){
+
+	static public String push(Object var, Class<?> varType) {
 		
 		Stack<Object[]> varCodeInThread = getVarCodes();
 		for (Object[] varInfo : varCodeInThread) {
-			if(var == varInfo[0]){
+			// 比较对象及对象类型
+			if (var == varInfo[0] && varType == varInfo[2]) {
 				//重得push的对象，直接返回原有变量名称
-				// return (String)varInfo[1];
+				return (String) varInfo[1];
 			}
 		}
-		String varName = getVarName(cls);
+		String varName = getVarName(varType);
 		
-		String type = cls.getName();
+		String type = varType.getName();
 		String varId = UUID.randomUUID().toString();
 		
 		Map<String, Object> varMap = getVars();
@@ -91,7 +93,8 @@ public  class  VarBuffer {
 		
 		String code = "private static final " + type + " " + varName
 		+" = ("+type+")"+VarBuffer.class.getSimpleName()+".pop(\""+varId+"\");";
-		Object[] varInfo = new Object[]{var,varName,code};
+		Object[] varInfo = new Object[] {
+				var, varName, varType, code };
 		varCodeInThread.push(varInfo);
 		return varName;
 	}
@@ -117,7 +120,7 @@ public  class  VarBuffer {
 		if(stack.empty()){
 			return null;
 		}
-		return (String)stack.pop()[2];
+		return (String) stack.pop()[3];
 	}
 	
 	public static Object pop(String name){

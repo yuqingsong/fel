@@ -68,6 +68,9 @@ public class ConstNode extends AbstFelNode {
 		if (ReflectUtil.isPrimitiveOrWrapNumber(getValueType())) {
 			return value.toString();
 		}
+		if (value instanceof Boolean) {
+			return value.toString();
+		}
 		return VarBuffer.push(value);
 	}
 
