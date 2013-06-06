@@ -125,6 +125,11 @@ public class FelEngineImpl implements FelEngine {
 		return compile(exp, (FelContext)null, new VarVisitOpti(vars));
 	}
 
+	@Override
+	public Expression compile(String exp) {
+		return compile(exp, (FelContext) null);
+	}
+
 	public Expression compile(final String exp, Map<String, Object> varMap) {
 		FelContext ctx = getContext(varMap);
 		return compile(exp,ctx);

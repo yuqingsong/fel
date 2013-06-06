@@ -72,11 +72,17 @@ public interface FelEngine {
 	 * 编译表达式
 	 * 
 	 * @param exp 表达式
-	 * @param ctx 引擎上下文
 	 * @param varMap 变量map
 	 * @return 可执行的表达式对象
 	 */
 	Expression compile(String exp, Map<String, Object> varMap);
+
+	/**
+	 * 编译表达式
+	 * @param exp
+	 * @return
+	 */
+	Expression compile(String exp);
 
 	/**
 	 * @return 引擎执行环境
