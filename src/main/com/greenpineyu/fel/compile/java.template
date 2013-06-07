@@ -12,4 +12,7 @@ public class ${classname}  implements Expression{
         ${localVars}
         return ${expression};
     }
+    public Object eval(java.util.Map<String, Object> context) {
+		return eval(new ReadOnlyMapContext(context));
+	}
 }

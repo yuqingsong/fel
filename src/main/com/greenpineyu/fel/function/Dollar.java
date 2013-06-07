@@ -123,7 +123,7 @@ public class Dollar implements Function {
 		// exp = "$('String.new').concat('abc')";
 		exp = "'abc'.indexOf('bc')";
 		exp = "-1";
-		Object eval = Fel.compile(exp).eval(null);
+		Object eval = Fel.compile(exp).eval((FelContext)null);
 		System.out.println(eval);
 	}
 

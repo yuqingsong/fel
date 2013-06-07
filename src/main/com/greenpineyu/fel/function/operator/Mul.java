@@ -266,6 +266,7 @@ public class Mul  extends StableFunction{
 		}else{
 			Add.addCallCode(node, sb, this,getMethodName()+"/* "+this.getMethodName()+" */");
 			sb.append(lm.source(ctx, left)).append(",").append(rm.source(ctx, right)).append(")");
+			type = Number.class;
 //			throw new CompileException("不支持的类型["+ReflectUtil.getClassName(leftType)
 //					+"、"+ReflectUtil.getClassName(rightType)+"]。["+this.getName()+"]运算只支持数值类型");
 		}

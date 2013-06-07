@@ -497,7 +497,7 @@ public class FelEngineImplTest {
 		assert expected.equals(eval);
 		// 编译执行
 		Expression compile = e.compile(exp, null);
-		eval = compile.eval(null);
+		eval = compile.eval((FelContext) null);
 		assert expected.equals(eval);
 	}
 
@@ -529,7 +529,7 @@ public class FelEngineImplTest {
 						}
 					});
 
-					Object value = e.compile(varName, ctx, inte).eval(null);
+					Object value = e.compile(varName, ctx, inte).eval((FelContext) null);
 					// System.out.println(varName+"=>"+(value == varValue));
 					result[pos] = value == varValue;
 				}

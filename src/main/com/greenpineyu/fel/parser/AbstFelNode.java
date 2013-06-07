@@ -3,6 +3,7 @@ package com.greenpineyu.fel.parser;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.CommonTree;
@@ -12,6 +13,7 @@ import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.common.Callable;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.FelContext;
+import com.greenpineyu.fel.context.ReadOnlyMapContext;
 import com.greenpineyu.fel.event.Event;
 import com.greenpineyu.fel.interpreter.Interpreter;
 
@@ -100,6 +102,11 @@ public abstract class AbstFelNode extends CommonTree implements FelNode, Interpr
 		//			cached = true;
 		//		}
 		//		return eval;
+	}
+	
+	@Override
+	public Object eval(Map<String, Object> context) {
+		return eval(new ReadOnlyMapContext(context));
 	}
 
 	//	abstract public Object evalWithoutCache(FelContext context);

@@ -31,6 +31,9 @@ public abstract class AbstractContext implements FelContext{
 		if(value == null){
 			return NOT_FOUND;
 		}
+		if(value == NOT_FOUND){
+			return NOT_FOUND;
+		}
 		return new Var(name, value, null);
 	}
 

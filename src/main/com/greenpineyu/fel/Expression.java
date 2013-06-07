@@ -1,5 +1,7 @@
 package com.greenpineyu.fel;
 
+import java.util.Map;
+
 import com.greenpineyu.fel.context.FelContext;
 
 public interface Expression {
@@ -10,4 +12,8 @@ public interface Expression {
 	 */
 	Object eval(FelContext context);
 	
+	Object eval(Map<String,Object> context);
+	
 }
+
+

@@ -9,9 +9,7 @@ import java.util.concurrent.FutureTask;
 
 import com.googlecode.aviator.AviatorEvaluator;
 import com.greenpineyu.fel.context.AbstractContext;
-import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.context.MapContext;
 
 @SuppressWarnings("unused")
 public class PerformanceTest {
@@ -30,7 +28,8 @@ public class PerformanceTest {
 		vars.put("i", 100);
 		vars.put("pi", 3.14d);
 		vars.put("d", -3.9);
-		vars.put("b", (byte) 4);
+		// vars.put("b", (byte) 4);
+		vars.put("b", 4);
 		vars.put("bool", false);
 		final Map<String, Integer> m = new HashMap<String, Integer>();
 		m.put("d", 5);
@@ -41,14 +40,16 @@ public class PerformanceTest {
 		int index = 0;
 		exps[index++] = "1000+100.0*99-(600-3*15)%(((68-9)-3)*2-100)+10000%7*71";
 		exps[index++] = "i * pi + (d * b - 199) / (1 - d * pi) - (2 + 100 - i / pi) % 99 ==i * pi + (d * b - 199) / (1 - d * pi) - (2 + 100 - i / pi) % 99 ";
+		exps[index++] = "b*i";
+
 		exps[index++] = "pi*d+b-(1000-d*b/pi)/(pi+99-i*d)-i*pi*d/b";
-		exps[index++] = "s.substring(m.d )";
-		exps[index++] = "s.substring(1).substring(2).indexOf('world')";
+		// exps[index++] = "s.substring(m.d )";
+		// exps[index++] = "s.substring(1).substring(2).indexOf('world')";
 		
 		JavaExp[] javaEls = buildJavaExp(vars, m);
 		
-		int times = 100 * 1000 * 1000;
-		// times = 100000;
+		int times = 1 * 1000 * 1000;
+		times = 10;
 		int j = 0;
 		for (String exp : exps) {
 			if (exp == null) {
@@ -59,7 +60,9 @@ public class PerformanceTest {
 			// System.out.println("\nsub:" + (javaEl - fel) + ";\njavael<=>fel:"
 			// + javaEl + "<=>" + fel);
 			// jexl(exp, vars, times);
-			// aviator(exp, vars, times);
+			aviator(exp, vars, times);
+			mvel(exp, vars, times);
+
 		}
 	}
 
@@ -128,10 +131,29 @@ public class PerformanceTest {
 	
 	
 
+	static FelEngine engine = new FelEngineImpl();
 	private static long fel(String exp, Map<String, Object> vars, int times) {
-		FelContext ctx = new MapContext(vars);
+		/*FelContext ctx = new MapContext(vars);
 		ctx = new ArrayCtxImpl(vars);
-		return fel(exp, ctx, times);
+		return fel(exp, ctx, times);*/
+		Expression expObj = engine.parse(exp);
+		Object evalResult = null;
+		long start = System.currentTimeMillis();
+		// start = System.nanoTime();
+		Object result = null;
+		int i = 0;
+		while (i++ < times) {
+			// result = expObj.eval(vars);
+			System.out.println(engine.compile(exp));
+		}
+		long end = System.currentTimeMillis();
+		// end = System.nanoTime();
+		// System.out.println(result + " == " + evalResult + "："
+		// + result.equals(evalResult));
+		long cost = end - start;
+		System.out.println("fel --------cost[" + cost + " ]---value[" + result + "] ------exp[" + exp + "]");
+		return cost;
+
 	}
 
 	private static long fel(String exp, FelContext ctx, int times) {
@@ -139,14 +161,14 @@ public class PerformanceTest {
 		Expression expObj = engine.compile(exp, ctx);
 		Object evalResult = null;
 		long start = System.currentTimeMillis();
-		start = System.nanoTime();
+		// start = System.nanoTime();
 		Object result = null;
 		int i = 0;
 		while (i++ < times) {
 			result = expObj.eval(ctx);
 		}
 		long end = System.currentTimeMillis();
-		end = System.nanoTime();
+		// end = System.nanoTime();
 		// System.out.println(result + " == " + evalResult + "："
 //				+ result.equals(evalResult));
 		long cost = end - start;
@@ -175,10 +197,25 @@ public class PerformanceTest {
 		Object result = null;
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < times; i++) {
-			result = e.execute(vars);
+			System.out.println(AviatorEvaluator.compile(exp));
+			// result = e.execute(vars);
 		}
 		long end = System.currentTimeMillis();
-		System.out.println("--------cost[ " + (end - start) + " ] ------exp=" + result);
+		System.out.println("aviator --------cost[ " + (end - start) + " ] ------exp=" + result);
+	}
+
+	private static void mvel(String exp, Map<String, Object> vars, int times) {
+		/*exp = exp.trim();
+		ExecutableStatement e = (ExecutableStatement) MVEL.compileExpression(exp);
+		Object result = null;
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < times; i++) {
+			result = MVEL.executeExpression(e, vars);
+			// result = e.execute(vars);
+			// result = MVEL.eval(exp, vars);
+		}
+		long end = System.currentTimeMillis();
+		System.out.println("mvel --------cost[ " + (end - start) + " ] ------exp=" + result);*/
 	}
 	
 	public static void stable() {
@@ -195,7 +232,7 @@ public class PerformanceTest {
 						long s = System.currentTimeMillis();
 						Expression exp = engine.compile(str, null);
 						long now = System.currentTimeMillis();
-						Object value = exp.eval(null);
+						Object value = exp.eval((FelContext) null);
 						System.out.println("[" + (now - start) + ":"
 								+ (now - s) + "]****************:" + str + "="
 								+ value);

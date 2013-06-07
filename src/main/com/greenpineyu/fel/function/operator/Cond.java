@@ -122,7 +122,7 @@ public class Cond extends StableFunction {
 		FelEngine fel = FelEngine.instance;
 		Object result = fel.eval(exp);
 		System.out.println(result);
-		result = fel.compile(exp, null).eval(null);
+		result = fel.compile(exp, null).eval((FelContext)null);
 		System.out.println(result);
 		int r1 =0;
 		int r2= 0;

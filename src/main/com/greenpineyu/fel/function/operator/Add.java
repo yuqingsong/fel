@@ -291,7 +291,7 @@ public class Add extends StableFunction  {
 //		Expression exp2 = Fel.compile("print(+c+'\n..')", ctx);
 		m.put("a",10);
 		m.put("b",11);
-		exp.eval(ctx);
+		exp.eval(m);
 //		exp2.eval(ctx);
 //		Expression compile = Fel.compile("print('\n', context)",ctx);
 //		compile.eval(ctx);

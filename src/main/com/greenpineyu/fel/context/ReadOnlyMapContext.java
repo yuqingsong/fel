@@ -17,7 +17,11 @@ public class ReadOnlyMapContext extends AbstractContext{
 
 	@Override
 	public Object get(String name) {
-		return map.get(name);
+		Object object = map.get(name);
+		if(object!=null){
+			return object;
+		}
+		return NOT_FOUND;
 	}
 	
 }

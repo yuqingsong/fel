@@ -162,6 +162,11 @@ public class FelEngineImpl implements FelEngine {
 					return eventMgr.onEvent(new ExceptionEvent(Events.EXCEPTION, exp, context, null));
 				}
 			}
+
+			@Override
+			public Object eval(Map<String, Object> context) {
+				return eval(new ReadOnlyMapContext(context));
+			}
 		};
 	}
 
