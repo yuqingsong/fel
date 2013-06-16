@@ -16,8 +16,8 @@ public class PerformanceTest {
 
 	public static void main(String[] args) {
 		speed();
-		// stable();
-		// testConcurrent();
+		stable();
+		testConcurrent();
 	}
 
 	/**

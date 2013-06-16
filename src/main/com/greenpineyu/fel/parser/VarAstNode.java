@@ -35,7 +35,7 @@ public class VarAstNode extends AbstFelNode  {
 					+ this.getTokenStopIndex() + "]  "
 					+ exp;
 			EventImpl event = new EventImpl(Events.UNDEFINED_VARIABLE, exp, context, msg);
-			onEvent(event);
+			return onEvent(event);
 		}
 		return var;
 	}

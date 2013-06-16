@@ -1,5 +1,6 @@
 package com.greenpineyu.fel.optimizer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,6 @@ import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.compile.SourceGeneratorImpl;
 import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.context.MapContext;
 import com.greenpineyu.fel.context.Var;
 import com.greenpineyu.fel.interpreter.Interpreter;
 import com.greenpineyu.fel.parser.AbstFelNode;
@@ -30,7 +30,7 @@ public class VarVisitOpti implements Optimizer {
 	
 
 	public VarVisitOpti(Var... vars) {
-		varMap = new MapContext();
+		varMap = new HashMap<String, Var>();
 		if (vars != null) {
 			for (Var var : vars) {
 				if (var != null) {

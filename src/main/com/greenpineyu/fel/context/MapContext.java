@@ -2,58 +2,50 @@ package com.greenpineyu.fel.context;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
- * 
+ * 将变量保存在map中，此类是否线程安全取决于构建方法中的map参数是否线程安全
  * @author yuqingsong
  * 
  */
 /*
- * 更合适的实现方式是使用组合，而不是继承，这里继承HashMap是为了提高get方法的效率。
+ * 修改此类里时请遵守“此类是否线程安全取决于构建方法中的map参数是否线程安全”规则
  */
-@SuppressWarnings("serial")
-public class MapContext extends HashMap<String, Var> implements FelContext {
+public class MapContext implements FelContext {
+	private Map<String, Var> context;
 	public MapContext() {
+		this(null);
 	}
 	
 	public MapContext(Map<String,Object> map){
-//		this.putAll(map);
 		if(map != null){
+			if (map instanceof ConcurrentMap) {
+				this.context = new ConcurrentHashMap<String, Var>(map.size());
+			} else {
+				this.context = new HashMap<String, Var>(map.size());
+			}
 			for (Map.Entry<String, Object> e : map.entrySet()) {
 				String name = e.getKey();
 				Object value = e.getValue();
 				this.set(name, value);
 			}
+		} else {
+			this.context = new HashMap<String, Var>();
 		}
 	}
 
 	@Override
 	public Object get(String name) {
-		Var object = super.get(name);
-		if (object != null) {
-			// 对象有值，或者包含此变量时，返回object
-			return object.getValue();
-		}
-		return null;
-		// map中不包含此变量返回NOT_FOUND
-//		return NOT_FOUND;
+		return getVar(name).getValue();
 	}
 
-//	@Override
-//	public Class<?> getVarType(String varName) {
-//		return AbstractConetxt.getVarType(varName,this);
-//	}
 
 
 	@Override
 	public void set(String name, Object value) {
-		// 如果变量已经存在，就不再重复创建变量。
-		Var var = getVar(name);
-		if (var != null) {
-			var.setValue(value);
-		} else {
-			this.put(name, new Var(name, value));
-		}
+		this.context.put(name, new Var(name, value));
 	}
 
 	public static String toString(Object var) {
@@ -62,16 +54,22 @@ public class MapContext extends HashMap<String, Var> implements FelContext {
 
 	@Override
 	public Var getVar(String name) {
-		Var var = super.get(name);
+		Var var = innerGet(name);
 		if(var == null){
 			return NOT_FOUND;
 		}
 		return var;
 	}
 
+	private Var innerGet(String name) {
+		return context.get(name);
+	}
+
 	@Override
 	public void setVar(Var var) {
-		super.put(var.getName(), var);
+		context.put(var.getName(), var);
 	}
 
 }
+
+

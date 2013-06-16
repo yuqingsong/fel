@@ -4,6 +4,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 实现接口 ArrayCtx。此类不是线程安全的
+ * @author yqs
+ * @see ArrayCtx
+ * 
+ */
 public class ArrayCtxImpl implements ArrayCtx{
 	
 	
@@ -31,15 +37,17 @@ public class ArrayCtxImpl implements ArrayCtx{
 
 	@Override
 	public int getIndex(String name) {
-		Integer i = indexMap.get(name);
+		Integer i = innerGetIndex(name);
 		return i!=null?i:-1;
+	}
+	private Integer innerGetIndex(String name) {
+		return indexMap.get(name);
 	}
 
 
 	@Override
 	public Object get(String name) {
-		Var var = getVar(name);
-		return var!=null?var.getValue():null;
+		return getVar(name).getValue();
 	}
 
 	@Override
@@ -57,9 +65,9 @@ public class ArrayCtxImpl implements ArrayCtx{
 	 * @return
 	 */
 	private Var getVarWithoutNull(String name){
-		int index = getIndex(name);
+		Integer index = innerGetIndex(name);
 		Var var = null;
-		if (index > -1) {
+		if (index != null) {
 			var = vars[index];
 		}
 		if(var == null){
@@ -75,7 +83,7 @@ public class ArrayCtxImpl implements ArrayCtx{
      * 确保vars.length>minCapacity
      * @param minCapacity
      */
-    public void ensureCapacity(int minCapacity) {
+	private void ensureCapacity(int minCapacity) {
     	int oldCapacity = vars.length;
     	if (minCapacity > oldCapacity) {
     	    int newCapacity = (oldCapacity * 3)/2 + 1;
@@ -103,15 +111,13 @@ public class ArrayCtxImpl implements ArrayCtx{
 	
 	
 	private int addToIndexMap(String name){
-		synchronized (indexMap) {
-			Integer i = indexMap.get(name);
+			Integer i = innerGetIndex(name);
 			if(i!=null){
 				return i ;
 			}
 			int newIndex = indexMap.size();
 			indexMap.put(name, newIndex);
 			return newIndex;
-		}
 	}
 /*	
 	public static void main(String[] args) {

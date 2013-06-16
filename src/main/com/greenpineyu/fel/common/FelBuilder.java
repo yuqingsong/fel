@@ -7,11 +7,11 @@ import java.util.Set;
 
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
+import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.event.Event;
 import com.greenpineyu.fel.event.EventListener;
 import com.greenpineyu.fel.event.EventMgr;
 import com.greenpineyu.fel.event.Events;
-import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.FunMgr;
 import com.greenpineyu.fel.function.operator.big.BigAdd;
 import com.greenpineyu.fel.function.operator.big.BigDiv;
@@ -48,18 +48,21 @@ public class FelBuilder {
 
 	public static EventMgr newEventMgr(){
 		EventMgr mgr = new EventMgr();
-	/*	mgr.addListener(new EventListener<Event>() {
+		mgr.addListener(new EventListener<Event>() {
 			
 			@Override
 			public Object onEvent(Event event) {
-				throw new EvalException(event.getMessage());
+				System.out.println(event.getMessage());
+				return FelContext.NOT_FOUND;
+				// 如果
+				// throw new EvalException(event.getMessage());
 			}
 			
 			@Override
 			public String getId() {
 				return Events.UNDEFINED_VARIABLE;
 			}
-		});*/
+		});
 		return mgr;
 	}
 

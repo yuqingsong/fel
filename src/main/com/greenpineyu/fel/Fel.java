@@ -1,9 +1,11 @@
 package com.greenpineyu.fel;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
+import com.greenpineyu.fel.context.MapContext;
 
 /**
  * 提供简单的执行表达式接口
@@ -79,13 +81,22 @@ public class Fel {
 	public static FelEngine newEngine() {
 		return new FelEngineImpl();
 	}
+	
 	/**
-	 * 创建表达式引擎
+	 * 创建context
 	 * @return
 	 */
 	public static FelContext newContext() {
 		return new ArrayCtxImpl();
 	}	
+
+	/**
+	 * 创建线程安全的context
+	 * @return
+	 */
+	public static FelContext newConcurrentMap() {
+		return new MapContext(new ConcurrentHashMap<String, Object>());
+	}
 
 }
 

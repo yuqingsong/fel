@@ -1,5 +1,6 @@
 package com.greenpineyu.fel.examples;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.greenpineyu.fel.Expression;
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
 import com.greenpineyu.fel.Foo;
@@ -66,8 +68,7 @@ public class Example {
 	 * 入门
 	 */
 	public static void helloworld() {
-		// FelEngine fel = new FelEngineImpl();
-		Object result = FelEngine.instance.eval("5000*12+7500");
+		Object result = Fel.eval("5000*12+7500");
 		System.out.println(result);
 	}
 
@@ -75,12 +76,11 @@ public class Example {
 	 * 使用变量
 	 */
 	public static void useVariable() {
-		FelEngine fel = getEngine();
-		FelContext ctx = fel.getContext();
-		ctx.set("单价", 5000);
-		ctx.set("数量", 12);
-		ctx.set("运费", 7500);
-		Object result = fel.eval("单价*数量+运费");
+		Map<String, Object> ctx = new HashMap<String, Object>();
+		ctx.put("单价", 5000);
+		ctx.put("数量", 12);
+		ctx.put("运费", 7500);
+		Object result = Fel.eval("单价*数量+运费", ctx);
 		System.out.println(result);
 	}
 	
@@ -88,93 +88,90 @@ public class Example {
 	 * 获取对象属性
 	 */
 	public static void getAttr(){
-		FelEngine fel = getEngine();
-		FelContext ctx = fel.getContext();
 		Foo foo = new Foo();
-		ctx.set("foo", foo);
+		Map<String, Object> ctx = new HashMap<String, Object>();
+		ctx.put("foo", foo);
 		Map<String,String> m = new HashMap<String,String>();
 		m.put("ElName", "fel");
-		ctx.set("m",m);
+		ctx.put("m", m);
 		
 		//调用foo.getSize()方法。
-		Object result = fel.eval("foo.size");
+		Object result = Fel.eval("foo.size", ctx);
 		
 		//调用foo.isSample()方法。
-		result = fel.eval("foo.sample");
+		result = Fel.eval("foo.sample", ctx);
 		
 		//foo没有name、getName、isName方法
 		//foo.name会调用foo.get("name")方法。
-		result = fel.eval("foo.name");
+		result = Fel.eval("foo.name", ctx);
 		
 		//m.ElName会调用m.get("ElName");
-		result = fel.eval("m.ElName");
+		result = Fel.eval("m.ElName", ctx);
 	}
 
 	/**
 	 * 调用对象的方法
 	 */
 	public static void callMethod() {
-		FelEngine fel = getEngine();
-		FelContext ctx = fel.getContext();
-		ctx.set("out", System.out);
-		fel.eval("out.println('Hello Everybody'.substring(6))");
+		Map<String, Object> ctx = new HashMap<String, Object>();
+		ctx.put("out", System.out);
+		Fel.eval("out.println('Hello Everybody'.substring(6))");
 	}
 	
 	/**
 	 * 访问数组、集合
 	 */
 	public static void visitColl(){
-		FelEngine fel = getEngine();
-		FelContext ctx = fel.getContext();
+		Map<String, Object> ctx = new HashMap<String, Object>();
 		
 		//数组
 		int[] intArray = {1,2,3};
-		ctx.set("intArray",intArray);
+		ctx.put("intArray", intArray);
 		//获取intArray[0]
 		String exp = "intArray[0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//List
 		List<Integer> list = Arrays.asList(1,2,3);
-		ctx.set("list",list);
+		ctx.put("list", list);
 		//获取list.get(0)
 		exp = "list[0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//集合
 		Collection<String> coll = Arrays.asList("a","b","c");
-		ctx.set("coll",coll);
+		ctx.put("coll", coll);
 		//获取集合最前面的元素。执行结果为"a"
 		exp = "coll[0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//迭代器
 		Iterator<String> iterator = coll.iterator();
-		ctx.set("iterator", iterator);
+		ctx.put("iterator", iterator);
 		//获取迭代器最前面的元素。执行结果为"a"
 		exp = "iterator[0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//Map
 		Map<String,String> m = new HashMap<String, String>();
 		m.put("name", "HashMap");
-		ctx.set("map",m);
+		ctx.put("map", m);
 		exp = "map.name";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//多维数组
 		int[][] intArrays= {{11,12},{21,22}};
-		ctx.set("intArrays",intArrays);
+		ctx.put("intArrays", intArrays);
 		exp = "intArrays[0][0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 		
 		//多维综合体，支持数组、集合的任意组合。
 		List<int[]> listArray = new ArrayList<int[]>();
 		listArray.add(new int[]{1,2,3});
 		listArray.add(new int[]{4,5,6});
-		ctx.set("listArray",listArray);
+		ctx.put("listArray", listArray);
 		exp = "listArray[0][0]";
-		System.out.println(exp+"->"+fel.eval(exp));
+		System.out.println(exp + "->" + Fel.eval(exp, ctx));
 	}
 
 	/**
@@ -231,9 +228,11 @@ public class Example {
 	public static void testBigNumber() {
 		// 构建大数值计算引擎
 		FelEngine fel = FelBuilder.bigNumberEngine();
-		String input = "111111111111111111111111111111+22222222222222222222222222222222";
+		FelContext ctx = fel.getContext();
+		ctx.set("num", new BigInteger("22222222222222222222222222222222"));
+		String input = "111111111111111111111111111111+num";
 		Object value = fel.eval(input);
-		Object compileValue = fel.compile(input, fel.getContext()).eval(fel.getContext());
+		Object compileValue = fel.compile(input, ctx).eval(ctx);
 		System.out.println("大数值计算（解释执行）:" + value);
 		System.out.println("大数值计算（编译执行）:" + compileValue);
 	}
@@ -249,6 +248,14 @@ public class Example {
 		System.out.println(result);
 	}
 	
+	{
+		Expression exp = Fel.compile("a+b");
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("a", 1);
+		m.put("b", 1);
+		exp.eval(m);
+
+	}
 	
 	public static void userFunction(){
 		// 定义hello函数
@@ -281,7 +288,7 @@ public class Example {
 		System.out.println("hello "+eval);
 		// 编译执行
 		Expression compile = e.compile(exp, null);
-		eval = compile.eval(null);
+		eval = compile.eval((FelContext) null);
 		System.out.println("hello "+eval);
 	}
 	
@@ -362,7 +369,7 @@ public class Example {
 		long start = System.currentTimeMillis();
 		Object result = null;
 		for (int i = 0; i < count; i++) {
-			result = expObj.eval(null);
+			result = expObj.eval((FelContext) null);
 			index.increment();
 		}
 		long end = System.currentTimeMillis();
@@ -423,7 +430,7 @@ public class Example {
 		long s1 = System.currentTimeMillis();
 		for (int i = 0; i < times; i++) {
 			//			double j = 40.52334 + 60 * (21.8144 + 17 * 32.663);
-			node.eval(null);
+			node.eval((FelContext) null);
 		}
 		long s2 = System.currentTimeMillis();
 		System.out.println("花费的时间:" + (s2 - s1));

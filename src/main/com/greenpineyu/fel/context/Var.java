@@ -4,8 +4,6 @@ package com.greenpineyu.fel.context;
 /**
  * 变量
  * @author yuqingsong
- *
- * @param <T> 变量的类型
  */
 public class Var {
 	
