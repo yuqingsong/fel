@@ -2,10 +2,8 @@ package com.greenpineyu.fel.function.operator;
 
 import static com.greenpineyu.fel.common.NumberUtil.toDouble;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.Fel;
@@ -16,7 +14,7 @@ import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
-import com.greenpineyu.fel.context.ReadOnlyMapContext;
+import com.greenpineyu.fel.context.MapContext;
 import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.StableFunction;
 import com.greenpineyu.fel.function.TolerantFunction;
@@ -101,6 +99,9 @@ public class Add extends StableFunction  {
 		Class<?> rightType = right.getClass();
 		if(ReflectUtil.isPrimitiveOrWrapNumber(leftType)
 				&&ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
+			// Character不能直接转换成number需要先转换成int
+			left = convertChar(left);
+			right = convertChar(right);
 			return NumberUtil.parseNumber(NumberUtil.toDouble((Number)left)+NumberUtil.toDouble((Number)right));
 		}else{
 			return ObjectUtils.toString(left)+ObjectUtils.toString(right);
@@ -108,6 +109,12 @@ public class Add extends StableFunction  {
 		
 	}
 
+	private Object convertChar(Object left) {
+		if (left instanceof Character) {
+			left = (int) ((Character) left).charValue();
+		}
+		return left;
+	}
 
 	@Override
 	public String getName() {
@@ -279,22 +286,13 @@ public class Add extends StableFunction  {
 	}*/
 	
 	public static void main(String[] args) throws Exception{
-		Map<String,Object> m = new HashMap<String, Object>();
-		ReadOnlyMapContext ctx = new ReadOnlyMapContext(m);
-//		Fel.eval("print(100+4+'\n')");
-		String e = "print(a+b+'\\'+'\n..')";
-		String method = "*";
-		method = "/";
-		method = "%";
-		e = "print(-(a\n"+method+"b"+method+"100))";
-		Expression exp = Fel.compile(e, ctx);
-//		Expression exp2 = Fel.compile("print(+c+'\n..')", ctx);
-		m.put("a",10);
-		m.put("b",11);
-		exp.eval(m);
-//		exp2.eval(ctx);
-//		Expression compile = Fel.compile("print('\n', context)",ctx);
-//		compile.eval(ctx);
+		Expression exp = Fel.compile("a+b");
+		FelContext ctx = new MapContext();
+		ctx.set("a", 1);
+		ctx.set("b", 'x');
+		Object result = exp.eval(ctx);
+		System.out.println(result);
+		System.out.println(1 + 'x');
 	}
 
 }
