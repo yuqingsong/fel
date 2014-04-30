@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.common.FelBuilder;
 import com.greenpineyu.fel.common.NumberUtil;
@@ -37,6 +38,9 @@ public class BigAdd extends StableFunction {
 
 		if (left instanceof String || right instanceof String) {
 			return ObjectUtils.toString(left).concat(ObjectUtils.toString(right));
+		}
+		if (left == FelContext.NOT_FOUND || right == FelContext.NOT_FOUND) {
+			return FelContext.NOT_FOUND;
 		}
 
 		try {
@@ -91,7 +95,8 @@ public class BigAdd extends StableFunction {
 
 	public static void main(String[] args) {
 		BigInteger left = new BigInteger("1000000000000000000");
-		calc(left);
+		temp();
+		// calc(left);
 		// System.out.println(Math.random());
 		// calc(Double.MAX_VALUE);
 	}
@@ -111,6 +116,13 @@ public class BigAdd extends StableFunction {
 	/**
 	 * @param left
 	 */
+	private static void temp() {
+		FelEngine eng = FelBuilder.bigNumberEngine();
+		FelContext ctx = eng.getContext();
+		ctx.set("a", 10);
+		Expression exp = eng.compile("a+10", ctx);
+		System.out.println("aaaaaaaaaaaaaa:" + exp.eval(ctx));
+	}
 	private static void calc(BigInteger left) {
 		// String exp = left.toString() + "+" + left.toString();
 		// Object value = FelBuilder.highAccuracyEngine().eval(exp);
@@ -127,10 +139,11 @@ public class BigAdd extends StableFunction {
 		FelEngine eng = FelBuilder.bigNumberEngine();
 		Object value = eng.eval("1.666+2323.7777");
 		System.out.println("1.666+2323.7777:" + value);
-		eng.getContext().set("a", new BigDecimal("1234567891000000123123123123.123456"));
+		FelContext ctx = eng.getContext();
+		ctx.set("a", new BigDecimal("1234567891000000123123123123.123456"));
 		System.out.println("right:" + eng.eval(exp2));
 		System.out.println("compile:"
- + eng.compile("a*a", eng.getContext()).eval(eng.getContext()));
+ + eng.compile("a*a", ctx).eval(ctx));
 		// System.out.println("fel0.8:" + FelEngine.instance.eval(exp2));
 		System.out.println("equals:" + eng.eval(exp3));
 		// System.out
@@ -138,6 +151,8 @@ public class BigAdd extends StableFunction {
 		System.out.print("java:");
 		System.out.println((-9484950.4f) + (-188132624.1) + (-10645.84) + (-196528.43) + (-109190992.2)
 				+ (-12353902.38) + (0) + (0) + (-502721396.8));
+
+
 	}
 
 }
