@@ -39,7 +39,9 @@ public class VarAstNode extends AbstFelNode  {
 
 		if(isUndefined){
 			String exp = getTokenText();
-			String msg = "Variable " + text + " is not defined in expression[" + this.getTokenStartIndex() + ":"
+			String msg = "Variable " + text + " is not defined in expression[line:" + this.getLine() + ";pos:"
+					+ getCharPositionInLine()
+					+ ":"
 					+ this.getTokenStopIndex() + "]  "
 					+ exp;
 			EventImpl event = new EventImpl(Events.UNDEFINED_VARIABLE, exp, context, msg);

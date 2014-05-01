@@ -47,5 +47,9 @@ public interface FelNode extends Expression, Tree ,Stable{
 	
 	String getTokenText();
 
+	int getLine();
+
+	int getCharPositionInLine();
+
 
 }

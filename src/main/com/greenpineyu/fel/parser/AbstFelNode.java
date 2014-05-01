@@ -218,6 +218,16 @@ public abstract class AbstFelNode extends CommonTree implements FelNode, Interpr
 		return this.engine.getEventMgr().onEvent(e);
 	}
 
+	@Override
+	public int getLine() {
+		return super.getLine();
+	}
+
+	@Override
+	public int getCharPositionInLine() {
+		return super.getCharPositionInLine();
+	}
+
 //	public void resetSourceBuilder(){
 //		this.builder = this;
 //	}
