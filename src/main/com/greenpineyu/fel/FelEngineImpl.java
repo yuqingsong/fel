@@ -127,7 +127,7 @@ public class FelEngineImpl implements FelEngine {
 
 	@Override
 	public Expression compile(String exp) {
-		return compile(exp, (FelContext) null);
+		return innerCompile(exp, null);
 	}
 
 	public Expression compile(final String exp, Map<String, Object> varMap) {
@@ -139,6 +139,10 @@ public class FelEngineImpl implements FelEngine {
 		if (ctx == null) {
 			ctx = this.context;
 		}
+		return innerCompile(exp, ctx, opts);
+	}
+
+	private Expression innerCompile(final String exp, FelContext ctx, Optimizer... opts) {
 		FelNode node = parse(exp);
 		if (opts != null) {
 			for (Optimizer opt : opts) {

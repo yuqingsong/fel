@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.greenpineyu.fel.Expression;
 import com.greenpineyu.fel.Fel;
-import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.compile.VarBuffer;
 import com.greenpineyu.fel.context.FelContext;
+import com.greenpineyu.fel.exception.EvalException;
 import com.greenpineyu.fel.function.Function;
 import com.greenpineyu.fel.function.TolerantFunction;
 import com.greenpineyu.fel.parser.FelNode;
@@ -101,7 +101,11 @@ public class LessThen implements Stable, Function {
 		if (left instanceof Comparable && right instanceof Comparable) {
 			return ((Comparable) left).compareTo(right) < 0;
 		}
-		throw new IllegalArgumentException("参数[type:" + left.getClass() + ";value:" + left + "]和参数[type:"
+		return throwException(left, right);
+	}
+
+	protected boolean throwException(Object left, Object right) throws EvalException {
+		throw new EvalException("参数[type:" + left.getClass() + ";value:" + left + "]和参数[type:"
 				+ right.getClass() + ";value:" + right + "]不能进行比较[" + getName() + "]运算");
 	}
 
@@ -253,8 +257,8 @@ public class LessThen implements Stable, Function {
 		c.set("b",11);
 		String[] ops = new String[]{">",">=","<","<=","==","!="};
 		for (String op : ops) {
-			Expression exp = Fel.compile("print((a"+op+"b)+'\n')");
-			exp.eval(empty);
+			Expression exp = Fel.compile("print((a" + op + "5)+'\n')");
+			exp.eval(c);
 			exp.eval(c);
 		}
 

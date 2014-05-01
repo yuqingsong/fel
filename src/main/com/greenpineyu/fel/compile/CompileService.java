@@ -103,14 +103,12 @@ public class CompileService {
 				return s.getValue();
 			}
 			src.setSource("/*表达式:" + originalExp + "*/\n" + src.getSource());
-//			 System.out.println("****************\n" + src.getSource());
+			//System.out.println("****************\n" + src.getSource());
 			return complier.compile(src);
-		} catch (Exception e) {
+		} finally {
 			//清空线程变量
 			VarBuffer.clean();
-			e.printStackTrace();
 		}
-		return null;
 	}
 	
 	public static void main(String[] args) {

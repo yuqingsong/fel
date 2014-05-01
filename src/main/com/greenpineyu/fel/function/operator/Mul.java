@@ -2,6 +2,7 @@ package com.greenpineyu.fel.function.operator;
 
 import java.util.List;
 
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.common.NumberUtil;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
@@ -257,7 +258,7 @@ public class Mul  extends StableFunction{
 		Class<?> leftType = lm.returnType(ctx, left);
 		
 		SourceBuilder rm = right.toMethod(ctx);
-		Class<?> rightType = lm.returnType(ctx, right);
+		Class<?> rightType = rm.returnType(ctx, right);
 		Class<?> type = null;
 		if(ReflectUtil.isPrimitiveOrWrapNumber(leftType)
 				&&ReflectUtil.isPrimitiveOrWrapNumber(rightType)){
@@ -278,8 +279,13 @@ public class Mul  extends StableFunction{
 		return "mulObject";
 	}
 
+	@Override
 	public boolean stable() {
 		return true;
+	}
+
+	public static void main(String[] args) {
+		Fel.compile("1*a");
 	}
 
 

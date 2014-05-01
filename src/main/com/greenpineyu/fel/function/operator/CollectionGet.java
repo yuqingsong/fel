@@ -58,7 +58,7 @@ public class CollectionGet extends StableFunction{
 		SourceBuilder leftMethod = left.toMethod(ctx);
 		Class<?> leftType = leftMethod.returnType(ctx,left);
 		
-		if(!leftType.isArray()&&!List.class.isAssignableFrom(leftType)){
+		if (FelMethod.isUndefinedType(leftType) || (!leftType.isArray() && !List.class.isAssignableFrom(leftType))) {
 			// 不是数组，也不是list,直接生成 使用与解释执行相同的代码
 			return InterpreterSourceBuilder.getInstance();
 		}

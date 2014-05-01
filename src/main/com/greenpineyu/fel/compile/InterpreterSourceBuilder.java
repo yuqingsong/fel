@@ -24,7 +24,16 @@ public class InterpreterSourceBuilder implements SourceBuilder {
 	
 	@Override
 	public Class<?> returnType(FelContext ctx, FelNode node) {
-			return  AbstractContext.getVarType(node.getInterpreter().interpret(ctx, node));
+			try {
+				Object value = node.getInterpreter().interpret(ctx, node);
+			if (value == FelContext.NOT_FOUND) {
+				return Object.class;
+			}
+				return  AbstractContext.getVarType(value);
+			} catch (Exception e) {
+			// 有时候在编译时，执行表达式会出错，这里返回Object.class
+			return Object.class;
+			}
 	}
 
 	/**

@@ -204,6 +204,7 @@ public class FelEngineImplTest {
 		add(a, ai, "'1'+'2'", "12");
 		add(a, ai, "'1'+2+'1'", "121");
 		// add(object, i, "'1'*2+'1'", "121" );
+		add(a, ai, "1+c", 1 + 'c');
 		add(a, ai, "1.5-1", 0.5);
 
 		add(a, ai, "2*(4+3)", 14);
@@ -320,6 +321,7 @@ public class FelEngineImplTest {
 		varMap.put("foo", header);
 		varMap.put("a", Boolean.TRUE);
 		varMap.put("b", Boolean.FALSE);
+		varMap.put("c", 'c');
 
 		varMap.put("num", num);
 		varMap.put("now", Calendar.getInstance().getTime());
@@ -371,9 +373,15 @@ public class FelEngineImplTest {
 
 	@Test(dataProvider = "eval")
 	public void testEvalWithCompilerNoContext(String expr, Object expected) {
-		Expression ins = engine.compile(expr, (FelContext) null);
-		Object actual = ins.eval(engine.getContext());
-		compare(expected, actual);
+		try {
+			Expression ins = engine.compile(expr);
+			Object actual = ins.eval(engine.getContext());
+			compare(expected, actual);
+		} catch (Exception e) {
+			e.printStackTrace();
+			engine.compile(expr);
+			System.out.println();
+		}
 	}
 
 
@@ -414,9 +422,15 @@ public class FelEngineImplTest {
 
 	@Test(dataProvider = "bigEval")
 	public void testBigEvalWithCompilerNoContext(String expr, Object expected) {
-		Expression ins = bigEngine.compile(expr, (FelContext) null);
-		Object actual = ins.eval(bigEngine.getContext());
-		compare(expected, actual);
+		try {
+			Expression ins = bigEngine.compile(expr);
+			Object actual = ins.eval(bigEngine.getContext());
+			compare(expected, actual);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Expression ins = bigEngine.compile(expr);
+			Object actual = ins.eval(bigEngine.getContext());
+		}
 	}
 
 	@Test(dataProvider = "bigEval")

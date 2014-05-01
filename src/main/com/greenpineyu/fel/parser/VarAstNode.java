@@ -28,8 +28,16 @@ public class VarAstNode extends AbstFelNode  {
 	
 	@Override
 	public Object interpret(FelContext context, FelNode node) {
-		Object var = context.get(text);
-		if(var == FelContext.NOT_FOUND){
+		boolean isUndefined = false;
+		Object var = null;
+		if (context == null) {
+			isUndefined = true;
+		} else {
+			var = context.get(text);
+			isUndefined = var == FelContext.NOT_FOUND;
+		}
+
+		if(isUndefined){
 			String exp = getTokenText();
 			String msg = "Variable " + text + " is not defined in expression[" + this.getTokenStartIndex() + ":"
 					+ this.getTokenStopIndex() + "]  "
@@ -95,6 +103,9 @@ public class VarAstNode extends AbstFelNode  {
 
 			@Override
 			public Class<?> returnType(FelContext ctx, FelNode node) {
+				if (ctx == null) {
+					return FelContext.NOT_FOUND_TYPE;
+				}
 				Class<?> type = AbstractContext.getVarType(node.getText(),ctx);
 				if(type == null){
 				   type = InterpreterSourceBuilder.getInstance().returnType(ctx, node);

@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.greenpineyu.fel.Expression;
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.common.ArrayUtils;
 import com.greenpineyu.fel.common.ReflectUtil;
 import com.greenpineyu.fel.compile.FelMethod;
+import com.greenpineyu.fel.compile.InterpreterSourceBuilder;
 import com.greenpineyu.fel.compile.SourceBuilder;
 import com.greenpineyu.fel.context.FelContext;
 import com.greenpineyu.fel.function.CommonFunction;
@@ -126,13 +128,16 @@ public class Dot implements Function {
 	}
 
 	@Override
-	public FelMethod toMethod(FelNode node, FelContext context) {
+	public SourceBuilder toMethod(FelNode node, FelContext context) {
 
 		StringBuilder sb = new StringBuilder();
 		List<FelNode> children = node.getChildren();
 		FelNode l = children.get(0);
 		SourceBuilder leftMethod = l.toMethod(context);
 		Class<?> cls = leftMethod.returnType(context, l);
+		if (FelMethod.isUndefinedType(cls) || cls == Object.class) {
+			return InterpreterSourceBuilder.getInstance();
+		}
 		cls = FelMethod.getType(cls);
 		String leftSrc = leftMethod.source(context, l);
 		if (cls.isPrimitive()) {
@@ -226,6 +231,16 @@ public class Dot implements Function {
 			paramCode = "(" + className + ")" + paramMethod.source(ctx, node);
 		}
 		return paramCode;
+	}
+
+	public static void main(String[] args) {
+		Expression exp = Fel.compile("print(a.substring(1))");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("a", "abc");
+		map.put("b", new String[] {
+				"1", "2" });
+		exp.eval(map);
+		Fel.compile("print(b[1])").eval(map);
 	}
 
 }

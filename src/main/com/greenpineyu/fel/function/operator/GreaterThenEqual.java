@@ -33,8 +33,7 @@ public class GreaterThenEqual extends LessThen {
 		if(left instanceof Comparable && right instanceof Comparable){
 			return ((Comparable)left).compareTo(right)>=0;
 		}
-		// TODO 是返回false还是抛出异常?
-		return false;
+		return throwException(left, right);
 	}
 
 }
