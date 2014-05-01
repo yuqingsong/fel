@@ -32,6 +32,15 @@ public class Equal extends StableFunction {
 		return equals(left, right);
 	}
 
+	/**
+	 * 此方法会被生成的代码调用，请不要修改此方法的签名
+	 * @param left
+	 * @param right
+	 * @return
+	 */
+	public boolean equals(FelNode node, Object left, Object right) {
+		return equals(left, right);
+	}
 	public boolean equals(Object left, Object right) {
 		if (left == null && right == null) {
 			return true;
@@ -71,7 +80,7 @@ public class Equal extends StableFunction {
 
 	private FelMethod toMethod(FelNode node, FelContext ctx, String operator) {
 		StringBuilder sb = buildRelationExpr(node, ctx, operator);
-		if(sb.length()==0){
+		if (sb.length() == 0) {
 			String left = getChildCode(node, ctx,0);
 			String right = getChildCode(node, ctx, 1);
 			String toMethod = toMethod(left, right);
@@ -92,7 +101,7 @@ public class Equal extends StableFunction {
 		return code;
 	}
 
-	private static StringBuilder buildRelationExpr(FelNode node, FelContext ctx,
+	private StringBuilder buildRelationExpr(FelNode node, FelContext ctx,
 			String operator) {
 		List<FelNode> child = node.getChildren();
 		FelNode leftNode = child.get(0);
@@ -119,7 +128,11 @@ public class Equal extends StableFunction {
 				// 不等于
 				sb.append("!");
 			}
-			return sb.append("ObjectUtils.equals(" + left + "," + right + ")");
+			Add.addCallCode(node, sb, this, "equals");
+			sb.append(left + "," + right + ")");
+			return sb;
+			// return sb.append("ObjectUtils.equals(" + left + "," + right +
+			// ")");
 		}
 		// 只要有一个是数值型，就将另一个也转成值型。
 		/*if(ReflectUtil.isPrimitiveNumber(leftType)&&ReflectUtil.isPrimitiveNumber(leftType)){
