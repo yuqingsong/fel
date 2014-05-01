@@ -70,6 +70,14 @@ public class Var {
 		this.value = value;
 	}
 	
+	@Override
+	public String toString() {
+		if (this == FelContext.NOT_FOUND) {
+			return "undefined var";
+		}
+		return "var[" + name + "=" + value + "]";
+	}
+
 	public static void main(String[] args) {
 	}
 	
