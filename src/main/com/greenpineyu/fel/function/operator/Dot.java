@@ -234,13 +234,14 @@ public class Dot implements Function {
 	}
 
 	public static void main(String[] args) {
-		Expression exp = Fel.compile("print(a.substring(1))");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("a", "abc");
 		map.put("b", new String[] {
 				"1", "2" });
+		Expression exp = Fel.compile("print(c.substring(1)+a.substring(1))", map);
+		map.put("c", "xyz");
 		exp.eval(map);
-		Fel.compile("print(b[1])").eval(map);
+		// Fel.compile("print(b[1])").eval(map);
 	}
 
 }
