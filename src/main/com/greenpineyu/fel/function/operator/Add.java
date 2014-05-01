@@ -1,8 +1,5 @@
 package com.greenpineyu.fel.function.operator;
 
-import static com.greenpineyu.fel.common.NumberUtil.toDouble;
-
-import java.util.Iterator;
 import java.util.List;
 
 import com.greenpineyu.fel.Expression;
@@ -34,8 +31,20 @@ public class Add extends StableFunction  {
 	 */
 	@Override
 	public Object call(FelNode node, FelContext context) {
-		Object returnMe = null;
-		for (Iterator<FelNode> iterator = node.getChildren().iterator(); iterator
+		// Object returnMe = null;
+		List<FelNode> children = node.getChildren();
+		if(children.size()==1){
+			Object child=children.get(0);
+			return addObject(node, TolerantFunction.eval(context, child));
+		} else if (children.size() == 2) {
+			Object left = children.get(0);
+			Object right = children.get(1);
+			return addObject(node, TolerantFunction.eval(context, left), TolerantFunction.eval(context, right));
+		}else{
+			return new EvalException("执行[" + getNodeText(node) + "]操作失败，参数[" + children + "]个数只能是一或二。");
+		}
+		
+		/*for (Iterator<FelNode> iterator = children.iterator(); iterator
 				.hasNext();) {
 			Object child = iterator.next();
 			child = TolerantFunction.eval(context, child);
@@ -64,7 +73,7 @@ public class Add extends StableFunction  {
 		if(returnMe instanceof Number){
 			return NumberUtil.parseNumber(returnMe.toString());
 		}
-		return returnMe;
+		return returnMe;*/
 	}
 	
 	/**
