@@ -1,5 +1,9 @@
 package com.greenpineyu.fel.examples;
 
+import java.util.regex.Pattern;
+
+import com.greenpineyu.fel.FelEngine;
+
 class SplitString {
 	String SplitStr;
 	int splitByte;
@@ -58,7 +62,12 @@ class SplitString {
 		// ss.SplitIt();
 		// split(msg, 4);
 		// cast();
-		ppp(null);
+		// ppp(null);
+		boolean matches = Pattern.matches("\\d*", "123456");
+		System.out.println(matches);
+
+		Object result = FelEngine.instance.eval("$('java.util.regex.Pattern').matches('\\\\d+', '123456')");
+		System.out.println(result);
 	}
 
 	public static void cast() {

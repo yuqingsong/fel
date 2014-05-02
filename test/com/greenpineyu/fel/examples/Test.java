@@ -4,8 +4,10 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import com.greenpineyu.fel.Expression;
+import com.greenpineyu.fel.Fel;
 import com.greenpineyu.fel.FelEngine;
 import com.greenpineyu.fel.FelEngineImpl;
+import com.greenpineyu.fel.context.AbstractContext;
 import com.greenpineyu.fel.context.ArrayCtx;
 import com.greenpineyu.fel.context.ArrayCtxImpl;
 import com.greenpineyu.fel.context.FelContext;
@@ -17,11 +19,34 @@ public class Test {
 //		t2();
 		
 		// t3();
-		t4();
-		t5();
-
+		// t4();
+		// t5();
+		t7();
 	}
 	
+	private static void t7() {
+		java.text.DecimalFormat myformat = new java.text.DecimalFormat("#0.0000");
+
+		String expression = "myformat.format($Double.parseDouble(aaa)/10000)";
+
+		// System.out.println(Double.parseDouble("11")/10000);
+
+		String expression1 = "myformat.format($(Double).parseDouble(tmnxDDMTxOutputPower)/10000)";
+
+		expression = "myformat.format(10*$(Math).log10($(Double).parseDouble(tmnxDDMTxOutputPower)/10000))";
+
+		FelEngine fel = new FelEngineImpl();
+		FelContext ctx = fel.getContext();
+		ctx.set("tmnxDDMTxOutputPower", "19.0");
+		ctx.set("myformat", myformat);
+		Expression exp = fel.compile(expression1, ctx);
+		Object result = exp.eval(ctx);
+
+		// System.out.println(Double.parseDouble("11")/ 10000);
+
+		System.out.println(result);
+
+	}
 	private static void t4() {
 		System.out.println(Pattern.matches("\\\\", "\\"));
 		Object eval = FelEngine.instance.eval("$('java.util.regex.Pattern').matches('\\\\','\\')");
@@ -138,6 +163,11 @@ public class Test {
 			return null;
 		}
 
+		@Override
+		public Object eval(Map<String, Object> context) {
+			return null;
+		}
+
 	}
 
 	public static void t5() {
@@ -145,5 +175,28 @@ public class Test {
 		exp.eval(new ArrayCtxImpl());
 	}
 
+	public static void t6() {
+		Fel.eval("$('java.lang.System').out.println('abcd')");
+		// Fel.eval("print('abcdefg'.substring(1).substring(1))");
+	}
+
+
 }
 
+class MyCtx extends AbstractContext {
+
+	private Map<String, String> exps;
+
+	private FelEngine fel;
+
+	private FelContext parent;
+
+	@Override
+	public Object get(String name) {
+		if (exps.containsKey(name)) {
+			return fel.eval(exps.get(name), this);
+		}
+		return NOT_FOUND;
+	}
+
+}
