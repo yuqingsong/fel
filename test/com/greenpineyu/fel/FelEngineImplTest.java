@@ -563,6 +563,12 @@ public class FelEngineImplTest {
 		}
 	}
 
+	@Test
+	public void getContextTest() {
+		FelEngineImpl engine = new FelEngineImpl();
+		assert engine.getContext(null) == null;
+	}
+
 	public static void main(String[] args) {
 
 		FelEngineImplTest test = new FelEngineImplTest();

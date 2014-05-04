@@ -252,8 +252,8 @@ public class FelEngineImpl implements FelEngine {
 		});
 	}
 	
-	private FelContext getContext(Map<String, Object> varMap) {
-		return new ReadOnlyMapContext(varMap);
+	FelContext getContext(Map<String, Object> varMap) {
+		return varMap == null ? null : new ReadOnlyMapContext(varMap);
 	}
 
 	@Override
